@@ -1,2 +1,3 @@
 # SC2002
-Bryan is gay 
+
+Bryan is gay huh

@@ -1,2 +1,5 @@
 # SC2002
-Bryan is gay 
+
+Jason is GOAT (Gayest of all time)
+
+## ◑﹏◐

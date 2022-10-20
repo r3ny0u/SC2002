@@ -1,3 +1,15 @@
+/**
+ * Class for MovieTicket
+ * <p>
+ * I think we also need to add some other attributes to it too
+ * <p>
+ * o(*￣▽￣*)o
+ * <p>
+ * When life gives you lemon, throw it back because lemons aren't
+ * natural, it's a cross breed made by humans
+ * 
+ * @apiNote fuck me
+ */
 public class MovieTicket {
     private float ticketPrice;
     private MovieType movieType;
@@ -5,6 +17,13 @@ public class MovieTicket {
     private Age age;
     private DayOfWeek dayOfWeek;
 
+    /**
+     * Kinda self-explanatory innit bruv?
+     * @param movieType
+     * @param cinemaClass
+     * @param age
+     * @param dayOfWeek
+     */
     public MovieTicket(MovieType movieType, CinemaClass cinemaClass, Age age, DayOfWeek dayOfWeek) {
         this.movieType = movieType;
         this.cinemaClass = cinemaClass;
@@ -78,14 +97,15 @@ public class MovieTicket {
     }
 
     public void printTicketPrice() {
-        System.out.printf("Ticket Price is %.2f", getTicketPrice()); 
+        System.out.printf("Ticket Price is %.2f", getTicketPrice());
     }
 
     /*
      * Testing movie ticket check if work
      */
     public static void main(String[] args) {
-        MovieTicket mt = new MovieTicket(MovieType.MOVIE2D, CinemaClass.PLATINUM, Age.SENIOR_CITIZEN, DayOfWeek.WEEKEND);
+        MovieTicket mt = new MovieTicket(MovieType.MOVIE2D, CinemaClass.PLATINUM, Age.SENIOR_CITIZEN,
+                DayOfWeek.WEEKEND);
         mt.printTicketPrice(); // Should be 30 * 1.05 * 0.8 = 25.2
     }
 }

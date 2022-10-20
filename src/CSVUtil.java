@@ -39,7 +39,7 @@ public class CSVUtil {
 
     public static String[] readCSV(String filePath) throws FileNotFoundException {
         Scanner sc = new Scanner(new File(filePath));
-        sc.useDelimiter(","); 
+        sc.useDelimiter(",|\\n"); 
 
         ArrayList<String> data = new ArrayList<String>();
 

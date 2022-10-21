@@ -12,6 +12,15 @@ public class MainApp {
         int choice = s.nextInt();
         switch (choice) {
             case 1: // Staff
+                System.out.print("\nEnter AdminID: ");
+                String adminID = s.next();
+                System.out.print("\nEnter password: ");
+                String pw = s.next();
+
+                Admin admin = new Admin(adminID, pw);
+                if (admin.checkPW() == 0)
+                    System.out.println("Incorrect userID or password!");
+
                 break;
             case 2: // Customer
                 break;

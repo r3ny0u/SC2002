@@ -1,6 +1,5 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -48,7 +47,7 @@ public class MovieTicketCSVUtil extends CSVUtil {
         }
     }
 
-    /*
+    /**
      * Look man i dont know why cant print the word Child, oh yea we need to do the
      * documentation in the end to rip
      */

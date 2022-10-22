@@ -1,30 +1,24 @@
 import java.util.Scanner;
 
-public class Admin
-{
+public class Admin {
     private String adminID;
     private String pw;
 
-    public Admin(String adminID,String pw)
-    {
+    public Admin(String adminID, String pw) {
         this.adminID = adminID;
         this.pw = pw;
     }
 
-    public int checkPW()
-    {
-        if (adminID == "admin2002" && pw == "IL0veNTU!")
-        {
+    public int checkPW() {
+        if (adminID.compareTo(Constants.ADMIN_ID) == 0 && pw.compareTo(Constants.ADMIN_PASSWORD) == 0) {
             System.out.println("Welcome");
 
-            while(true)
-            {
+            while (true) {
                 printAdminOptions();
                 Scanner s = new Scanner(System.in);
                 int choice = s.nextInt();
 
-                switch(choice)
-                {
+                switch (choice) {
                     case 1:
                         createMovieListing();
                         break;
@@ -66,43 +60,35 @@ public class Admin
 
     }
 
-    private void configSys() 
-    {
+    private void configSys() {
 
     }
 
-    private void removeShowtimes() 
-    {
+    private void removeShowtimes() {
 
     }
 
-    private void updateShowtimes() 
-    {
+    private void updateShowtimes() {
 
     }
 
-    private void createShowtimes() 
-    {
+    private void createShowtimes() {
 
     }
 
-    private void removeMovieListing() 
-    {
+    private void removeMovieListing() {
 
     }
 
-    private void updateMovieListing() 
-    {
+    private void updateMovieListing() {
 
     }
 
-    private void createMovieListing() 
-    {
+    private void createMovieListing() {
 
     }
 
-    private void printAdminOptions()
-    {
+    private void printAdminOptions() {
         System.out.println("What would you like to do?");
         System.out.println("-----------------------------------------------------");
         System.out.println("1. Create movie listing");
@@ -117,6 +103,4 @@ public class Admin
         System.out.print("Enter choice: ");
     }
 
-    
-    
 }

@@ -23,6 +23,7 @@ public class MainApp {
 
                 break;
             case 2: // Customer
+                Customer.main();
                 break;
             default:
                 do {

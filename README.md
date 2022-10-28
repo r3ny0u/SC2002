@@ -6,6 +6,10 @@ Aden is GOAT (Gayest Of All Time)
 
 ## For Reference of Prices and Stuffs
 
+## Oh wow look an image
+
+![wow much square](./assets/MOBLIMA.jpg)
+
 - **Movie Ticket:**
   - Type of movie: 2D and 3D (5% more)
   - Class of cinema: Normal and Platinum
@@ -18,7 +22,3 @@ Aden is GOAT (Gayest Of All Time)
 2. Book on different days and holidays with different types of cinema (Mon with normal, tues with platinum, weekend with normal, PH with platinum etc.)
 3. Configuring "End of Showing" date and show that movie is no longer listed
 4. Bookings allowed only for "Preview" and "Now Showing" status
-
-## Oh wow look an image
-
-![wow much square](./assets/MOBLIMA.jpg)

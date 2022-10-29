@@ -10,7 +10,7 @@ public class Constants {
 
     public static void setTicketPrice(float ticketPrice, DataType dType) {
         if (dType == DataType.WEEKDAY_PRICE) {
-            
+
         }
     }
 }

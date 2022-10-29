@@ -11,15 +11,13 @@ public class Cinema {
         seats = new Seat[69];
     }
 
-
-    public Map<String,Movie> getMovies() {
+    public Map<String, Movie> getMovies() {
         return this.movies;
     }
 
-    public void setMovies(Map<String,Movie> movies) {
+    public void setMovies(Map<String, Movie> movies) {
         this.movies = movies;
     }
-
 
     public String getCode() {
         return this.code;

@@ -39,17 +39,16 @@ public class CSVUtil {
 
     public static String[] readCSV(String filePath) throws FileNotFoundException {
         Scanner sc = new Scanner(new File(filePath));
-        sc.useDelimiter(",|\\n"); 
+        sc.useDelimiter(",|\\n");
 
         ArrayList<String> data = new ArrayList<String>();
 
-        while (sc.hasNext())
-        {
+        while (sc.hasNext()) {
             data.add(sc.next());
         }
-        sc.close(); 
-        
-        String[] ret = new String[data.size()]; 
+        sc.close();
+
+        String[] ret = new String[data.size()];
         data.toArray(ret);
 
         return ret;

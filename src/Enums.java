@@ -29,7 +29,7 @@ enum DataType {
     WEEKEND_PRICE,
     PH_PRICE,
     MOVIE2D,
-    MOVIE3D, 
+    MOVIE3D,
     NORMAL,
     PLATINUM,
     ADULT,

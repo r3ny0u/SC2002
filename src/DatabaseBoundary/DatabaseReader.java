@@ -69,7 +69,7 @@ public class DatabaseReader {
     public static Admin[] readAdminDatabase() {
         ArrayList<String> strings = readtxt(adminDatabasePath);
 
-        // MovieDB text file has only three information per movie
+        // AdminDB text file has only three information per movie
         // Username, Password, accountID
         int numOfAccounts = strings.size() / 3;
         Admin[] adminAccounts = new Admin[numOfAccounts];
@@ -84,7 +84,7 @@ public class DatabaseReader {
     public static Customer[] readCustomerDatabase() {
         ArrayList<String> strings = readtxt(customerDatabasePath);
 
-        // MovieDB text file has only three information per movie
+        // CustomerDB text file has only three information per movie
         // Username, Password, accountID
         int numOfAccounts = strings.size() / 3;
         Customer[] customerAccounts = new Customer[numOfAccounts];
@@ -94,5 +94,23 @@ public class DatabaseReader {
             customerAccounts[i] = temp;
         }
         return customerAccounts;
+    }
+
+    public static Transaction[] readTransactionDatabase() {
+        ArrayList<String> strings = readtxt(transactionDatabasePath);
+
+        // TransactionDB text file has only eight information per movie
+        // TransactionID, customer ID, time, age, cinema type, movie type, day of week,
+        // movie title
+        int numOfTransactions = strings.size() / 8;
+        Transaction[] transactions = new Transaction[numOfTransactions];
+        Transaction temp;
+        for (int i = 0; i < transactions.length; i++) {
+            temp = new Transaction(strings.get(i * 8 + 0), strings.get(i * 8 + 1), strings.get(i * 8 + 2),
+                    strings.get(i * 8 + 3), strings.get(i * 8 + 4), strings.get(i * 8 + 5),
+                    MovieDB.getMovieFromTitle(strings.get(i * 8 + 6)), strings.get(i * 8 + 7));
+            transactions[i] = temp;
+        }
+        return transactions;
     }
 }

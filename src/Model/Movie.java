@@ -24,6 +24,10 @@ public class Movie {
         this.reviews = new ArrayList<Rating>();
     }
 
+    public String getTitle() {
+        return this.title;
+    }
+
     public void printMovieDetails() {
         System.out.println("Title: " + title);
         System.out.println("Status: " + status);

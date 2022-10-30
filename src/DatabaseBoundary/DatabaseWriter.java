@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
+import Model.Transaction;
+
 public class DatabaseWriter {
     private static String cineplexDatabasePath = DatabaseConstants.CINEPLEX_DATABASE_PATH;
     private static String adminDatabasePath = DatabaseConstants.ADMIN_DATABASE_PATH;
@@ -128,6 +130,36 @@ public class DatabaseWriter {
             e.printStackTrace();
         }
     }
+
+    public static void addNewTransaction(Transaction transaction) {
+        try {
+            FileWriter writer = new FileWriter(transactionDatabasePath, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+            bufferedWriter.write(transaction.getTransactionId() + "\n");
+            bufferedWriter.write(transaction.getTime() + "\n");
+            bufferedWriter.write(transaction.getAge() + "\n");
+            bufferedWriter.write(transaction.getCinemaType() + "\n");
+            bufferedWriter.write(transaction.getMovieType() + "\n");
+            bufferedWriter.write(transaction.getDayOfWeek() + "\n");
+            bufferedWriter.write(transaction.getMovie().getTitle() + "\n");
+            bufferedWriter.write(transaction.getCustomerID() + "\n");
+
+            bufferedWriter.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void addNewRanking() {
+        // I lazy
+    }
+
+    public static void addNewCineplex() {
+        // No i lazy
+    }
+
 
     public static void main(String[] args) {
         // addNewMovieToDatabase();

@@ -15,6 +15,19 @@ public class Transaction {
     Transaction() {
     }
 
+
+    public Transaction(String transactionID, String time, String age, String cinemaType, String movieType, String dayOfWeek, Movie movie, String customerID) {
+        this.transactionID = transactionID;
+        this.time = time;
+        this.age = age;
+        this.cinemaType = cinemaType;
+        this.movieType = movieType;
+        this.dayOfWeek = dayOfWeek;
+        this.movie = movie;
+        this.customerID = customerID;
+    }
+
+
     public String getTransactionId() {
         return this.transactionID;
     }

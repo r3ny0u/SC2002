@@ -14,6 +14,15 @@ public class MovieDB {
         return this.movies;
     }
 
+    public static Movie getMovieFromTitle(String title) {
+        for (Movie movie : new MovieDB().getMovies()) {
+            if (movie.getTitle().toLowerCase().compareTo(title.toLowerCase()) == 0) {
+                return movie;
+            }
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         MovieDB m = new MovieDB();
         for (Movie movie : m.getMovies()) {

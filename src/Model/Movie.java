@@ -12,6 +12,7 @@ public class Movie {
     protected String director;
     protected ArrayList<String> casts;
     protected double overallRating;
+    protected int ratingCount;
     protected ArrayList<Rating> reviews;
     protected Seat[] seats;
 
@@ -23,6 +24,7 @@ public class Movie {
         this.casts = casts;
         this.overallRating = 5.0;
         this.reviews = new ArrayList<Rating>();
+        this.ratingCount = 0;
         
         int i=0,j=0;
         for(j=1; j<=100; j++)
@@ -89,9 +91,17 @@ public class Movie {
         System.out.println("Legend\n|x| = taken\n|O| = available\n");
     }
 
-    // public void addReviews(String customerID, String review, double rating) {
-    // overallRating = ((overallRating * review.length()) + rating) /
-    // (review.length() + 1);
-    // reviews.put(customerID, review);
-    // }
+    public void addReviews(String customerID, String review, float rating) {
+        Rating newRating = new Model.Rating(customerID,review,rating);
+        reviews.add(newRating);
+        this.ratingCount++;
+        overallRating = ((overallRating * review.length()) + rating) /
+        (review.length() + 1);
+    }
+    public double getRating(){
+        if (ratingCount>1)
+            return overallRating;
+        else
+            return -1;
+    }
 }

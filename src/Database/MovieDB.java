@@ -14,6 +14,13 @@ public class MovieDB {
         return this.movies;
     }
 
+    public void printMovieList(){
+        for (Movie movie : movies) {
+            System.out.println(movie.getTitle()); //should just print out the titles instead of details for all movies
+            System.out.println("\n");
+        }
+    }
+
     public static Movie getMovieFromTitle(String title) {
         for (Movie movie : new MovieDB().getMovies()) {
             if (movie.getTitle().strip().toLowerCase().compareTo(title.strip().toLowerCase()) == 0) {
@@ -23,11 +30,4 @@ public class MovieDB {
         return null;
     }
 
-    public static void main(String[] args) {
-        MovieDB m = new MovieDB();
-        for (Movie movie : m.getMovies()) {
-            movie.printMovieDetails();
-            System.out.println("\n");
-        }
-    }
 }

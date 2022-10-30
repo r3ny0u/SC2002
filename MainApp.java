@@ -1,5 +1,9 @@
 import java.util.Scanner;
 
+import Model.*;
+import Database.*;
+import DatabaseBoundary.*;
+
 public class MainApp {
     private int day;
 
@@ -17,13 +21,13 @@ public class MainApp {
                 System.out.print("\nEnter password: ");
                 String pw = s.next();
 
-                Admin admin = new Admin(adminID, pw);
+                Admin admin = new Admin(adminID, pw, "asdf");
                 if (admin.checkPW() == 0)
                     System.out.println("Incorrect userID or password!");
 
                 break;
             case 2: // Customer
-                Customer.main();
+                // Customer.main();
                 break;
             default:
                 do {

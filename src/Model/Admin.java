@@ -1,17 +1,15 @@
 package Model;
 import java.util.Scanner;
 
-public class Admin {
-    private String adminID;
-    private String pw;
-
-    public Admin(String adminID, String pw) {
-        this.adminID = adminID;
-        this.pw = pw;
+public class Admin extends Account {
+    public Admin(String username, String password, String accountID) {
+        this.username = username;
+        this.password = password;
+        this.accountID = accountID;
     }
 
     public int checkPW() {
-        if (adminID.compareTo(Constants.ADMIN_ID) == 0 && pw.compareTo(Constants.ADMIN_PASSWORD) == 0) {
+        if (username.compareTo(Constants.ADMIN_ID) == 0 && password.compareTo(Constants.ADMIN_PASSWORD) == 0) {
             System.out.println("Welcome");
 
             while (true) {
@@ -104,4 +102,10 @@ public class Admin {
         System.out.print("Enter choice: ");
     }
 
+    // TODO: Remove this method after debuggging
+    public void printAdminDetails() {
+        System.out.println("Username: " + username);
+        System.out.println("Password: " + password);
+        System.out.println("AccountID: " + username);
+    }
 }

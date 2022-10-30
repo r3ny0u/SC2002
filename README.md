@@ -1,6 +1,6 @@
 # SC2002
 
-Aden is GOAT (Gayest Of All Time)
+hmmm if cannot run code, then run debug (￣y▽,￣)╭
 
 ## ◑﹏◐
 

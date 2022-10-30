@@ -1,8 +1,7 @@
 package Model;
 import java.util.Scanner;
 
-public class Customer {
-    private String customerID;
+public class Customer extends Account{
     private String name;
     private String email;
     private String mobile;
@@ -12,14 +11,15 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String customerID, String name, String email, String mobile, Booking[] bookings,
-            MovieTicket[] movieTickets) {
-        this.customerID = customerID;
-        this.name = name;
-        this.email = email;
-        this.mobile = mobile;
-        this.bookings = bookings;
-        this.movieTickets = movieTickets;
+    public Customer(String username, String password, String accountID) {
+        this.username = username;
+        this.password = password;
+        this.accountID = accountID;
+        // this.name = name;
+        // this.email = email;
+        // this.mobile = mobile;
+        // this.bookings = bookings;
+        // this.movieTickets = movieTickets;
     }
 
     public void customerInit() {
@@ -37,21 +37,24 @@ public class Customer {
         this.mobile = sc.nextLine();
 
         System.out.printf("Please enter your customerID: ");
-        this.customerID = sc.nextLine();
+        this.username = sc.nextLine();
 
         System.out.printf("Hello %s! Welcome to MOBLIMA, the world most advanced cinema booking system.\n",
                 this.name);
     }
 
     public void printCustomerDetails() {
-        System.out.println("\nHere are your details UwU\n");
+        // System.out.println("\nHere are your details UwU\n");
 
-        System.out.println("Name: " + this.name);
-        System.out.println("Email: " + this.email);
-        System.out.println("Mobile: " + this.mobile);
-        System.out.println("ID: " + this.customerID);
+        // System.out.println("Name: " + this.name);
+        // System.out.println("Email: " + this.email);
+        // System.out.println("Mobile: " + this.mobile);
+        
+        System.out.println("Username: " + this.username);
+        System.out.println("Password: " + this.password);
+        System.out.println("AccountID: " + this.accountID);
 
-        System.out.println("\n");
+        // System.out.println("\n");
     }
 
     public void queryPurpose() {

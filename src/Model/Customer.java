@@ -15,10 +15,12 @@ public class Customer extends Account {
     public Customer() {
     }
 
-    public Customer(String username, String password, String accountID) {
+    public Customer(String username, String password, String accountID, String email, String mobile) {
         this.username = username;
         this.password = password;
         this.accountID = accountID;
+        this.email = email;
+        this.mobile = mobile;
     }
 
     public Customer(String customerID, String name, String email, String mobile, Booking[] bookings,
@@ -56,14 +58,14 @@ public class Customer extends Account {
         // System.out.println("\nHere are your details UwU\n");
 
         // System.out.println("Name: " + this.name);
-        // System.out.println("Email: " + this.email);
-        // System.out.println("Mobile: " + this.mobile);
         // System.out.println("ID: " + this.accountID);
 
         // System.out.println("\n");
         System.out.println("Username: " + this.username);
         System.out.println("Password: " + this.password);
         System.out.println("AccountID: " + this.accountID);
+        System.out.println("Email: " + this.email);
+        System.out.println("Mobile: " + this.mobile);
     }
     /*
      * public void queryPurpose() {

@@ -16,7 +16,7 @@ public class MovieDB {
 
     public static Movie getMovieFromTitle(String title) {
         for (Movie movie : new MovieDB().getMovies()) {
-            if (movie.getTitle().toLowerCase().compareTo(title.toLowerCase()) == 0) {
+            if (movie.getTitle().strip().toLowerCase().compareTo(title.strip().toLowerCase()) == 0) {
                 return movie;
             }
         }

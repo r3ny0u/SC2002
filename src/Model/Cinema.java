@@ -20,6 +20,11 @@ public class Cinema {
         this.movies = movies;
     }
 
+    public Movie findMovie(String movieName)
+    {
+        return movies.get(movieName);
+    }
+
     public String getCode() {
         return this.code;
     }

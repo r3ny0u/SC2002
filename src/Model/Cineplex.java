@@ -21,5 +21,10 @@ public class Cineplex {
         this.cinemas = cinemas;
     }
 
+    public Cinema findCinema(String cinemaName)
+    {
+        return cinemas.get(cinemaName);
+    }
+
     // More functions to be added next year
 }

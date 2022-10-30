@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 
+import Model.Cineplex;
+
 /**
  * Returns the different types of database.
  */
@@ -15,6 +17,7 @@ public class DatabaseReader {
 
     /**
      * Returns all lines in a txt file.
+     * 
      * @param txtPath The path to the txt file
      * @return An array list of strings
      */
@@ -39,9 +42,10 @@ public class DatabaseReader {
             return new ArrayList<String>();
         }
     }
-    
+
     /**
      * Returns an array of Cineplex objects read from the admin database
+     * 
      * @return An array of Cineplex objects
      */
     public static Cineplex[] readAdminDatabase() {

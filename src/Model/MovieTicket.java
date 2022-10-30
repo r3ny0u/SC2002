@@ -1,3 +1,4 @@
+package Model;
 /**
  * Class for MovieTicket
  * <p>

@@ -1,3 +1,4 @@
+package Model;
 public class Transaction {
 
     // d: just following the class diagram, pls edit if necessary ;-;

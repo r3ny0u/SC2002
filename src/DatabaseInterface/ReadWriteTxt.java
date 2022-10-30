@@ -14,7 +14,7 @@ public class ReadWriteTxt {
             bufferedWriter.write("Jason McGay\n"); // Director
             bufferedWriter.write(
                     "Join Jason on a journey to the NTU's most depressed school, SCSE.\n"); // Summary
-                    // Like this add movie details to the txt file ba
+            // Like this add movie details to the txt file ba
             bufferedWriter.close();
         } catch (Exception e) {
             e.printStackTrace();

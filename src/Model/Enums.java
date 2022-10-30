@@ -1,3 +1,4 @@
+package Model;
 /*
  * I threw all enums here cause it was getting clotted
  */

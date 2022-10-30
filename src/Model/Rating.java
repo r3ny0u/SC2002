@@ -1,3 +1,4 @@
+package Model;
 public class Rating {
 
     // d: followed class diagram

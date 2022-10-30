@@ -1,3 +1,4 @@
+package Model;
 /*
  * Some constants I did not pull 'final' because admin can change, eh.. but 
  * if can change i think need to put in csv file idk....

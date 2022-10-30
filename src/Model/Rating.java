@@ -7,8 +7,12 @@ public class Rating {
     private float rating;
     private String review;
     private String ratingID;
+    private String customerID;
 
-    public Rating() {
+    public Rating(String customerID, String review, float rating) {
+        this.customerID = customerID;
+        this.review = review;
+        this.rating = rating;
     }
 
     public Movie getMovie() {
@@ -35,4 +39,10 @@ public class Rating {
         this.review = review;
     }
 
+    public void setCustomerID(String customerID) {
+        this.customerID = customerID;
+    }
+    public String getCustomerID(){
+        return this.customerID;
+    }
 }

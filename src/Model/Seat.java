@@ -9,18 +9,25 @@ public class Seat {
         this.seatID = seatID;
     }
 
-    public void assign(String customerID)
+    public boolean assign(String customerID)
     {
         if (assigned == true)
         {
-            System.out.println("Seat is already taken!");
-            return;
+            return false;
         }
         else
         {
             this.customerID = customerID;
             this.assigned = true;
+            return true;
         }
     }
     
+    public boolean checkAvail()
+    {
+        if (assigned)
+            return false;
+        else
+            return true;
+    }
 }

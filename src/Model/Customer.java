@@ -2,6 +2,8 @@ package Model;
 
 import java.util.Scanner;
 
+import javax.sound.midi.Soundbank;
+
 import Database.CineplexDB;
 import Database.MovieDB;
 
@@ -70,7 +72,7 @@ public class Customer extends Account {
 
     public void queryPurpose() {
         MovieDB movies = new MovieDB();
-        String movieChoiceString, cinemaChoice;
+        String movieChoiceString, cinemaChoice, cineplexChoice, seatID;
         Model.Movie movieChoice;
 
 
@@ -99,9 +101,6 @@ public class Customer extends Account {
                 movieChoiceString = scanner.next();
                 movieChoice = MovieDB.getMovieFromTitle(movieChoiceString);
                 movieChoice.printMovieDetails();
-                // find movie from movies[]
-                // movie = movies[101]
-                // print details
                 break;
             case 3:
                 // display movie list
@@ -116,9 +115,9 @@ public class Customer extends Account {
                 System.out.println("Please choose the cinema");
                 cinemaChoice = scanner.next();
                 // use db to find cineplex
+                Cineplex cineplex = CineplexDB.findCineplex(cineplexChoice);
                 Cinema cinema = cineplex.findCinema(cinemaChoice);
-                // helpppp so this is like go into cinema then movie then seat?
-                cinema.findMovie(movieChoiceString).printSeats();
+                cinema.findMovie(movieChoiceString).printSeats(cinemaChoice);
 
                 break;
             case 4:
@@ -133,11 +132,23 @@ public class Customer extends Account {
                 cineplexChoice = scanner.next();
                 System.out.println("Please choose the cinema");
                 cinemaChoice = scanner.next();
-                // access that cinema's database
-                // print available seats
-                // let customer select their seats
-                // show confirmation page
-                // update cinema's database with new seat matrix
+                Cineplex cineplex = CineplexDB.findCineplex(cineplexChoice);
+                Cinema cinema = cineplex.findCinema(cinemaChoice);
+                Movie movie = cinema.findMovie(movieChoiceString);
+                movie.printSeats(cinemaChoice);
+                
+                System.out.println("Select the seat you want (eg. A1)");
+                seatID = scanner.next();
+                boolean avail = movie.checkSeat(cinemaChoice,seatID);
+                while(!avail)
+                {
+                    System.out.println("Seat is already taken!");
+                    System.out.println("Please choose another seat");
+                    seatID = scanner.next();
+                    avail = movie.checkSeat(cinemaChoice,seatID);
+                }
+                                
+                //do bookings
 
                 break;
             case 5:

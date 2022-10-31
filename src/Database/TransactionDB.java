@@ -10,13 +10,18 @@ public class TransactionDB {
         return this.transactions;
     }
 
+    public static void addNewTransaction(Transaction transaction) {
+        DatabaseWriter.addNewTransaction(transaction);
+    }
+
     public TransactionDB() {
         transactions = DatabaseReader.readTransactionDatabase();
     }
 
-    public static void main(String[] args) {
+    public static void printTransactionDBDetails() {
         for (Transaction transaction : new TransactionDB().getTransactions()) {
-            System.out.println(transaction.toString());
+            transaction.printTransactionDetails();
+            System.out.println("\n");
         }
     }
 }

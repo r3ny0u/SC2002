@@ -1,4 +1,5 @@
 package Model;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,24 +8,26 @@ import java.util.Map;
  * Like Python dictionar -> "some cinema name", Cinema object
  */
 public class Cineplex {
-    private Map<String, Cinema> cinemas;
+    private String cineplexID;
+    private ArrayList<Cinema> cinemas;
 
-    public Cineplex() {
-        this.cinemas = new HashMap<String, Cinema>();
-    }
-
-    public Map<String, Cinema> getCinemas() {
-        return this.cinemas;
-    }
-
-    public void setCinemas(Map<String, Cinema> cinemas) {
+    public Cineplex(String cineplexID, ArrayList<Cinema> cinemas) {
+        this.cineplexID = cineplexID;
         this.cinemas = cinemas;
     }
 
-    public Cinema findCinema(String cinemaName)
-    {
-        return cinemas.get(cinemaName);
+    public String getCineplexID() {
+        return this.cineplexID;
     }
 
-    // More functions to be added next year
+    public ArrayList<Cinema> getCinemas() {
+        return this.cinemas;
+    }
+    
+    public void printCineplexDetails() {
+        System.out.println("Cineplex ID: " + cineplexID);
+        for (Cinema cinema : cinemas) {
+            System.out.println("  - " + cinema.getCinemaID());
+        }
+    }
 }

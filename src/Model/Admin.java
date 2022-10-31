@@ -113,6 +113,6 @@ public class Admin extends Account {
     public void printAdminDetails() {
         System.out.println("Username: " + username);
         System.out.println("Password: " + password);
-        System.out.println("AccountID: " + username);
+        System.out.println("AccountID: " + accountID);
     }
 }

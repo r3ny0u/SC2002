@@ -2,7 +2,6 @@ package DatabaseBoundary;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -14,6 +13,7 @@ import Model.*;
  */
 public class DatabaseReader {
     private static String cineplexDatabasePath = DatabaseConstants.CINEPLEX_DATABASE_PATH;
+    private static String cinemaDatabasePath = DatabaseConstants.CINEMA_DATABASE_PATH;
     private static String adminDatabasePath = DatabaseConstants.ADMIN_DATABASE_PATH;
     private static String customerDatabasePath = DatabaseConstants.CUSTOMER_DATABASE_PATH;
     private static String movieDatabasePath = DatabaseConstants.MOVIE_DATABASE_PATH;
@@ -69,7 +69,7 @@ public class DatabaseReader {
     public static Admin[] readAdminDatabase() {
         ArrayList<String> strings = readtxt(adminDatabasePath);
 
-        // AdminDB text file has only three information per account
+        // CInemaDB text file has only three information per account
         // Username, Password, accountID
         int numOfAccounts = strings.size() / 3;
         Admin[] adminAccounts = new Admin[numOfAccounts];
@@ -113,5 +113,62 @@ public class DatabaseReader {
             transactions[i] = temp;
         }
         return transactions;
+    }
+
+    public static Cinema[] readCinemaDatabase() {
+        ArrayList<String> strings = readtxt(cinemaDatabasePath);
+
+        // CInemaDB text file has only three information per account
+        // Username, Password, accountID
+        int numOfCinemas = strings.size() / 5;
+        Cinema[] cinemas = new Cinema[numOfCinemas];
+        Cinema temp;
+        for (int i = 0; i < cinemas.length; i++) {
+            temp = new Cinema(strings.get(i * 5 + 0), strings.get(i * 5 + 1), strings.get(i * 5 + 2),
+                    new ArrayList<String>(Arrays.asList(strings.get(i * 5 + 3).split(","))));
+            cinemas[i] = temp;
+        }
+        return cinemas;
+    }
+
+    public static Cineplex[] readCineplexDatabase() {
+        ArrayList<String> strings = readtxt(cineplexDatabasePath);
+
+        // Cineplex text file has only three information per account
+        // CineplexID, cinemas
+        int numOfCineplex = strings.size() / 2;
+        Cineplex[] cineplexes = new Cineplex[numOfCineplex];
+        Cineplex temp;
+
+        for (int i = 0; i < cineplexes.length; i++) {
+            ArrayList<String> cinemaIDs = new ArrayList<String>(Arrays.asList(strings.get(i * 2 + 1).split(",")));
+            ArrayList<Cinema> cinemas = new ArrayList<Cinema>();
+            for (String cinemaID : cinemaIDs) {
+                Cinema cinema = CinemaDB.getCinemaFromID(cinemaID);
+                if (cinema != null)
+                    cinemas.add(cinema);
+            }
+
+            temp = new Cineplex(strings.get(i * 2 + 0), cinemas);
+            cineplexes[i] = temp;
+        }
+        return cineplexes;
+    }
+
+    public static Rating[] readRatingDatabase() {
+        ArrayList<String> strings = readtxt(ratingDatabasePath);
+
+        // MovieDB text file has only five information per movie
+        // Title, Showing Status, Synopsis, Director, Cast
+        // Ratings and reviews err that one, i think can just get from the ratings DB
+        int numOfRatings = strings.size() / 5;
+        Rating[] ratings = new Rating[numOfRatings];
+        Rating temp;
+        for (int i = 0; i < ratings.length; i++) {
+            temp = new Rating(strings.get(i * 5 + 0), Float.parseFloat(strings.get(i * 5 + 1)), strings.get(i * 5 + 2),
+                    strings.get(i * 5 + 3), strings.get(i * 5 + 4));
+            ratings[i] = temp;
+        }
+        return ratings;
     }
 }

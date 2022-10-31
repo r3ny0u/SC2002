@@ -1,7 +1,9 @@
 package Model;
 
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 
 public class Transaction {
 
@@ -21,8 +23,12 @@ public class Transaction {
     Transaction() {
     }
 
+    public Transaction(String transactionID, String time, String age, String cinemaType, String movieType,
+            String dayOfWeek, Movie movie, String customerID) {
+
 
     public Transaction(String transactionID, String time, String age, String cinemaType, String movieType, String dayOfWeek, Movie movie, String customerID, String seatID) {
+
         this.transactionID = transactionID;
         this.time = time;
         this.age = age;
@@ -35,6 +41,16 @@ public class Transaction {
         this.bookingTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-mm-yyyy HH:mm:ss"));
     }
 
+    public void printTransactionDetails() {
+        System.out.println("Transaction ID: " + transactionID);
+        System.out.println("Time: " + time);
+        System.out.println("Age: " + age);
+        System.out.println("Cinema Type: " + cinemaType);
+        System.out.println("Movie Type: " + movieType);
+        System.out.println("Day of Week: " + dayOfWeek);
+        System.out.println("Movie: " + movie);
+        System.out.println("Customer ID: " + customerID);
+    }
 
     public String getTransactionId() {
         return this.transactionID;
@@ -95,5 +111,4 @@ public class Transaction {
     public void setCustomerID(String custID) {
         this.customerID = custID;
     }
-
 }

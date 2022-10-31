@@ -1,36 +1,28 @@
 package Model;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Cinema {
-    private Map<String, Movie> movies;
-    String code;
+    private String movie;
+    private String cinemaID;
+    private String cinemaType;
+    private ArrayList<String> showtimes;
     private Seat[] seats;
 
-    public Cinema() {
-        movies = new HashMap<String, Movie>();
-        seats = new Seat[69];
+    public Cinema(String cinemaID, String cinemaType, String movie, ArrayList<String> showtimes) {
+        this.movie = movie;
+        this.cinemaID = cinemaID;
+        this.cinemaType = cinemaType;
+        this.showtimes = showtimes;
     }
 
-    public Map<String, Movie> getMovies() {
-        return this.movies;
+    public String getCinemaID() {
+        return this.cinemaID;
     }
 
-    public void setMovies(Map<String, Movie> movies) {
-        this.movies = movies;
-    }
-
-    public Movie findMovie(String movieName)
-    {
-        return movies.get(movieName);
-    }
-
-    public String getCode() {
-        return this.code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
+    public void setCinemaID(String cinemaID) {
+        this.cinemaID = cinemaID;
     }
 
     public Seat[] getSeats() {
@@ -41,4 +33,13 @@ public class Cinema {
         this.seats = seats;
     }
 
+    public void printCinemaDetails() {
+        System.out.println(cinemaID);
+        System.out.println(cinemaType);
+        System.out.println(movie);
+        for (String showtime : showtimes) {
+            System.out.print(showtime + ", ");
+        }
+        System.out.print("\n");
+    }
 }

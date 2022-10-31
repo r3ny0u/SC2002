@@ -1,0 +1,4 @@
+CineplexName1
+CinemaID1234,CinemaID1235
+CineplexName2
+CinemaID123456

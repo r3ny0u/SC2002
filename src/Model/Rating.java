@@ -1,21 +1,28 @@
 package Model;
+
 public class Rating {
 
     // d: followed class diagram
 
-    private Movie movie;
+    private String movie;
     private float rating;
     private String review;
     private String ratingID;
+    private String username;
 
-    public Rating() {
+    public Rating(String movie, float rating, String review, String ratingID, String username) {
+        this.movie = movie;
+        this.rating = rating;
+        this.review = review;
+        this.ratingID = ratingID;
+        this.username = username;
     }
 
-    public Movie getMovie() {
+    public String getMovie() {
         return this.movie;
     }
 
-    public void setMovie(Movie movie) {
+    public void setMovie(String movie) {
         this.movie = movie;
     }
 
@@ -35,4 +42,12 @@ public class Rating {
         this.review = review;
     }
 
+    public void printRatingDetails() {
+        System.out.println("Movie: " + this.movie);
+        System.out.println("Rating: " + this.rating);
+        System.out.println("Review: " + this.review);
+        System.out.println("Rating ID: " + this.ratingID);
+        System.out.println("Username: " + this.username);
+        System.out.println("\n");
+    }
 }

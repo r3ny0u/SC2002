@@ -7,12 +7,16 @@ import java.util.Scanner;
 import java.util.UUID;
 
 import Database.AdminDB;
+import Database.CinemaDB;
+import Database.CineplexDB;
 import Database.CustomerDB;
 import Database.MovieDB;
+import Model.Cinema;
 import Model.Transaction;
 
 public class DatabaseWriter {
     private static String cineplexDatabasePath = DatabaseConstants.CINEPLEX_DATABASE_PATH;
+    private static String cinemaDatabasePath = DatabaseConstants.CINEMA_DATABASE_PATH;
     private static String adminDatabasePath = DatabaseConstants.ADMIN_DATABASE_PATH;
     private static String customerDatabasePath = DatabaseConstants.CUSTOMER_DATABASE_PATH;
     private static String movieDatabasePath = DatabaseConstants.MOVIE_DATABASE_PATH;
@@ -288,17 +292,296 @@ public class DatabaseWriter {
         }
     }
 
-    public static void addNewRanking() {
-        // I lazy
+    public static void addNewRating(String movie, String username) {
+        try {
+            FileWriter writer = new FileWriter(ratingDatabasePath, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+            // I'm not to sure whether want to put the query part here or put it into
+            // another method
+            Scanner sc = new Scanner(System.in);
+            float rating;
+            String review;
+
+            // Asking time!!
+            System.out.println("Adding new rating...\n");
+
+            System.out.println("Rating (out of 5): ");
+            rating = sc.nextFloat();
+
+            System.out.println("Review: ");
+            review = sc.nextLine();
+
+            bufferedWriter.write(movie + "\n");
+            bufferedWriter.write(Float.toString(rating) + "\n");
+            bufferedWriter.write(review + "\n");
+            bufferedWriter.write(UUID.randomUUID().toString().replace("-", "") + "\n");
+            bufferedWriter.write(username + "\n");
+
+            bufferedWriter.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void removeRating() {
+        // Should this be implemented
     }
 
     public static void addNewCineplex() {
-        // No i lazy
+        try {
+            FileWriter writer = new FileWriter(cineplexDatabasePath, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+            // I'm not to sure whether want to put the query part here or put it into
+            // another method
+            Scanner sc = new Scanner(System.in);
+            String cineplexName;
+
+            // Asking time!!
+            System.out.println("Adding new cinplex...\n");
+
+            System.out.println("Cineplex name: ");
+            cineplexName = sc.nextLine();
+
+            bufferedWriter.write(cineplexName + "\n");
+            bufferedWriter.write("\n");
+
+            bufferedWriter.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
+    public static void removeCineplex() {
+        String cineplexID;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Removing cineplex...\n");
+        System.out.println("Please enter cineplex ID: ");
+        cineplexID = sc.nextLine();
+
+        if (CinemaDB.getCinemaFromID(cineplexID) == null) {
+            System.out.println("Oops cineplex does not exist :(");
+            return;
+        }
+
+        // Remove account from txt file idk how, can just rewrite the entire file
+        ArrayList<String> cineplexes = DatabaseReader.readtxt(cineplexDatabasePath);
+        int lineNo = 0;
+        for (String string : cineplexes) {
+            if (string.compareTo(cineplexID) == 0) {
+                break;
+            }
+            lineNo++;
+        }
+
+        try {
+            FileWriter writer = new FileWriter(customerDatabasePath);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+            for (int i = 0; i < cineplexes.size() - 1; i++) {
+                if (lineNo <= i && i < lineNo + 2) {
+                    continue;
+                }
+                bufferedWriter.write(cineplexes.get(i) + "\n");
+            }
+
+            bufferedWriter.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void addNewCinemaToCineplex() {
+        String cineplexID, cinemaID;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Adding cinema to cineplex...\n");
+        System.out.println("Please enter cineplex ID: ");
+        cineplexID = sc.nextLine();
+
+        if (CineplexDB.getCineplexFromID(cineplexID) == null) {
+            System.out.println("Oops cineplex does not exist :(");
+            return;
+        }
+
+        System.out.println("Please enter cinema ID: ");
+        cinemaID = sc.nextLine();
+
+        if (CinemaDB.getCinemaFromID(cinemaID) == null) {
+            System.out.println("Oops cinema does not exist :(");
+            return;
+        }
+
+        // Remove cinema from cinepelex txt file idk how, can just rewrite the entire
+        // file
+        // Get which line the cineplex is in, then at the next line add new cinema
+        ArrayList<String> cineplexes = DatabaseReader.readtxt(cineplexDatabasePath);
+        int lineNo = 0;
+        for (String string : cineplexes) {
+            if (string.compareTo(cineplexID) == 0) {
+                break;
+            }
+            lineNo++;
+        }
+
+        try {
+            FileWriter writer = new FileWriter(customerDatabasePath);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+            for (int i = 0; i < cineplexes.size() - 1; i++) {
+                if (i == lineNo + 1) {
+                    bufferedWriter.write(cineplexes.get(i) + "," + cinemaID + "\n");
+                    continue;
+                }
+                bufferedWriter.write(cineplexes.get(i) + "\n");
+            }
+
+            bufferedWriter.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void removeCinemaFromCineplex() {
+        String cineplexID, cinemaID;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Adding cinema to cineplex...\n");
+        System.out.println("Please enter cineplex ID: ");
+        cineplexID = sc.nextLine();
+
+        if (CineplexDB.getCineplexFromID(cineplexID) == null) {
+            System.out.println("Oops cineplex does not exist :(");
+            return;
+        }
+
+        System.out.println("Please enter cinema ID: ");
+        cinemaID = sc.nextLine();
+
+        // Check if cinema is in cineplex
+        boolean cinemaFound = false;
+        for (Cinema cinema : CineplexDB.getCineplexFromID(cineplexID).getCinemas()) {
+            if (cinema.getCinemaID().compareTo(cinemaID) == 0) {
+                cinemaFound = true;
+                break;
+            }
+        }
+
+        if (!cinemaFound) {
+            System.out.println("Oops cinema does not exist :(");
+            return;
+        }
+
+        // Remove cinema from cinepelex txt file idk how, can just rewrite the entire
+        // file
+        // Get which line the cineplex is in, then at the next line add remove cinema
+        ArrayList<String> cineplexes = DatabaseReader.readtxt(cineplexDatabasePath);
+        int lineNo = 0;
+        for (String string : cineplexes) {
+            if (string.compareTo(cineplexID) == 0) {
+                break;
+            }
+            lineNo++;
+        }
+
+        try {
+            FileWriter writer = new FileWriter(customerDatabasePath);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+            for (int i = 0; i < cineplexes.size() - 1; i++) {
+                if (i == lineNo + 1) {
+                    String temp = cineplexes.get(i).replace(cinemaID + ",", "").replace("," + cinemaID, "")
+                            .replace(cinemaID, "");
+                    bufferedWriter.write(temp + "\n");
+                    continue;
+                }
+                bufferedWriter.write(cineplexes.get(i) + "\n");
+            }
+
+            bufferedWriter.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void addNewCinema() {
+        try {
+            FileWriter writer = new FileWriter(cineplexDatabasePath, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+            // I'm not to sure whether want to put the query part here or put it into
+            // another method
+            Scanner sc = new Scanner(System.in);
+            String cinemaID, cinemaType;
+
+            // Asking time!!
+            System.out.println("Adding new cinema...\n");
+
+            System.out.println("Cinema ID: ");
+            cinemaID = sc.nextLine();
+
+            System.out.println("Cinema type: ");
+            cinemaType = sc.nextLine();
+
+            bufferedWriter.write(cinemaID + "\n");
+            bufferedWriter.write(cinemaType + "\n");
+            bufferedWriter.write("no movie\n");
+            bufferedWriter.write("no showtime\n");
+            bufferedWriter.write("idk seatws hwo la \n");
+            bufferedWriter.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void removeCinema() {
+        String cinemaID;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Removing cinema...\n");
+        System.out.println("Please enter cinema ID: ");
+        cinemaID = sc.nextLine();
+
+        if (CinemaDB.getCinemaFromID(cinemaID) == null) {
+            System.out.println("Oops cinema does not exist :(");
+            return;
+        }
+
+        // Remove account from txt file idk how, can just rewrite the entire file
+        ArrayList<String> cinemas = DatabaseReader.readtxt(cinemaDatabasePath);
+        int lineNo = 0;
+        for (String string : cinemas) {
+            if (string.compareTo(cinemaID) == 0) {
+                break;
+            }
+            lineNo++;
+        }
+
+        try {
+            FileWriter writer = new FileWriter(customerDatabasePath);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+            for (int i = 0; i < cinemas.size() - 1; i++) {
+                if (lineNo <= i && i < lineNo + 5) {
+                    continue;
+                }
+                bufferedWriter.write(cinemas.get(i) + "\n");
+            }
+
+            bufferedWriter.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
         // addNewMovie();
-        removeMovie();
+        // removeMovie();
+        addNewCinema();
     }
 }

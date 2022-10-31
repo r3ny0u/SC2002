@@ -1,4 +1,8 @@
 package Model;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Transaction {
 
     // d: just following the class diagram, pls edit if necessary ;-;
@@ -11,12 +15,14 @@ public class Transaction {
     private String dayOfWeek;
     private Movie movie;
     private String customerID;
+    private String seatID;
+    private String bookingTime;
 
     Transaction() {
     }
 
 
-    public Transaction(String transactionID, String time, String age, String cinemaType, String movieType, String dayOfWeek, Movie movie, String customerID) {
+    public Transaction(String transactionID, String time, String age, String cinemaType, String movieType, String dayOfWeek, Movie movie, String customerID, String seatID) {
         this.transactionID = transactionID;
         this.time = time;
         this.age = age;
@@ -25,6 +31,8 @@ public class Transaction {
         this.dayOfWeek = dayOfWeek;
         this.movie = movie;
         this.customerID = customerID;
+        this.seatID = seatID;
+        this.bookingTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-mm-yyyy HH:mm:ss"));
     }
 
 

@@ -14,6 +14,14 @@ public class MovieDB {
         return this.movies;
     }
 
+    public static void addNewMovie() {
+        DatabaseWriter.addNewMovie();
+    }
+
+    public static void removeMovie() {
+        DatabaseWriter.removeMovie();
+    }
+
     public static Movie getMovieFromTitle(String title) {
         for (Movie movie : new MovieDB().getMovies()) {
             if (movie.getTitle().strip().toLowerCase().compareTo(title.strip().toLowerCase()) == 0) {
@@ -23,9 +31,8 @@ public class MovieDB {
         return null;
     }
 
-    public static void main(String[] args) {
-        MovieDB m = new MovieDB();
-        for (Movie movie : m.getMovies()) {
+    public static void printMovieDBDetails() {
+        for (Movie movie : new MovieDB().getMovies()) {
             movie.printMovieDetails();
             System.out.println("\n");
         }

@@ -14,6 +14,14 @@ public class CinemaDB {
         return this.cinemas;
     }
 
+    public static void addNewCinema() {
+        DatabaseWriter.addNewCinema();
+    }
+
+    public static void removeCinema() {
+        DatabaseWriter.removeCinema();
+    }
+
     public static Cinema getCinemaFromID(String cinemaID) {
         for (Cinema cinema : new CinemaDB().getCinemas()) {
             if (cinema.getCinemaID().compareTo(cinemaID) == 0) {
@@ -23,11 +31,16 @@ public class CinemaDB {
         return null;
     }
 
-    public static void main(String[] args) {
-        CinemaDB a = new CinemaDB();
-        for (Cinema Cinema : a.getCinemas()) {
-            Cinema.printCinemaDetails();
+    public static void printCinemaDBDetails() {
+        for (Cinema cinema : new CinemaDB().getCinemas()) {
+            cinema.printCinemaDetails();
             System.out.println("\n");
+        }
+    }
+
+    public static void printCinemaDBID() {
+        for (Cinema cinema : new CinemaDB().getCinemas()) {
+            System.out.println(cinema.getCinemaID());
         }
     }
 }

@@ -14,6 +14,26 @@ public class CineplexDB {
         return this.cineplexes;
     }
 
+    public static void addNewCineplex() {
+        DatabaseWriter.addNewCineplex();
+    }
+
+    public static void removeCineplex() {
+        DatabaseWriter.removeCineplex();
+    }
+
+    public static void addNewCinemaToCineplex() {
+        System.out.println("Cinemas available:");
+        CinemaDB.printCinemaDBID();
+        DatabaseWriter.addNewCinemaToCineplex();
+    }
+
+    public static void removeCinemaFromCineplex() {
+        System.out.println("Cinemas available:");
+        CinemaDB.printCinemaDBID();
+        DatabaseWriter.removeCinemaFromCineplex();
+    }
+
     public static Cineplex getCineplexFromID(String cineplexID) {
         for (Cineplex cineplex : new CineplexDB().getCineplexes()) {
             if (cineplex.getCineplexID().compareTo(cineplexID) == 0) {
@@ -23,9 +43,8 @@ public class CineplexDB {
         return null;
     }
 
-    public static void main(String[] args) {
-        CineplexDB a = new CineplexDB();
-        for (Cineplex cineplex : a.getCineplexes()) {
+    public static void printCineplexDBDetails() {
+        for (Cineplex cineplex : new CineplexDB().getCineplexes()) {
             cineplex.printCineplexDetails();
             System.out.println("\n");
         }

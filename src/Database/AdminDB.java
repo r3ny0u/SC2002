@@ -14,6 +14,14 @@ public class AdminDB {
         return this.admins;
     }
 
+    public static void addNewAdminAccount() {
+        DatabaseWriter.addNewAdminAccount();
+    }
+
+    public static void removeAdminAccount() {
+        DatabaseWriter.removeAdminAccount();
+    }
+
     public static Admin getAdminFromUsername(String username, String password) {
         for (Admin admin : new AdminDB().getAdmins()) {
             if (admin.getUsername().toLowerCase().compareTo(username.toLowerCase()) == 0 && admin.getPassword().compareTo(password) == 0) {
@@ -23,9 +31,8 @@ public class AdminDB {
         return null;
     }
 
-    public static void main(String[] args) {
-        AdminDB a = new AdminDB();
-        for (Admin admin : a.getAdmins()) {
+    public static void printAdminDBDetails() {
+        for (Admin admin : new AdminDB().getAdmins()) {
             admin.printAdminDetails();
             System.out.println("\n");
         }

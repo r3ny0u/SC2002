@@ -10,13 +10,20 @@ public class RatingDB {
         this.ratings = DatabaseReader.readRatingDatabase();
     }
 
+    public static void addNewRating(String movie, String username) {
+        DatabaseWriter.addNewRating(movie, username);
+    }
+
+    public static void removeRating() {
+        DatabaseWriter.removeRating();
+    }
+
     public Rating[] getRatings() {
         return this.ratings;
     }
 
-    public static void main(String[] args) {
-        RatingDB m = new RatingDB();
-        for (Rating rating : m.getRatings()) {
+    public static void printRatingDBDetails() {
+        for (Rating rating : new RatingDB().getRatings()) {
             rating.printRatingDetails();
             System.out.println("\n");
         }

@@ -307,7 +307,7 @@ public class DatabaseWriter {
             System.out.println("Adding new rating...\n");
 
             System.out.println("Rating (out of 5): ");
-            rating = sc.nextFloat();
+            rating = Float.parseFloat(sc.nextLine());
 
             System.out.println("Review: ");
             review = sc.nextLine();
@@ -326,7 +326,7 @@ public class DatabaseWriter {
     }
 
     public static void removeRating() {
-        // Should this be implemented
+        // Should this be implemented idk i lazy
     }
 
     public static void addNewCineplex() {
@@ -346,7 +346,7 @@ public class DatabaseWriter {
             cineplexName = sc.nextLine();
 
             bufferedWriter.write(cineplexName + "\n");
-            bufferedWriter.write("\n");
+            bufferedWriter.write(" \n");
 
             bufferedWriter.close();
 
@@ -362,7 +362,7 @@ public class DatabaseWriter {
         System.out.println("Please enter cineplex ID: ");
         cineplexID = sc.nextLine();
 
-        if (CinemaDB.getCinemaFromID(cineplexID) == null) {
+        if (CineplexDB.getCineplexFromID(cineplexID) == null) {
             System.out.println("Oops cineplex does not exist :(");
             return;
         }
@@ -378,10 +378,10 @@ public class DatabaseWriter {
         }
 
         try {
-            FileWriter writer = new FileWriter(customerDatabasePath);
+            FileWriter writer = new FileWriter(cineplexDatabasePath);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
-            for (int i = 0; i < cineplexes.size() - 1; i++) {
+            for (int i = 0; i < cineplexes.size(); i++) {
                 if (lineNo <= i && i < lineNo + 2) {
                     continue;
                 }
@@ -428,12 +428,14 @@ public class DatabaseWriter {
         }
 
         try {
-            FileWriter writer = new FileWriter(customerDatabasePath);
+            FileWriter writer = new FileWriter(cineplexDatabasePath);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
-            for (int i = 0; i < cineplexes.size() - 1; i++) {
+            for (int i = 0; i < cineplexes.size(); i++) {
                 if (i == lineNo + 1) {
-                    bufferedWriter.write(cineplexes.get(i) + "," + cinemaID + "\n");
+                    bufferedWriter.write(cineplexes.get(i));
+                    bufferedWriter.write("," + cinemaID + "\n");
+                    System.out.println("here");
                     continue;
                 }
                 bufferedWriter.write(cineplexes.get(i) + "\n");
@@ -449,7 +451,7 @@ public class DatabaseWriter {
     public static void removeCinemaFromCineplex() {
         String cineplexID, cinemaID;
         Scanner sc = new Scanner(System.in);
-        System.out.println("Adding cinema to cineplex...\n");
+        System.out.println("Removing cinema to cineplex...\n");
         System.out.println("Please enter cineplex ID: ");
         cineplexID = sc.nextLine();
 
@@ -488,10 +490,10 @@ public class DatabaseWriter {
         }
 
         try {
-            FileWriter writer = new FileWriter(customerDatabasePath);
+            FileWriter writer = new FileWriter(cineplexDatabasePath);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
-            for (int i = 0; i < cineplexes.size() - 1; i++) {
+            for (int i = 0; i < cineplexes.size(); i++) {
                 if (i == lineNo + 1) {
                     String temp = cineplexes.get(i).replace(cinemaID + ",", "").replace("," + cinemaID, "")
                             .replace(cinemaID, "");
@@ -510,7 +512,7 @@ public class DatabaseWriter {
 
     public static void addNewCinema() {
         try {
-            FileWriter writer = new FileWriter(cineplexDatabasePath, true);
+            FileWriter writer = new FileWriter(cinemaDatabasePath, true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
             // I'm not to sure whether want to put the query part here or put it into

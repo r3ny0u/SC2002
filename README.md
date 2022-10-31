@@ -2,6 +2,8 @@
 
 hmmm if cannot run code, then run debug (￣y▽,￣)╭
 
+Also make sure no overwrite code when merging \(￣︶￣*\))
+
 ## ◑﹏◐
 
 ## Oh wow look an image

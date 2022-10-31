@@ -10,6 +10,7 @@ public class Cinema {
     private ArrayList<String> showtimes;
     private Seat[] seats;
 
+    // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
     public Cinema(String cinemaID, String cinemaType, String movie, ArrayList<String> showtimes) {
         this.movie = movie;
         this.cinemaID = cinemaID;

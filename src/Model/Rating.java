@@ -10,12 +10,14 @@ public class Rating {
     private String ratingID;
     private String username;
 
+    // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
     public Rating(String movie, float rating, String review, String ratingID, String username) {
         this.movie = movie;
         this.rating = rating;
         this.review = review;
         this.ratingID = ratingID;
         this.username = username;
+    }
 
     private String customerID;
 
@@ -49,7 +51,6 @@ public class Rating {
         this.review = review;
     }
 
-
     public void printRatingDetails() {
         System.out.println("Movie: " + this.movie);
         System.out.println("Rating: " + this.rating);
@@ -57,12 +58,13 @@ public class Rating {
         System.out.println("Rating ID: " + this.ratingID);
         System.out.println("Username: " + this.username);
         System.out.println("\n");
-       }
+    }
 
     public void setCustomerID(String customerID) {
         this.customerID = customerID;
     }
-    public String getCustomerID(){
+
+    public String getCustomerID() {
         return this.customerID;
 
     }

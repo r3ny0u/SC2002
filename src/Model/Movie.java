@@ -16,6 +16,15 @@ public class Movie {
     protected ArrayList<Rating> reviews;
     protected Map<String, Seat[]> seats;
 
+    // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
+    public Movie(String title, String status, String synopsis, String director, ArrayList<String> casts) {
+        this.title = title;
+        this.status = status;
+        this.synopsis = synopsis;
+        this.director = director;
+        this.casts = casts;
+    }
+
     public Movie(String title, String status, String synopsis, String director, ArrayList<String> casts, ArrayList<String> cinemaNames) {
         this.title = title;
         this.status = status;
@@ -54,10 +63,10 @@ public class Movie {
         System.out.println("Director: " + director);
         System.out.println("Cast: " + String.join(", ", casts));
         System.out.println("Ratings: " + overallRating + " / 5.0 stars");
-        for (Rating rating : reviews) {
-            // Haven't made this method thing yet
-            // rating.printRating()
-        }
+        // for (Rating rating : reviews) {
+        //     // Haven't made this method thing yet
+        //     // rating.printRating()
+        // }
     }
 
     public void printSeats(String cinemaName) {

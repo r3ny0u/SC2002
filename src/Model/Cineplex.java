@@ -11,6 +11,7 @@ public class Cineplex {
     private String cineplexID;
     private ArrayList<Cinema> cinemas;
 
+    // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
     public Cineplex(String cineplexID, ArrayList<Cinema> cinemas) {
         this.cineplexID = cineplexID;
         this.cinemas = cinemas;

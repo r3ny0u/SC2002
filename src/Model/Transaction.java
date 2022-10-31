@@ -1,9 +1,7 @@
 package Model;
 
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 
 public class Transaction {
 
@@ -23,11 +21,22 @@ public class Transaction {
     Transaction() {
     }
 
+    // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
     public Transaction(String transactionID, String time, String age, String cinemaType, String movieType,
             String dayOfWeek, Movie movie, String customerID) {
+        this.transactionID = transactionID;
+        this.time = time;
+        this.age = age;
+        this.cinemaType = cinemaType;
+        this.movieType = movieType;
+        this.dayOfWeek = dayOfWeek;
+        this.movie = movie;
+        this.customerID = customerID;
+        this.seatID = seatID;
+    }
 
-
-    public Transaction(String transactionID, String time, String age, String cinemaType, String movieType, String dayOfWeek, Movie movie, String customerID, String seatID) {
+    public Transaction(String transactionID, String time, String age, String cinemaType, String movieType,
+            String dayOfWeek, Movie movie, String customerID, String seatID) {
 
         this.transactionID = transactionID;
         this.time = time;

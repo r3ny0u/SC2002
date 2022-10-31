@@ -16,6 +16,13 @@ public class Rating {
         this.review = review;
         this.ratingID = ratingID;
         this.username = username;
+
+    private String customerID;
+
+    public Rating(String customerID, String review, float rating) {
+        this.customerID = customerID;
+        this.review = review;
+        this.rating = rating;
     }
 
     public String getMovie() {
@@ -42,6 +49,7 @@ public class Rating {
         this.review = review;
     }
 
+
     public void printRatingDetails() {
         System.out.println("Movie: " + this.movie);
         System.out.println("Rating: " + this.rating);
@@ -49,5 +57,13 @@ public class Rating {
         System.out.println("Rating ID: " + this.ratingID);
         System.out.println("Username: " + this.username);
         System.out.println("\n");
+       }
+
+    public void setCustomerID(String customerID) {
+        this.customerID = customerID;
+    }
+    public String getCustomerID(){
+        return this.customerID;
+
     }
 }

@@ -2,6 +2,8 @@ package Model;
 
 import java.util.Scanner;
 
+import javax.sound.midi.Soundbank;
+
 import Database.CineplexDB;
 import Database.MovieDB;
 
@@ -67,96 +69,115 @@ public class Customer extends Account {
         System.out.println("Email: " + this.email);
         System.out.println("Mobile: " + this.mobile);
     }
-    /*
-     * public void queryPurpose() {
-     * MovieDB movies = new MovieDB();
-     * String movieChoice, cinemaChoice;
-     * int prevChoice;
-     * 
-     * System.out.println("What would you like to do today?");
-     * System.out.println("1. View movie listings");
-     * System.out.println("2. View movie details");
-     * System.out.println("3. Check seat availability");
-     * System.out.println("4. Make a booking");
-     * System.out.println("5. Check my booking history");
-     * System.out.println("6. List the Top 5 ranking by ticket sales");
-     * System.out.println("7. List the Top 5 ranking by overall reviewers’ ratings"
-     * );
-     * Scanner scanner = new Scanner(System.in);
-     * int choice = scanner.nextInt();
-     * switch (choice) {
-     * case 1:
-     * // show movie listings
-     * // read from db
-     * movies.getMovies();
-     * break;
-     * case 2:
-     * // show movie details
-     * // read from db
-     * if (prevChoice != 1)
-     * movies.getMovies();
-     * System.out.println("Please choose the movie");
-     * movieChoice = scanner.next();
-     * // find movie from movies[]
-     * // movie = movies[101]
-     * // print details
-     * break;
-     * case 3:
-     * // display movie list
-     * if (prevChoice != 1)
-     * movies.getMovies();
-     * // let customer choose a movie, then display seat availability
-     * System.out.println("Please choose the movie");
-     * movieChoice = scanner.next();
-     * // find movie from movies[]
-     * System.out.println("Please choose the cineplex");
-     * cineplexChoice = scanner.next();
-     * System.out.println("Please choose the cinema");
-     * cinemaChoice = scanner.next();
-     * // use db to find cineplex
-     * Cinema cinema = cineplex.findCinema(cinemaChoice);
-     * // helpppp so this is like go into cinema then movie then seat?
-     * cinema.findMovie(movieChoice).printSeats();
-     * 
-     * break;
-     * case 4:
-     * // make a booking
-     * // display movie list
-     * movies.getMovies();
-     * // let customer select their movie
-     * System.out.println("Which movie do you want to book for?");
-     * movieChoice = scanner.next();
-     * // let customer select from the available cinemas
-     * System.out.println("Please choose the cineplex");
-     * cineplexChoice = scanner.next();
-     * System.out.println("Please choose the cinema");
-     * cinemaChoice = scanner.next();
-     * // access that cinema's database
-     * // print available seats
-     * // let customer select their seats
-     * // show confirmation page
-     * // update cinema's database with new seat matrix
-     * 
-     * break;
-     * case 5:
-     * // check booking history
-     * System.out.println("Your bookings:" + this.bookings);
-     * break;
-     * case 6:
-     * // show top 5 based on ticket sales
-     * break;
-     * case 7:
-     * // show top 5 based on rating
-     * default:
-     * do {
-     * System.out.println("Invalid. Try again.");
-     * System.out.print("Enter choice: ");
-     * choice = scanner.nextInt();
-     * } while (choice < 1 || choice > 7);
-     * }
-     * }
-     * 
-     */
+
+    public void queryPurpose() {
+        MovieDB movies = new MovieDB();
+        String movieChoiceString, cinemaChoice, cineplexChoice, seatID;
+        Model.Movie movieChoice;
+
+
+        System.out.println("What would you like to do today?");
+        System.out.println("1. View movie listings");
+        System.out.println("2. View movie details");
+        System.out.println("3. Check seat availability");
+        System.out.println("4. Make a booking");
+        System.out.println("5. Check my booking history");
+        System.out.println("6. List the Top 5 ranking by ticket sales");
+        System.out.println("7. List the Top 5 ranking by overall reviewers’ ratings");
+        System.out.println("8. Add your review for a movie");
+        Scanner scanner = new Scanner(System.in);
+        int choice = scanner.nextInt();
+        switch (choice) {
+            case 1:
+                // show movie listings
+                // read from db
+                movies.printMovieList();
+                break;
+            case 2:
+                // show movie details
+                // read from db
+                movies.printMovieList();
+                System.out.println("Please choose the movie");
+                movieChoiceString = scanner.next();
+                movieChoice = MovieDB.getMovieFromTitle(movieChoiceString);
+                movieChoice.printMovieDetails();
+                break;
+            case 3:
+                // display movie list
+                movies.printMovieList();
+                // let customer choose a movie, then display seat availability
+                System.out.println("Please choose the movie");
+                movieChoiceString = scanner.next();
+                movieChoice = MovieDB.getMovieFromTitle(movieChoiceString);
+                // find movie from movies[]
+                System.out.println("Please choose the cineplex");
+                cineplexChoice = scanner.next();
+                System.out.println("Please choose the cinema");
+                cinemaChoice = scanner.next();
+                // use db to find cineplex
+                Cineplex cineplex = CineplexDB.findCineplex(cineplexChoice);
+                Cinema cinema = cineplex.findCinema(cinemaChoice);
+                cinema.findMovie(movieChoiceString).printSeats(cinemaChoice);
+
+                break;
+            case 4:
+                // make a booking
+                // display movie list
+                movies.printMovieList();
+                // let customer select their movie
+                System.out.println("Which movie do you want to book for?");
+                movieChoiceString = scanner.next();
+                // let customer select from the available cinemas
+                System.out.println("Please choose the cineplex");
+                cineplexChoice = scanner.next();
+                System.out.println("Please choose the cinema");
+                cinemaChoice = scanner.next();
+                Cineplex cineplex = CineplexDB.findCineplex(cineplexChoice);
+                Cinema cinema = cineplex.findCinema(cinemaChoice);
+                Movie movie = cinema.findMovie(movieChoiceString);
+                movie.printSeats(cinemaChoice);
+                
+                System.out.println("Select the seat you want (eg. A1)");
+                seatID = scanner.next();
+                boolean avail = movie.checkSeat(cinemaChoice,seatID);
+                while(!avail)
+                {
+                    System.out.println("Seat is already taken!");
+                    System.out.println("Please choose another seat");
+                    seatID = scanner.next();
+                    avail = movie.checkSeat(cinemaChoice,seatID);
+                }
+                                
+                //do bookings
+
+                break;
+            case 5:
+                // check booking history
+                System.out.println("Your bookings:" + this.bookings);
+                break;
+            case 6:
+                // show top 5 based on ticket sales
+                break;
+            case 7:
+                // show top 5 based on rating
+            case 8:
+                System.out.println("Which movie would you like to add a review for?");
+                movies.printMovieList();
+                movieChoiceString = scanner.next();
+                movieChoice = MovieDB.getMovieFromTitle(movieChoiceString);
+                System.out.println("How many stars out of 5 would you give this movie?");
+                int stars = scanner.nextInt();
+                System.out.println("What is your review for this movie?");
+                String review = scanner.nextLine();
+                movieChoice.addReviews(this.accountID,review,stars);
+            default:
+                do {
+                    System.out.println("Invalid. Try again.");
+                    System.out.print("Enter choice: ");
+                    choice = scanner.nextInt();
+                } while (choice < 1 || choice > 8);
+        }
+    }
 
     public static void main(String[] args) {
         Customer c = new Customer();
@@ -165,9 +186,3 @@ public class Customer extends Account {
         // c.queryPurpose();
     }
 }
-
-// Test inputs here
-// Snoop Dogg
-// snoopdogg@gmail.com
-// 98769420
-// smokeWeedEveryDay

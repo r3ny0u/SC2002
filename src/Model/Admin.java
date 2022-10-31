@@ -19,7 +19,9 @@ public class Admin extends Account {
 
                 switch (choice) {
                     case 1:
-                        createMovieListing();
+                        System.out.println("Enter the movie title you wish to create");
+                        String movieName = s.next();
+                        createMovieListing(movieName);
                         break;
 
                     case 2:
@@ -72,18 +74,23 @@ public class Admin extends Account {
     }
 
     private void createShowtimes() {
-
+        
     }
 
     private void removeMovieListing() {
-
+        //find movie in db
+        //delete
     }
 
     private void updateMovieListing() {
-
+        //find the movie in db
+        //check which part needs to be updated
+        //update that part
     }
 
-    private void createMovieListing() {
+    private void createMovieListing(String movieName) {
+        //check whether movie already exisits
+        //if not ask for the details and add in
 
     }
 

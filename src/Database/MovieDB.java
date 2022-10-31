@@ -14,12 +14,21 @@ public class MovieDB {
         return this.movies;
     }
 
+
     public static void addNewMovie() {
         DatabaseWriter.addNewMovie();
     }
 
     public static void removeMovie() {
         DatabaseWriter.removeMovie();
+    }
+
+    public static void printMovieList(){
+        for (Movie movie : new MovieDB().getMovies()) {
+            System.out.println(movie.getTitle());  // should just print out the titles instead of details for all movies
+            System.out.println("\n");
+        }
+
     }
 
     public static Movie getMovieFromTitle(String title) {

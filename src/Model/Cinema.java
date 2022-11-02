@@ -1,17 +1,18 @@
 package Model;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Cinema {
-    private ArrayList<String> movie;
+    private String movie;
     private String cinemaID;
     private String cinemaType;
-    private ArrayList<ArrayList<String>> showtimes;
+    private ArrayList<String> showtimes;
     private Seat[] seats;
 
-    // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
-    public Cinema(String cinemaID, String cinemaType, ArrayList<String> movie, ArrayList<ArrayList<String>> showtimes) {
+    // ISTG STOP MODIFYING THE CONSTRUCTOR, JUST ADD ANOTHER IF NEED!! >:(
+    public Cinema(String cinemaID, String cinemaType, String movie, ArrayList<String> showtimes) {
         this.movie = movie;
         this.cinemaID = cinemaID;
         this.cinemaType = cinemaType;
@@ -38,12 +39,17 @@ public class Cinema {
         System.out.println(cinemaID);
         System.out.println(cinemaType);
         System.out.println(movie);
-        for (String movie:movie){
-            System.out.println(movie);
-            for (String showtime : showtimes.get(movie.indexOf(movie))){
-                System.out.print(showtime + ", ");
-            }
-            System.out.println();
+        // for (String movie : movie) {
+        //     System.out.println(movie);
+        //     for (String showtime : showtimes.get(movie.indexOf(movie))) {
+        //         System.out.print(showtime + ", ");
+        //     }
+        //     System.out.println();
+        // }
+        System.out.print("Showtime: ");
+        for (String showtime : showtimes) {
+            System.out.print(showtime + " ");
         }
+        System.out.print("\n");
     }
 }

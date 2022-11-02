@@ -149,7 +149,7 @@ public class Customer extends Account {
                     seatID = scanner.next();
                     avail = movieChoice.checkSeat(cinemaChoice, seatID);
                 }
-                movieChoice.assignSeat(cinemaChoice, seatID, this.name)
+                movieChoice.assignSeat(cinemaChoice, seatID, this.name);
 
                 // do bookings
 
@@ -161,7 +161,7 @@ public class Customer extends Account {
             case 6:
                 // show top 5 based on ticket sales
                 movies.sortBySales();
-                movieArray = movies.getMovies()
+                movieArray = movies.getMovies();
                 for (int i = 0; i < 5; i++) {
                     System.out.println(i + ": " + movieArray[i].getTitle());
                 }
@@ -170,7 +170,7 @@ public class Customer extends Account {
             case 7:
                 // show top 5 based on rating
                 movies.sortByRating();
-                movieArray = movies.getMovies()
+                movieArray = movies.getMovies();
                 for (int i = 0; i < 5; i++) {
                     System.out.println(i + ": " + movieArray[i].getTitle());
                 }

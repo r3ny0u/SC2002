@@ -22,7 +22,7 @@ public class MainApp {
                 String pw = s.next();
 
                 Admin admin = new Admin(adminID, pw, "asdf");
-                if (admin.checkPW() == 0)
+                if (admin.adminMenu() == 0)
                     System.out.println("Incorrect userID or password!");
 
                 break;

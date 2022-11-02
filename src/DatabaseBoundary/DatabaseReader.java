@@ -12,13 +12,13 @@ import Model.*;
  * Returns the different types of database.
  */
 public class DatabaseReader {
-    private static String cineplexDatabasePath = DatabaseConstants.CINEPLEX_DATABASE_PATH;
-    private static String cinemaDatabasePath = DatabaseConstants.CINEMA_DATABASE_PATH;
-    private static String adminDatabasePath = DatabaseConstants.ADMIN_DATABASE_PATH;
-    private static String customerDatabasePath = DatabaseConstants.CUSTOMER_DATABASE_PATH;
-    private static String movieDatabasePath = DatabaseConstants.MOVIE_DATABASE_PATH;
-    private static String ratingDatabasePath = DatabaseConstants.RATING_DATABASE_PATH;
-    private static String transactionDatabasePath = DatabaseConstants.TRANSACTION_DATABASE_PATH;
+    private static final String cineplexDatabasePath = DatabaseConstants.CINEPLEX_DATABASE_PATH;
+    private static final String cinemaDatabasePath = DatabaseConstants.CINEMA_DATABASE_PATH;
+    private static final String adminDatabasePath = DatabaseConstants.ADMIN_DATABASE_PATH;
+    private static final String customerDatabasePath = DatabaseConstants.CUSTOMER_DATABASE_PATH;
+    private static final String movieDatabasePath = DatabaseConstants.MOVIE_DATABASE_PATH;
+    private static final String ratingDatabasePath = DatabaseConstants.RATING_DATABASE_PATH;
+    private static final String transactionDatabasePath = DatabaseConstants.TRANSACTION_DATABASE_PATH;
 
     /**
      * Returns all lines in a txt file.

@@ -1,5 +1,8 @@
 package Model;
+
 import java.util.Scanner;
+
+import Database.AdminDB;
 
 public class Admin extends Account {
     // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
@@ -9,54 +12,66 @@ public class Admin extends Account {
         this.accountID = accountID;
     }
 
-    public int checkPW() {
-        if (username.compareTo(Constants.ADMIN_ID) == 0 && password.compareTo(Constants.ADMIN_PASSWORD) == 0) {
-            System.out.println("Welcome");
+    /**
+     * Check if admin with current username and password exists in database.
+     * 
+     * @return true if admin exists
+     */
+    public boolean checkPassword() {
+        return AdminDB.getAdminFromUsername(username, password) != null;
+    }
 
-            while (true) {
-                printAdminOptions();
-                Scanner s = new Scanner(System.in);
-                int choice = s.nextInt();
+    public int adminMenu() {
+        if (!this.checkPassword())
+            return 0;
 
-                switch (choice) {
-                    case 1:
-                        System.out.println("Enter the movie title you wish to create");
-                        String movieName = s.next();
-                        createMovieListing(movieName);
-                        break;
+        System.out.println("Welcome");
 
-                    case 2:
-                        updateMovieListing();
-                        break;
+        Scanner s = new Scanner(System.in);
+        int choice = s.nextInt();
 
-                    case 3:
-                        removeMovieListing();
-                        break;
+        do {
+            printAdminOptions();
 
-                    case 4:
-                        createShowtimes();
-                        break;
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter the movie title you wish to create");
+                    String movieName = s.next();
+                    createMovieListing(movieName);
+                    break;
 
-                    case 5:
-                        updateShowtimes();
-                        break;
+                case 2:
+                    updateMovieListing();
+                    break;
 
-                    case 6:
-                        removeShowtimes();
-                        break;
+                case 3:
+                    removeMovieListing();
+                    break;
 
-                    case 7:
-                        configSys();
-                        break;
+                case 4:
+                    createShowtimes();
+                    break;
 
-                    case 8:
-                        return 1;
+                case 5:
+                    updateShowtimes();
+                    break;
 
-                    default:
-                        System.out.println("Invalid Choice!");
-                }
+                case 6:
+                    removeShowtimes();
+                    break;
+
+                case 7:
+                    configSys();
+                    break;
+
+                case 8:
+                    return 1;
+
+                default:
+                    System.out.println("Invalid Choice!");
             }
-        }
+
+        } while (choice != 8);
 
         return 0;
 
@@ -75,26 +90,28 @@ public class Admin extends Account {
     }
 
     private void createShowtimes() {
-        
+
     }
 
     private void removeMovieListing() {
-        //find movie in db
-        //delete
+        // find movie in db
+        // delete
     }
 
     private void updateMovieListing() {
-        //find the movie in db
-        //check which part needs to be updated
-        //update that part
+        // find the movie in db
+        // check which part needs to be updated
+        // update that part
     }
 
     private void createMovieListing(String movieName) {
-        //check whether movie already exisits
-        //if not ask for the details and add in
+        // check whether movie already exisits
+        // if not ask for the details and add in
 
     }
 
+    // TODO: Maybe can add more menu?? Like add cineplex or remove cinemas?? what am
+    // i even talking about -b
     private void printAdminOptions() {
         System.out.println("What would you like to do?");
         System.out.println("-----------------------------------------------------");

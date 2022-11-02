@@ -1,9 +1,13 @@
 package Database;
 
 import Model.Movie;
+
+import java.util.Arrays;
+import java.util.Comparator;
+
 import DatabaseBoundary.*;
 
-public class MovieDB {
+public class MovieDB{
     private Movie[] movies;
 
     public MovieDB() {
@@ -45,5 +49,41 @@ public class MovieDB {
             movie.printMovieDetails();
             System.out.println("\n");
         }
+    }
+
+    public void sortByRating(){
+        Arrays.sort(movies,new Comparator<Movie>() {
+
+            @Override
+            public int compare(Movie o1, Movie o2) {
+                if (o1.getRating()-o2.getRating()>0)
+                    return 1;
+                else
+                    return 0;
+            }
+            
+        });
+    }
+
+    public void sortByAlphabet(){
+        Arrays.sort(movies,new Comparator<Movie>() {
+
+            @Override
+            public int compare(Movie o1, Movie o2) {
+                return o1.getTitle().toLowerCase().compareTo(o2.getTitle().toLowerCase());
+            }
+            
+        });
+    }
+
+    public void sortBySales(){
+        Arrays.sort(movies,new Comparator<Movie>() {
+
+            @Override
+            public int compare(Movie o1, Movie o2) {
+                return o1.getSalesCount()-o2.getSalesCount();
+            }
+            
+        });
     }
 }

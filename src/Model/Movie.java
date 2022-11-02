@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Movie {
+public class Movie{
     protected String title;
     protected String status;
     protected String synopsis;
@@ -15,6 +15,7 @@ public class Movie {
     protected int ratingCount;
     protected ArrayList<Rating> reviews;
     protected Map<String, Seat[]> seats;
+    protected int salesCount;
 
     // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
     public Movie(String title, String status, String synopsis, String director, ArrayList<String> casts) {
@@ -34,6 +35,7 @@ public class Movie {
         this.overallRating = 5.0;
         this.reviews = new ArrayList<Rating>();
         this.ratingCount = 0;
+        this.salesCount = 0;
         
         int n=0,i=0,j=0;
         Seat[] s = new Seat[100];
@@ -53,6 +55,10 @@ public class Movie {
 
     public String getTitle() {
         return this.title;
+    }
+
+    public int getSalesCount(){
+        return this.salesCount;
     }
 
     public void printMovieDetails() {
@@ -112,6 +118,7 @@ public class Movie {
         int row = seatID.charAt(0);
         row -= 65;
         int col = Integer.parseInt(String.valueOf(seatID.charAt(1)));
+        this.salesCount++;
         return s[(row*10)+col].assign(customerID);
     }
     

@@ -73,7 +73,11 @@ public class Customer extends Account {
 
     public void queryPurpose() {
         MovieDB movies = new MovieDB();
+        movies.sortByAlphabet();
         String movieChoiceString, cinemaChoice, cineplexChoice, seatID;
+        Cineplex cineplex;
+        Cinema cinema;
+        Movie[] movieArray;
         Model.Movie movieChoice;
 
         System.out.println("What would you like to do today?");
@@ -91,12 +95,12 @@ public class Customer extends Account {
             case 1:
                 // show movie listings
                 // read from db
-                movies.printMovieList();
+                MovieDB.printMovieList();
                 break;
             case 2:
                 // show movie details
                 // read from db
-                movies.printMovieList();
+                MovieDB.printMovieList();
                 System.out.println("Please choose the movie");
                 movieChoiceString = scanner.next();
                 movieChoice = MovieDB.getMovieFromTitle(movieChoiceString);
@@ -104,7 +108,7 @@ public class Customer extends Account {
                 break;
             case 3:
                 // display movie list
-                movies.printMovieList();
+                MovieDB.printMovieList();
                 // let customer choose a movie, then display seat availability
                 System.out.println("Please choose the movie");
                 movieChoiceString = scanner.next();
@@ -115,15 +119,14 @@ public class Customer extends Account {
                 System.out.println("Please choose the cinema");
                 cinemaChoice = scanner.next();
                 // use db to find cineplex
-                Cineplex cineplex = CineplexDB.findCineplex(cineplexChoice);
-                Cinema cinema = cineplex.findCinema(cinemaChoice);
-                cinema.findMovie(movieChoiceString).printSeats(cinemaChoice);
-
+                cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
+                cinema = cineplex.findCinema(cinemaChoice);
+                movieChoice.printSeats(cinema.getCinemaID());
                 break;
             case 4:
                 // make a booking
                 // display movie list
-                movies.printMovieList();
+                MovieDB.printMovieList();
                 // let customer select their movie
                 System.out.println("Which movie do you want to book for?");
                 movieChoiceString = scanner.next();
@@ -132,20 +135,21 @@ public class Customer extends Account {
                 cineplexChoice = scanner.next();
                 System.out.println("Please choose the cinema");
                 cinemaChoice = scanner.next();
-                Cineplex cineplex = CineplexDB.findCineplex(cineplexChoice);
-                Cinema cinema = cineplex.findCinema(cinemaChoice);
-                Movie movie = cinema.findMovie(movieChoiceString);
-                movie.printSeats(cinemaChoice);
+                movieChoice = MovieDB.getMovieFromTitle(movieChoiceString);
+                cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
+                cinema = cineplex.findCinema(cinemaChoice);
+                movieChoice.printSeats(cinema.getCinemaID());
 
                 System.out.println("Select the seat you want (eg. A1)");
                 seatID = scanner.next();
-                boolean avail = movie.checkSeat(cinemaChoice, seatID);
+                boolean avail = movieChoice.checkSeat(cinemaChoice, seatID);
                 while (!avail) {
                     System.out.println("Seat is already taken!");
                     System.out.println("Please choose another seat");
                     seatID = scanner.next();
-                    avail = movie.checkSeat(cinemaChoice, seatID);
+                    avail = movieChoice.checkSeat(cinemaChoice, seatID);
                 }
+                movieChoice.assignSeat(cinemaChoice, seatID, this.name)
 
                 // do bookings
 
@@ -156,12 +160,25 @@ public class Customer extends Account {
                 break;
             case 6:
                 // show top 5 based on ticket sales
+                movies.sortBySales();
+                movieArray = movies.getMovies()
+                for (int i = 0; i < 5; i++) {
+                    System.out.println(i + ": " + movieArray[i].getTitle());
+                }
+                movies.sortByAlphabet();
                 break;
             case 7:
                 // show top 5 based on rating
+                movies.sortByRating();
+                movieArray = movies.getMovies()
+                for (int i = 0; i < 5; i++) {
+                    System.out.println(i + ": " + movieArray[i].getTitle());
+                }
+                movies.sortByAlphabet();
+                break;
             case 8:
                 System.out.println("Which movie would you like to add a review for?");
-                movies.printMovieList();
+                MovieDB.printMovieList();
                 movieChoiceString = scanner.next();
                 movieChoice = MovieDB.getMovieFromTitle(movieChoiceString);
                 System.out.println("How many stars out of 5 would you give this movie?");

@@ -31,4 +31,12 @@ public class Cineplex {
             System.out.println("  - " + cinema.getCinemaID());
         }
     }
+
+    public Cinema findCinema(String name){
+        for (Cinema cinema:cinemas){
+            if (cinema.getCinemaID()==name)
+                return cinema;
+        }
+        return null;
+    }
 }

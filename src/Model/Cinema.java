@@ -4,14 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Cinema {
-    private String movie;
+    private ArrayList<String> movie;
     private String cinemaID;
     private String cinemaType;
-    private ArrayList<String> showtimes;
+    private ArrayList<ArrayList<String>> showtimes;
     private Seat[] seats;
 
     // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
-    public Cinema(String cinemaID, String cinemaType, String movie, ArrayList<String> showtimes) {
+    public Cinema(String cinemaID, String cinemaType, ArrayList<String> movie, ArrayList<ArrayList<String>> showtimes) {
         this.movie = movie;
         this.cinemaID = cinemaID;
         this.cinemaType = cinemaType;
@@ -38,9 +38,12 @@ public class Cinema {
         System.out.println(cinemaID);
         System.out.println(cinemaType);
         System.out.println(movie);
-        for (String showtime : showtimes) {
-            System.out.print(showtime + ", ");
+        for (String movie:movie){
+            System.out.println(movie);
+            for (String showtime : showtimes.get(movie.indexOf(movie))){
+                System.out.print(showtime + ", ");
+            }
+            System.out.println();
         }
-        System.out.print("\n");
     }
 }

@@ -157,6 +157,8 @@ public class MovieTicketConfig {
 
         newPHPrice = 35f;
 
+        updatePHPrice(newPHPrice);
+
         printConfigDetails();
     }
 }

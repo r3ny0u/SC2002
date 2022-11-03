@@ -17,12 +17,12 @@ public class Admin extends Account {
      * 
      * @return true if admin exists
      */
-    public boolean checkPassword() {
+    public static boolean checkPassword(String username, String password) {
         return AdminDB.getAdminFromUsername(username, password) != null;
     }
 
     public int adminMenu() {
-        if (!this.checkPassword())
+        if (!checkPassword(username, password))
             return 0;
 
         System.out.println("Welcome");

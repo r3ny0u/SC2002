@@ -5,6 +5,7 @@ import java.util.Scanner;
 import javax.sound.midi.Soundbank;
 
 import Database.CineplexDB;
+import Database.CustomerDB;
 import Database.MovieDB;
 
 public class Customer extends Account {
@@ -36,26 +37,15 @@ public class Customer extends Account {
         this.movieTickets = movieTickets;
     }
 
-    public void customerInit() {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("\nWelcome new customer :3\n");
-
-        System.out.printf("Please enter your name: ");
-        this.name = sc.nextLine();
-
-        System.out.printf("Please enter your email: ");
-        this.email = sc.nextLine();
-
-        System.out.printf("Please enter your mobile phone number: ");
-        this.mobile = sc.nextLine();
-
-        System.out.printf("Please enter your customerID: ");
-        this.accountID = sc.nextLine();
-
-        System.out.printf("Hello %s! Welcome to MOBLIMA, the world most advanced cinema booking system.\n",
-                this.name);
+    /**
+     * Check if customer with current username and password exists in database.
+     * 
+     * @return true if customer exists
+     */
+    public static boolean checkPassword(String username, String password) {
+        return CustomerDB.getCustomerFromUsername(username, password) != null;
     }
+ 
 
     public void printCustomerDetails() {
         // System.out.println("\nHere are your details UwU\n");
@@ -197,8 +187,5 @@ public class Customer extends Account {
 
     public static void main(String[] args) {
         Customer c = new Customer();
-        c.customerInit();
-        c.printCustomerDetails();
-        // c.queryPurpose();
     }
 }

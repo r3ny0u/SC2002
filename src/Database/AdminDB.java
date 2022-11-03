@@ -31,6 +31,15 @@ public class AdminDB {
         return null;
     }
 
+    public static boolean isUsernameExist(String username) {
+        for (Admin admin : new AdminDB().getAdmins()) {
+            if (admin.getUsername().toLowerCase().compareTo(username.toLowerCase()) == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void printAdminDBDetails() {
         for (Admin admin : new AdminDB().getAdmins()) {
             admin.printAdminDetails();

@@ -31,6 +31,15 @@ public class CustomerDB {
         return null;
     }
 
+    public static boolean isUsernameExist(String username) {
+        for (Customer admin : new CustomerDB().getCustomers()) {
+            if (admin.getUsername().toLowerCase().compareTo(username.toLowerCase()) == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void printCustomerDBDetails() {
         for (Customer Customer : new CustomerDB().getCustomers()) {
             Customer.printCustomerDetails();

@@ -133,6 +133,12 @@ public class DatabaseWriter {
                 confirmPassword = sc.nextLine();
             } while (confirmPassword.compareTo(password) != 0);
 
+            if (AdminDB.isUsernameExist(username) || CustomerDB.isUsernameExist(username)) {
+                System.out.println("Oops... Username is used");
+                bufferedWriter.close();
+                return;
+            }
+
             bufferedWriter.write(username + "\n");
             bufferedWriter.write(password + "\n");
             bufferedWriter.write(UUID.randomUUID().toString().replace("-", "") + "\n");
@@ -209,6 +215,12 @@ public class DatabaseWriter {
                 System.out.println("Confirm password: ");
                 confirmPassword = sc.nextLine();
             } while (confirmPassword.compareTo(password) != 0);
+
+            if (AdminDB.isUsernameExist(username) || CustomerDB.isUsernameExist(username)) {
+                System.out.println("Oops... Username is used");
+                bufferedWriter.close();
+                return;
+            }
 
             System.out.println("Email: ");
             email = sc.nextLine();

@@ -9,6 +9,9 @@ public class MOBLIMAApp {
     private int day;
 
     public static void main(String args[]) {
+        System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
+        System.out.flush();
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("==================== Welcome to MOBLIMA ====================");
@@ -67,7 +70,7 @@ public class MOBLIMAApp {
             e.printStackTrace();
         }
 
-        System.out.print("\033[H\033[2J"); // Clear screen
+        System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
         System.out.flush();
         // End of login verification
         // ==================================================================================
@@ -79,7 +82,7 @@ public class MOBLIMAApp {
         if (isAdmin && isLoggedIn) {
             Admin admin = AdminDB.getAdminFromUsername(username, password);
 
-            System.out.println("Admin Menu:");
+            admin.adminMenu();
             // Admin stuff
         } else if (!isAdmin && isLoggedIn) {
             Customer customer = CustomerDB.getCustomerFromUsername(username, password);

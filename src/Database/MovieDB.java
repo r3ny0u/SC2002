@@ -47,7 +47,7 @@ public class MovieDB{
     public static void printMovieDBDetails() {
         for (Movie movie : new MovieDB().getMovies()) {
             movie.printMovieDetails();
-            System.out.println("\n");
+            System.out.print("\n");
         }
     }
 

@@ -11,6 +11,7 @@ package Model;
  * 
  * @apiNote fuck me
  */
+
 public class MovieTicket {
     private float ticketPrice;
     private MovieType movieType;

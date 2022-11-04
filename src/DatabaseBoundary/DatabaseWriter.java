@@ -14,6 +14,9 @@ import Database.MovieDB;
 import Model.Cinema;
 import Model.Transaction;
 
+/**
+ * Class for writing and updating data into database txt files.
+ */
 public class DatabaseWriter {
     private static final String cineplexDatabasePath = DatabaseConstants.CINEPLEX_DATABASE_PATH;
     private static final String cinemaDatabasePath = DatabaseConstants.CINEMA_DATABASE_PATH;
@@ -23,6 +26,11 @@ public class DatabaseWriter {
     private static final String ratingDatabasePath = DatabaseConstants.RATING_DATABASE_PATH;
     private static final String transactionDatabasePath = DatabaseConstants.TRANSACTION_DATABASE_PATH;
 
+    /**
+     * Adds new Movie into movie database via user inputs
+     * 
+     * @see Model.Movie
+     */
     public static void addNewMovie() {
         try {
             FileWriter writer = new FileWriter(movieDatabasePath, true);
@@ -68,6 +76,11 @@ public class DatabaseWriter {
         }
     }
 
+    /**
+     * Removes Movie from movie database via user inputs
+     * 
+     * @see Model.Movie
+     */
     public static void removeMovie() {
         String title;
 
@@ -109,6 +122,11 @@ public class DatabaseWriter {
         }
     }
 
+    /**
+     * Adds new Admin account into admin database via user inputs
+     * 
+     * @see Model.Admin
+     */
     public static void addNewAdminAccount() {
         try {
             FileWriter writer = new FileWriter(adminDatabasePath, true);
@@ -150,6 +168,11 @@ public class DatabaseWriter {
         }
     }
 
+    /**
+     * Removes Admin account from admin database via user inputs
+     * 
+     * @see Model.Admin
+     */
     public static void removeAdminAccount() {
         String username, password;
         Scanner sc = new Scanner(System.in);
@@ -178,7 +201,7 @@ public class DatabaseWriter {
             FileWriter writer = new FileWriter(adminDatabasePath);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
-            for (int i = 0; i < admins.size() - 1; i++) {
+            for (int i = 0; i < admins.size(); i++) {
                 if (lineNo <= i && i < lineNo + 3) {
                     continue;
                 }
@@ -192,6 +215,11 @@ public class DatabaseWriter {
         }
     }
 
+    /**
+     * Adds new Customer account into customer database via user inputs
+     * 
+     * @see Model.Customer
+     */
     public static void addNewCustomerAccount() {
         try {
             FileWriter writer = new FileWriter(customerDatabasePath, true);
@@ -241,6 +269,11 @@ public class DatabaseWriter {
         }
     }
 
+    /**
+     * Removes Customer account from customer database via user inputs
+     * 
+     * @see Model.Customer
+     */
     public static void removeCustomerAccount() {
         String username, password;
         Scanner sc = new Scanner(System.in);
@@ -283,6 +316,12 @@ public class DatabaseWriter {
         }
     }
 
+    /**
+     * Adds new Transaction into transaction database
+     * 
+     * @param transaction a transaction object to be added into transaction database
+     * @see Model.Rating
+     */
     public static void addNewTransaction(Transaction transaction) {
         try {
             FileWriter writer = new FileWriter(transactionDatabasePath, true);
@@ -304,6 +343,13 @@ public class DatabaseWriter {
         }
     }
 
+    /**
+     * Adds new Rating into rating database via user inputs
+     * 
+     * @param movie    the title of the movie associated with rating
+     * @param username the username associated with the rating
+     * @see Model.Rating
+     */
     public static void addNewRating(String movie, String username) {
         try {
             FileWriter writer = new FileWriter(ratingDatabasePath, true);
@@ -337,10 +383,19 @@ public class DatabaseWriter {
         }
     }
 
+    /**
+     * @deprecated
+     *             Removes Rating from rating database
+     */
     public static void removeRating() {
         // Should this be implemented idk i lazy
     }
 
+    /**
+     * Adds new Cineplex into cineplex database via user inputs
+     * 
+     * @see Model.Cineplex
+     */
     public static void addNewCineplex() {
         try {
             FileWriter writer = new FileWriter(cineplexDatabasePath, true);
@@ -367,6 +422,11 @@ public class DatabaseWriter {
         }
     }
 
+    /**
+     * Removes Cineplex from cineplex database via user inputs
+     * 
+     * @see Model.Cineplex
+     */
     public static void removeCineplex() {
         String cineplexID;
         Scanner sc = new Scanner(System.in);
@@ -407,6 +467,12 @@ public class DatabaseWriter {
         }
     }
 
+    /**
+     * Adds new Cinema to Cineplex into cineplex database via user inputs
+     * 
+     * @see Model.Cineplex
+     * @see Model.Cinema
+     */
     public static void addNewCinemaToCineplex() {
         String cineplexID, cinemaID;
         Scanner sc = new Scanner(System.in);
@@ -460,6 +526,12 @@ public class DatabaseWriter {
         }
     }
 
+    /**
+     * Removes Cinema from Cineplex from cineplex database via user inputs
+     * 
+     * @see Model.Cineplex
+     * @see Model.Cinema
+     */
     public static void removeCinemaFromCineplex() {
         String cineplexID, cinemaID;
         Scanner sc = new Scanner(System.in);
@@ -522,6 +594,11 @@ public class DatabaseWriter {
         }
     }
 
+    /**
+     * Adds new Cinema into cinema database via user inputs
+     * 
+     * @see Model.Cinema
+     */
     public static void addNewCinema() {
         try {
             FileWriter writer = new FileWriter(cinemaDatabasePath, true);
@@ -553,6 +630,11 @@ public class DatabaseWriter {
         }
     }
 
+    /**
+     * Removes Cinema from cinema database via user inputs
+     * 
+     * @see Model.Cinema
+     */
     public static void removeCinema() {
         String cinemaID;
         Scanner sc = new Scanner(System.in);
@@ -591,11 +673,5 @@ public class DatabaseWriter {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        // addNewMovie();
-        // removeMovie();
-        addNewCinema();
     }
 }

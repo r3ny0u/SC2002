@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Movie{
@@ -14,6 +15,7 @@ public class Movie{
     protected ArrayList<Rating> reviews;
     protected Map<String, Seat[]> seats;
     protected int salesCount;
+    protected Map<String, ArrayList<String>> showingPlaces;
 
     // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
     public Movie(String title, String status, String synopsis, String director, ArrayList<String> casts) {
@@ -140,5 +142,37 @@ public class Movie{
             return overallRating;
         else
             return -1;
+    }
+
+    public void addShowingPlaces(String cineplexID, String cinemaID) {
+        if(showingPlaces == null) {
+            showingPlaces = new HashMap<>();
+                ArrayList<String> temp = new ArrayList<String>();
+                temp.add(cinemaID);
+                showingPlaces.put(cineplexID, temp);
+            
+        }
+
+
+        else if(showingPlaces.containsKey(cineplexID)) {
+            showingPlaces.computeIfAbsent(cineplexID, k -> new ArrayList<String>()).add(cinemaID);
+        }
+        else
+        {
+            ArrayList<String> temp = new ArrayList<String>();
+            temp.add(cinemaID);
+            showingPlaces.put(cineplexID, temp);
+        }
+    }
+
+    public void printShowingPlaces() {
+        for (String key : showingPlaces.keySet()) {
+            System.out.println("\n=====================================================================\nCineplex: " + key);
+            System.out.print("Cinemas: ");
+            for (String str : showingPlaces.get(key)) {
+                System.out.print(str + "    ");
+            }
+        }
+        System.out.println("\n=====================================================================");
     }
 }

@@ -52,4 +52,9 @@ public class Cinema {
         }
         System.out.print("\n");
     }
+
+    public void addMovies(String movieName) {
+        
+    }
+
 }

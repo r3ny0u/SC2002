@@ -12,7 +12,7 @@ public class Customer extends Account {
     private String name;
     private String email;
     private String mobile;
-    private Booking[] bookings;
+    private Transaction[] transactions;
     private MovieTicket[] movieTickets;
 
     public Customer() {
@@ -27,13 +27,13 @@ public class Customer extends Account {
         this.mobile = mobile;
     }
 
-    public Customer(String customerID, String name, String email, String mobile, Booking[] bookings,
+    public Customer(String customerID, String name, String email, String mobile, Transaction[] transactions,
             MovieTicket[] movieTickets) {
         this.accountID = customerID;
         this.name = name;
         this.email = email;
         this.mobile = mobile;
-        this.bookings = bookings;
+        this.transactions = transactions;
         this.movieTickets = movieTickets;
     }
 
@@ -61,7 +61,7 @@ public class Customer extends Account {
         System.out.println("Mobile: " + this.mobile);
     }
 
-    public void queryPurpose() {
+    public boolean queryPurpose() {
         MovieDB movies = new MovieDB();
         movies.sortByAlphabet();
         String movieChoiceString, cinemaChoice, cineplexChoice, seatID;
@@ -79,31 +79,38 @@ public class Customer extends Account {
         System.out.println("6. List the Top 5 ranking by ticket sales");
         System.out.println("7. List the Top 5 ranking by overall reviewers’ ratings");
         System.out.println("8. Add your review for a movie");
+        System.out.println("9. Quit");
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
+        scanner.nextLine();
         switch (choice) {
             case 1:
                 // show movie listings
                 // read from db
+                System.out.println("\n========================================================");
                 MovieDB.printMovieList();
+                System.out.println("========================================================\n");
                 break;
             case 2:
                 // show movie details
                 // read from db
                 MovieDB.printMovieList();
                 System.out.println("Please choose the movie");
-                movieChoiceString = scanner.next();
+                movieChoiceString = scanner.nextLine();
                 movieChoice = MovieDB.getMovieFromTitle(movieChoiceString);
+                System.out.println("\n========================================================");
                 movieChoice.printMovieDetails();
+                System.out.println("========================================================\n");
                 break;
             case 3:
                 // display movie list
                 MovieDB.printMovieList();
                 // let customer choose a movie, then display seat availability
                 System.out.println("Please choose the movie");
-                movieChoiceString = scanner.next();
+                movieChoiceString = scanner.nextLine();
                 movieChoice = MovieDB.getMovieFromTitle(movieChoiceString);
                 // find movie from movies[]
+                movieChoice.printShowingPlaces();
                 System.out.println("Please choose the cineplex");
                 cineplexChoice = scanner.next();
                 System.out.println("Please choose the cinema");
@@ -119,13 +126,14 @@ public class Customer extends Account {
                 MovieDB.printMovieList();
                 // let customer select their movie
                 System.out.println("Which movie do you want to book for?");
-                movieChoiceString = scanner.next();
+                movieChoiceString = scanner.nextLine();
+                movieChoice = MovieDB.getMovieFromTitle(movieChoiceString);
                 // let customer select from the available cinemas
+                movieChoice.printShowingPlaces();
                 System.out.println("Please choose the cineplex");
                 cineplexChoice = scanner.next();
                 System.out.println("Please choose the cinema");
                 cinemaChoice = scanner.next();
-                movieChoice = MovieDB.getMovieFromTitle(movieChoiceString);
                 cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
                 cinema = cineplex.findCinema(cinemaChoice);
                 movieChoice.printSeats(cinema.getCinemaID());
@@ -142,11 +150,12 @@ public class Customer extends Account {
                 movieChoice.assignSeat(cinemaChoice, seatID, this.name);
 
                 // do bookings
+                
 
                 break;
             case 5:
                 // check booking history
-                System.out.println("Your bookings:" + this.bookings);
+                System.out.println("Your bookings:" + this.transactions);
                 break;
             case 6:
                 // show top 5 based on ticket sales
@@ -176,6 +185,8 @@ public class Customer extends Account {
                 System.out.println("What is your review for this movie?");
                 String review = scanner.nextLine();
                 movieChoice.addReviews(this.accountID, review, stars);
+            case 9:
+                return false;
             default:
                 do {
                     System.out.println("Invalid. Try again.");
@@ -183,6 +194,7 @@ public class Customer extends Account {
                     choice = scanner.nextInt();
                 } while (choice < 1 || choice > 8);
         }
+        return true;
     }
 
     public static void main(String[] args) {

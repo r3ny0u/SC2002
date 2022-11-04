@@ -61,13 +61,13 @@ public class MOBLIMAApp {
             // Not necessary need colours i just think they're neat
             if (isLoggedIn)
                 System.out.println("\n\u001B[36mWelcome ~~ " + username + " ~~ :D\n\u001B[0m");
-
+            
             try {
                 TimeUnit.MILLISECONDS.sleep(1500);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
+            
             System.out.print("\033[H\033[2J");
             System.out.flush();
 
@@ -87,9 +87,15 @@ public class MOBLIMAApp {
                 Customer customer = CustomerDB.getCustomerFromUsername(username, password);
                 // Other Customer stuff
                 System.out.println("Customer Menu:");
+                while(true) {
+                    if(!customer.queryPurpose())
+                        break;
+                }
+                
+                break;
 
             } else if (!isLoggedIn) {
-                // Breka program is user is not logged in anymore
+                // Break program is user is not logged in anymore
                 break;
             }
             // ========================================================================

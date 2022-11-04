@@ -1,6 +1,6 @@
 package Database;
 
-import Model.Transaction;
+// import Model.Transaction;
 
 /**
  * Test add and remove data into database.

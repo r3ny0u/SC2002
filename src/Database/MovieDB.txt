@@ -7,12 +7,7 @@ I sure hope this is the title: The Movie
 NOW SHOWING
 If this is not the Synopsis then i will go to sleep
 Mr. 8==D haha funny
-Jason,Bobby McBobbyFace,Henry Cavill,Tom Cruise,Duaine Djonsen
-Title?
-NOW SHOWING
-Synopsis?
-Director?
-Vladimir Putin,BoJo
+Jason,Bobby McBobbyFace,Henry Cavill,Tom Cruise,DuaineTestTitle
 TestTitle1
 Not showing
 TestSynopsis1

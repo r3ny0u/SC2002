@@ -81,7 +81,7 @@ public class DatabaseWriter {
             return;
         }
 
-        // Remove account from txt file idk how, can just rewrite the entire file
+        // Remove movie from txt file idk how, can just rewrite the entire file
         ArrayList<String> movies = DatabaseReader.readtxt(movieDatabasePath);
         int lineNo = 0;
         for (String string : movies) {
@@ -95,7 +95,7 @@ public class DatabaseWriter {
             FileWriter writer = new FileWriter(movieDatabasePath);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
-            for (int i = 0; i < movies.size() - 1; i++) {
+            for (int i = 0; i < movies.size(); i++) {
                 if (lineNo <= i && i < lineNo + 5) {
                     continue;
                 }

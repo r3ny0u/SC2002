@@ -7,7 +7,7 @@ import java.util.Comparator;
 
 import DatabaseBoundary.*;
 
-public class MovieDB{
+public class MovieDB {
     private Movie[] movies;
 
     public MovieDB() {
@@ -18,7 +18,6 @@ public class MovieDB{
         return this.movies;
     }
 
-
     public static void addNewMovie() {
         DatabaseWriter.addNewMovie();
     }
@@ -27,9 +26,9 @@ public class MovieDB{
         DatabaseWriter.removeMovie();
     }
 
-    public static void printMovieList(){
+    public static void printMovieList() {
         for (Movie movie : new MovieDB().getMovies()) {
-            System.out.println(movie.getTitle());  // should just print out the titles instead of details for all movies
+            System.out.println(movie.getTitle()); // should just print out the titles instead of details for all movies
             System.out.println("\n");
         }
 
@@ -45,45 +44,46 @@ public class MovieDB{
     }
 
     public static void printMovieDBDetails() {
+        System.out.println("================================================");
         for (Movie movie : new MovieDB().getMovies()) {
             movie.printMovieDetails();
-            System.out.print("\n");
+            System.out.println("================================================");
         }
     }
 
-    public void sortByRating(){
-        Arrays.sort(movies,new Comparator<Movie>() {
+    public void sortByRating() {
+        Arrays.sort(movies, new Comparator<Movie>() {
 
             @Override
             public int compare(Movie o1, Movie o2) {
-                if (o1.getRating()-o2.getRating()>0)
+                if (o1.getRating() - o2.getRating() > 0)
                     return 1;
                 else
                     return 0;
             }
-            
+
         });
     }
 
-    public void sortByAlphabet(){
-        Arrays.sort(movies,new Comparator<Movie>() {
+    public void sortByAlphabet() {
+        Arrays.sort(movies, new Comparator<Movie>() {
 
             @Override
             public int compare(Movie o1, Movie o2) {
                 return o1.getTitle().toLowerCase().compareTo(o2.getTitle().toLowerCase());
             }
-            
+
         });
     }
 
-    public void sortBySales(){
-        Arrays.sort(movies,new Comparator<Movie>() {
+    public void sortBySales() {
+        Arrays.sort(movies, new Comparator<Movie>() {
 
             @Override
             public int compare(Movie o1, Movie o2) {
-                return o1.getSalesCount()-o2.getSalesCount();
+                return o1.getSalesCount() - o2.getSalesCount();
             }
-            
+
         });
     }
 }

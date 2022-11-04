@@ -1,8 +1,6 @@
 package Model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 
 public class Movie{
@@ -62,13 +60,12 @@ public class Movie{
     }
 
     public void printMovieDetails() {
-        System.out.println("Title: " + title);
-        System.out.println("Status: " + status);
-        System.out.println("Synopsis:");
-        System.out.println(synopsis);
-        System.out.println("Director: " + director);
-        System.out.println("Cast: " + String.join(", ", casts));
-        System.out.println("Ratings: " + overallRating + " / 5.0 stars");
+        System.out.println("Title     : " + title);
+        System.out.println("Status    : " + status);
+        System.out.println("Synopsis  :\n" + synopsis);
+        System.out.println("Director  : " + director);
+        System.out.println("Cast      : " + String.join(", ", casts));
+        System.out.println("Ratings   : " + overallRating + " / 5.0 stars");
         // for (Rating rating : reviews) {
         //     // Haven't made this method thing yet
         //     // rating.printRating()

@@ -98,9 +98,9 @@ public class Admin extends Account {
                     // Print movie details
                     System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
                     System.out.flush();
-                    System.out.println("Movie Details:\n");
+                    System.out.println("Details of " + new MovieDB().getMovies().length + " Movies:");
                     MovieDB.printMovieDBDetails();
-                    System.out.println("Press Enter to exit view");
+                    System.out.println("Press <Enter> to Exit View");
 
                     scanner.nextLine();
                     temp = scanner.nextLine(); // Wait for user to press enter
@@ -142,6 +142,7 @@ public class Admin extends Account {
     private void removeMovieListing() {
         // find movie in db
         // delete
+        MovieDB.removeMovie();
     }
 
     private void updateMovieListing() {

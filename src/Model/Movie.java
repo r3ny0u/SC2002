@@ -6,6 +6,7 @@ import java.util.Map;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 public class Movie {
     protected String title;
     protected String status;
@@ -94,18 +95,19 @@ public class Movie {
             else {
                 seats.put(cinemaID, temp);
             }
-            
+
         }
     }
 
     public void printAllShowtimes() {
         String oldDate = "";
         for (String cineplexID : showingPlaces.keySet()) {
-            System.out.println("\n=====================================================================\nCineplex: " + cineplexID);
-            
+            System.out.println(
+                    "\n=====================================================================\nCineplex: " + cineplexID);
+
             for (String cinemaID : showingPlaces.get(cineplexID)) {
                 System.out.println("Cinema: " + cinemaID);
-                
+
                 for (Showtime st : seats.get(cinemaID).keySet()) {
                     if (oldDate != st.date) {
                         oldDate = st.date;
@@ -129,10 +131,10 @@ public class Movie {
         i = j = 0;
 
         for (Showtime st : seats.get(cinemaID).keySet()) {
-            if(st.date != date && st.time != showtime)
+            if (st.date != date && st.time != showtime)
                 continue;
-            
-            for (Seat s : seats.get(cinemaID).get(st)) {    
+
+            for (Seat s : seats.get(cinemaID).get(st)) {
                 if (s.assigned)
                     seatMatrix[i][j] = 1;
                 else

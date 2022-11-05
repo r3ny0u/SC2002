@@ -141,7 +141,7 @@ public class Admin extends Account {
             System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
             System.out.flush();
 
-            System.out.println("Which settings to udpate?");
+            System.out.println("Which settings to update?");
             System.out.println("-----------------------------------------------------");
             MovieTicketConfig.printConfigDetails();
             System.out.println("11. Quit");

@@ -12,8 +12,7 @@ public class Showtime {
     }
 
     public void printShowtime() {
-        
-    }
 
+    }
 
 }

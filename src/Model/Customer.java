@@ -64,6 +64,7 @@ public class Customer extends Account {
         Cineplex cineplex;
         Cinema cinema;
         int movieChoiceInt;
+        Movie movieChoice;
 
         do {
             MovieDB movies = new MovieDB();

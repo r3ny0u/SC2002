@@ -53,7 +53,7 @@ public class Customer extends Account {
         System.out.println("Email: " + this.email);
         System.out.println("Mobile: " + this.mobile);
     }
-    
+
     // I change the name to customerMenu ah to be consistent with the adminMenu
     // Also I changed it to a do while loop
     public void customerMenu() {
@@ -69,8 +69,8 @@ public class Customer extends Account {
         do {
             MovieDB movies = new MovieDB();
             movies.sortByAlphabet();
-
-            Movie[] movieArray;
+            Movie[] movieArray = movies.getMovies();
+            Movie[] movieArrayEmpty;
 
             System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
             System.out.flush();
@@ -101,32 +101,35 @@ public class Customer extends Account {
                     MovieDB.printMovieList();
                     System.out.println("Please choose the movie");
                     movieChoiceInt = scanner.nextInt();
-                    movieChoice = movies.getMovies()[movieChoiceInt - 1];
+                    movieChoice = movieArray[movieChoiceInt - 1];
                     System.out.println("\n========================================================");
                     movieChoice.printMovieDetails();
                     System.out.println("========================================================\n");
+                    System.out.println("Press <Enter> to Exit View");
+                    scanner.nextLine();
+                    scanner.nextLine();
                     break;
 
                 case 3:
                     // display movie list
                     MovieDB.printMovieList();
                     // let customer choose a movie, then display seat availability
-                    System.out.println("Please choose the movie");
+                    System.out.printf("Please choose the movie: ");
                     movieChoiceInt = scanner.nextInt();
-                    movieChoice = movies.getMovies()[movieChoiceInt - 1];
+                    movieChoice = movieArray[movieChoiceInt - 1];
                     // find movie from movies[]
                     movieChoice.printAllShowtimes();
-                    System.out.println("Please choose the cineplex: ");
+                    System.out.printf("Please choose the cineplex: ");
                     cineplexChoice = scanner.next();
-                    System.out.println("Please choose the cinema: ");
+                    System.out.printf("Please choose the cinema: ");
                     cinemaChoice = scanner.next();
                     // use db to find cineplex
                     cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
                     cinema = cineplex.findCinema(cinemaChoice);
                     // let customer choose showtime
-                    System.out.println("Please choose a showing date (eg. 13/11/2022)");
+                    System.out.printf("Please choose a showing date (eg. 13/11/2022): ");
                     dateChoice = scanner.next();
-                    System.out.println("Please choose the showtime: ");
+                    System.out.printf("Please choose the showtime: ");
                     showtimeChoice = scanner.next();
                     // let customer check seat availability
                     System.out.println("Seat availablity is as follows: ");
@@ -140,19 +143,19 @@ public class Customer extends Account {
                     // let customer select their movie
                     System.out.println("Which movie do you want to book for?");
                     movieChoiceInt = scanner.nextInt();
-                    movieChoice = movies.getMovies()[movieChoiceInt - 1];
+                    movieChoice = movieArray[movieChoiceInt - 1];
                     // let customer select from the available cinemas
                     movieChoice.printAllShowtimes();
-                    System.out.println("Please choose the cineplex: ");
+                    System.out.printf("Please choose the cineplex: ");
                     cineplexChoice = scanner.next();
-                    System.out.println("Please choose the cinema: ");
+                    System.out.printf("Please choose the cinema: ");
                     cinemaChoice = scanner.next();
                     cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
                     cinema = cineplex.findCinema(cinemaChoice);
                     // let customer choose showtime
-                    System.out.println("Please choose a showing date (eg. 13/11/2022)");
+                    System.out.printf("Please choose a showing date (eg. 13/11/2022): ");
                     dateChoice = scanner.next();
-                    System.out.println("Please choose the showtime: ");
+                    System.out.printf("Please choose the showtime: ");
                     showtimeChoice = scanner.next();
                     movieChoice.printSeats(cinema.getCinemaID(), dateChoice, showtimeChoice);
 
@@ -179,9 +182,9 @@ public class Customer extends Account {
                 case 6:
                     // show top 5 based on ticket sales
                     movies.sortBySales();
-                    movieArray = movies.getMovies();
+                    movieArrayEmpty = movies.getMovies();
                     for (int i = 0; i < 5; i++) {
-                        System.out.println(i + ": " + movieArray[i].getTitle());
+                        System.out.println((i + 1) + ". " + movieArrayEmpty[i].getTitle());
                     }
                     movies.sortByAlphabet();
                     break;
@@ -189,9 +192,9 @@ public class Customer extends Account {
                 case 7:
                     // show top 5 based on rating
                     movies.sortByRating();
-                    movieArray = movies.getMovies();
+                    movieArrayEmpty = movies.getMovies();
                     for (int i = 0; i < 5; i++) {
-                        System.out.println(i + ": " + movieArray[i].getTitle());
+                        System.out.println((i + 1) + ". " + movieArrayEmpty[i].getTitle());
                     }
                     movies.sortByAlphabet();
                     break;
@@ -199,11 +202,14 @@ public class Customer extends Account {
                 case 8:
                     System.out.println("Which movie would you like to add a review for?");
                     MovieDB.printMovieList();
+                    System.out.printf("Enter your movie choice: ");
                     movieChoiceInt = scanner.nextInt();
-                    movieChoice = movies.getMovies()[movieChoiceInt - 1];
+                    movieChoice = movieArray[movieChoiceInt - 1];
                     System.out.println("How many stars out of 5 would you give this movie?");
+                    System.out.printf("Enter your rating: ");
                     int stars = scanner.nextInt();
                     System.out.println("What is your review for this movie?");
+                    System.out.printf("Enter your review: ");
                     String review = scanner.nextLine();
                     movieChoice.addReviews(this.accountID, review, stars);
                     break;

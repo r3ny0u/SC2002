@@ -27,8 +27,11 @@ public class MovieDB {
     }
 
     public static void printMovieList() {
+        int count = 1;
         for (Movie movie : new MovieDB().getMovies()) {
-            System.out.println(movie.getTitle()); // should just print out the titles instead of details for all movies
+            System.out.printf("(" + count + ") " + movie.getTitle()); // should just print out the titles instead of
+                                                                      // details for all movies
+            count++;
             System.out.println("\n");
         }
 

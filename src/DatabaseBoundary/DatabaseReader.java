@@ -115,21 +115,21 @@ public class DatabaseReader {
         return transactions;
     }
 
-    public static Cinema[] readCinemaDatabase() {
-        ArrayList<String> strings = readtxt(cinemaDatabasePath);
+    // public static Cinema[] readCinemaDatabase() {
+    //     ArrayList<String> strings = readtxt(cinemaDatabasePath);
 
-        // CInemaDB text file has only three information per account
-        // Username, Password, accountID
-        int numOfCinemas = strings.size() / 5;
-        Cinema[] cinemas = new Cinema[numOfCinemas];
-        Cinema temp;
-        for (int i = 0; i < cinemas.length; i++) {
-            temp = new Cinema(strings.get(i * 5 + 0), strings.get(i * 5 + 1), strings.get(i * 5 + 2),
-                    new ArrayList<String>(Arrays.asList(strings.get(i * 5 + 3).split(","))));
-            cinemas[i] = temp;
-        }
-        return cinemas;
-    }
+    //     // CInemaDB text file has only three information per account
+    //     // Username, Password, accountID
+    //     int numOfCinemas = strings.size() / 5;
+    //     Cinema[] cinemas = new Cinema[numOfCinemas];
+    //     Cinema temp;
+    //     for (int i = 0; i < cinemas.length; i++) {
+    //         temp = new Cinema(strings.get(i * 5 + 0), strings.get(i * 5 + 1), strings.get(i * 5 + 2),
+    //                 new ArrayList<String>(Arrays.asList(strings.get(i * 5 + 3).split(","))));
+    //         cinemas[i] = temp;
+    //     }
+    //     return cinemas;
+    // }
 
     public static Cineplex[] readCineplexDatabase() {
         ArrayList<String> strings = readtxt(cineplexDatabasePath);

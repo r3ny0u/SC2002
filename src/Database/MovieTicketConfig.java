@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import DatabaseBoundary.DatabaseReader;
 
 public class MovieTicketConfig {
-    private static final String[] headers = { "Weekday Price", "Weekend Price", "PH Price", "2D Movie", "3D Movie", "Normal Cinema",
+    private static final String[] headers = { "Weekday Price", "Weekend Price", "PH Price", "2D Movie", "3D Movie",
+            "Normal Cinema",
             "Platinum Cinema", "Adult", "Senior", "Child" };
     private static final String movieTicketConfigFilePath = "src/Database/MovieTicketConfig.txt";
     ArrayList<String> movieTicketConfigContent = new ArrayList<String>();
@@ -133,24 +134,26 @@ public class MovieTicketConfig {
     }
 
     public static void printConfigDetails() {
-        for (int i = 0; i < headers.length; i++) {
-            System.out.println(headers[i] + ": " + MovieTicketConfig.readMovieTicketConfig().get(i));
-        }
-        System.out.println("\n");
+        System.out.printf(" 1. Weekday Pricing        @ SGD %-2.2f\n", MovieTicketConfig.getWeekdayPrice());
+        System.out.printf(" 2. Weekend Pricing        @ SGD %-2.2f\n", MovieTicketConfig.getWeekendPrice());
+        System.out.printf(" 3. PH Pricing             @ SGD %-2.2f\n", MovieTicketConfig.getPHPrice());
+        System.out.printf(" 4. 2D Movie Markup        @ %-2.2f %%\n", MovieTicketConfig.get2DMoviePercentage());
+        System.out.printf(" 5. 3D Movie Markup        @ %-2.2f %%\n", MovieTicketConfig.get3DMoviePercentage());
+        System.out.printf(" 6. Normal Cinema Markup   @ %-2.2f %%\n",
+                MovieTicketConfig.getNormalCinemaPercentage());
+        System.out.printf(" 7. Platinum Cinema Markup @ %-2.2f %%\n",
+                MovieTicketConfig.getPlatinumCinemaPercentage());
+        System.out.printf(" 8. Adult Markup           @ %-2.2f %%\n", MovieTicketConfig.getAdultPercentage());
+        System.out.printf(" 9. Senior Markup          @ %-2.2f %%\n", MovieTicketConfig.getSeniorPercentage());
+        System.out.printf("10. Child Markup           @ %-2.2f %%\n", MovieTicketConfig.getChildPercentage());
     }
 
-    /**
-     * Testing testing 123
-     * <p>
-     * Sound check 12 check 12
-     * @param args
-     */
     public static void main(String[] args) {
         printConfigDetails();
 
         // Changing some values
         float newPHPrice = 69.420f;
-        
+
         updatePHPrice(newPHPrice);
 
         printConfigDetails();

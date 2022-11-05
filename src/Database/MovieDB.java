@@ -30,6 +30,7 @@ public class MovieDB {
      * Prints out movie titles
      */
     public static void printMovieList() {
+        // Sorry dayna got conflict >_<
         Movie[] movies = new MovieDB().getMovies();
         for (int i = 0; i < movies.length; i++) {
             System.out.printf("%2d. %s\n", i +  1, movies[i].getTitle());

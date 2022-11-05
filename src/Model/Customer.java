@@ -53,17 +53,17 @@ public class Customer extends Account {
         System.out.println("Email: " + this.email);
         System.out.println("Mobile: " + this.mobile);
     }
-
+    
     // I change the name to customerMenu ah to be consistent with the adminMenu
     // Also I changed it to a do while loop
     public void customerMenu() {
         Scanner scanner = new Scanner(System.in);
         int choice = 69420;
 
-        String movieChoiceString, cinemaChoice, cineplexChoice, seatID, showtimeChoice;
+        String cinemaChoice, cineplexChoice, seatID, showtimeChoice;
         Cineplex cineplex;
         Cinema cinema;
-        Movie movieChoice;
+        int movieChoiceInt;
 
         do {
             MovieDB movies = new MovieDB();
@@ -99,8 +99,8 @@ public class Customer extends Account {
                     // read from db
                     MovieDB.printMovieList();
                     System.out.println("Please choose the movie");
-                    movieChoiceString = scanner.nextLine();
-                    movieChoice = MovieDB.getMovieFromTitle(movieChoiceString);
+                    movieChoiceInt = scanner.nextInt();
+                    movieChoice = movies.getMovies()[movieChoiceInt - 1];
                     System.out.println("\n========================================================");
                     movieChoice.printMovieDetails();
                     System.out.println("========================================================\n");
@@ -111,23 +111,23 @@ public class Customer extends Account {
                     MovieDB.printMovieList();
                     // let customer choose a movie, then display seat availability
                     System.out.println("Please choose the movie");
-                    movieChoiceString = scanner.nextLine();
-                    movieChoice = MovieDB.getMovieFromTitle(movieChoiceString);
+                    movieChoiceInt = scanner.nextInt();
+                    movieChoice = movies.getMovies()[movieChoiceInt - 1];
                     // find movie from movies[]
                     movieChoice.printShowingPlaces();
-                    System.out.println("Please choose the cineplex");
+                    System.out.println("Please choose the cineplex: ");
                     cineplexChoice = scanner.next();
-                    System.out.println("Please choose the cinema");
+                    System.out.println("Please choose the cinema: ");
                     cinemaChoice = scanner.next();
                     // use db to find cineplex
                     cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
                     cinema = cineplex.findCinema(cinemaChoice);
                     // let customer choose showtime
                     movieChoice.printShowtimes(cinemaChoice);
-                    System.out.println("Please choose the showtime");
+                    System.out.println("Please choose the showtime: ");
                     showtimeChoice = scanner.next();
                     // let customer check seat availability
-                    System.out.println("Seat availablity is as follows");
+                    System.out.println("Seat availablity is as follows: ");
                     movieChoice.printSeats(cinema.getCinemaID(), showtimeChoice);
                     break;
 
@@ -137,28 +137,28 @@ public class Customer extends Account {
                     MovieDB.printMovieList();
                     // let customer select their movie
                     System.out.println("Which movie do you want to book for?");
-                    movieChoiceString = scanner.nextLine();
-                    movieChoice = MovieDB.getMovieFromTitle(movieChoiceString);
+                    movieChoiceInt = scanner.nextInt();
+                    movieChoice = movies.getMovies()[movieChoiceInt - 1];
                     // let customer select from the available cinemas
                     movieChoice.printShowingPlaces();
-                    System.out.println("Please choose the cineplex");
+                    System.out.println("Please choose the cineplex: ");
                     cineplexChoice = scanner.next();
-                    System.out.println("Please choose the cinema");
+                    System.out.println("Please choose the cinema: ");
                     cinemaChoice = scanner.next();
                     cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
                     cinema = cineplex.findCinema(cinemaChoice);
                     // let customer choose showtime
                     movieChoice.printShowtimes(cinemaChoice);
-                    System.out.println("Please choose the showtime");
+                    System.out.println("Please choose the showtime: ");
                     showtimeChoice = scanner.next();
                     movieChoice.printSeats(cinema.getCinemaID(), showtimeChoice);
 
-                    System.out.println("Select the seat you want (eg. A1)");
+                    System.out.println("Select the seat you want (eg. A1): ");
                     seatID = scanner.next();
                     boolean avail = movieChoice.checkSeat(cinemaChoice, showtimeChoice, seatID);
                     while (!avail) {
                         System.out.println("Seat is already taken!");
-                        System.out.println("Please choose another seat");
+                        System.out.println("Please choose another seat: ");
                         seatID = scanner.next();
                         avail = movieChoice.checkSeat(cinemaChoice, showtimeChoice, seatID);
                     }
@@ -196,8 +196,8 @@ public class Customer extends Account {
                 case 8:
                     System.out.println("Which movie would you like to add a review for?");
                     MovieDB.printMovieList();
-                    movieChoiceString = scanner.next();
-                    movieChoice = MovieDB.getMovieFromTitle(movieChoiceString);
+                    movieChoiceInt = scanner.nextInt();
+                    movieChoice = movies.getMovies()[movieChoiceInt - 1];
                     System.out.println("How many stars out of 5 would you give this movie?");
                     int stars = scanner.nextInt();
                     System.out.println("What is your review for this movie?");

@@ -17,7 +17,9 @@ public class MOBLIMAApp {
             System.out.flush();
             System.out.println("==================== Welcome to MOBLIMA ====================");
             System.out.println("======================== Login Menu ========================");
-            System.out.println("Enter login details - (type exit to quit MOBLIMA login page)");
+            System.out.println("Enter login details");
+            System.out.println(" - (type exit to quit MOBLIMA login page)");
+            System.out.println(" - (type new to create new customer account)");
 
             // ============================== LOGIN MENU ===============================
             // Login Menu for both Admin and Customer
@@ -25,14 +27,25 @@ public class MOBLIMAApp {
                     password = "INeedADefaultValueOtherwiseGotCompilationError";
             boolean isAdmin = false;
             boolean isLoggedIn = false;
+            boolean isCreateNewAccount = false;
 
             while (true) {
                 System.out.print("Username: ");
                 username = scanner.nextLine();
 
+                // Check user exit program
                 if (username.toLowerCase().compareTo("exit") == 0) {
-                    System.out.print("\033[2K"); // Erase line content
+                    System.out.print("\033[2K");
                     System.out.println("Bye bye... °^°");
+                    break;
+                }
+
+                // Check user create new customer account
+                if (username.toLowerCase().compareTo("new") == 0) {
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+                    CustomerDB.addNewCustomerAccount();
+                    isCreateNewAccount = true;
                     break;
                 }
 
@@ -61,13 +74,13 @@ public class MOBLIMAApp {
             // Not necessary need colours i just think they're neat
             if (isLoggedIn)
                 System.out.println("\n\u001B[36mWelcome ~~ " + username + " ~~ :D\n\u001B[0m");
-            
+
             try {
                 TimeUnit.MILLISECONDS.sleep(1500);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            
+
             System.out.print("\033[H\033[2J");
             System.out.flush();
 
@@ -81,21 +94,17 @@ public class MOBLIMAApp {
                 Admin admin = AdminDB.getAdminFromUsername(username, password);
 
                 admin.adminMenu();
-                // Other Admin stuff
 
             } else if (!isAdmin && isLoggedIn) {
                 Customer customer = CustomerDB.getCustomerFromUsername(username, password);
-                // Other Customer stuff
-                System.out.println("Customer Menu:");
-                while(true) {
-                    if(!customer.queryPurpose())
-                        break;
-                }
-                
-                break;
+
+                customer.customerMenu();
+
+            } else if (isCreateNewAccount) {
+                continue;
 
             } else if (!isLoggedIn) {
-                // Break program is user is not logged in anymore
+                // Break program if user is not logged in anymore
                 break;
             }
             // ========================================================================
@@ -106,8 +115,8 @@ public class MOBLIMAApp {
 }
 
 // Customer username and password:
-// snoopdogg
-// smokeweedeveryday1234
+// asdf
+// ;lkj
 // Admin username and password
 // bobatea
 // boba

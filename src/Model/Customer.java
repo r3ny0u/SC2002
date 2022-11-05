@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.sound.midi.Soundbank;
@@ -12,7 +13,7 @@ public class Customer extends Account {
     private String name;
     private String email;
     private String mobile;
-    private Transaction[] transactions;
+    private ArrayList<Transaction> transactions;
     private MovieTicket[] movieTickets;
 
     public Customer() {
@@ -27,7 +28,7 @@ public class Customer extends Account {
         this.mobile = mobile;
     }
 
-    public Customer(String customerID, String name, String email, String mobile, Transaction[] transactions,
+    public Customer(String customerID, String name, String email, String mobile, ArrayList<Transaction> transactions,
             MovieTicket[] movieTickets) {
         this.accountID = customerID;
         this.name = name;
@@ -171,7 +172,12 @@ public class Customer extends Account {
                     movieChoice.assignSeat(cinemaChoice, showtimeChoice, seatID, this.name);
 
                     // do bookings
-
+                    System.out.println("Please enter your age");
+                    String age = scanner.next();
+                    Transaction newTrans = new Transaction(showtimeChoice, age, cinema, dateChoice, movieChoice, accountID, seatID);
+                    System.out.println("Price of ticket : " + newTrans.getTicketPrice());
+                    transactions.add(newTrans);
+                    System.out.println("Booking Successful! :)");
                     break;
 
                 case 5:

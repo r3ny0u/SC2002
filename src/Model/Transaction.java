@@ -1,7 +1,9 @@
 package Model;
 
+import java.util.Random;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.DayOfWeek;
 
 public class Transaction {
 
@@ -9,7 +11,7 @@ public class Transaction {
 
     private String transactionID;
     private String time; // ??
-    private String age;
+    private String age; // shouldnt age be int?
     private String cinemaType;
     private String movieType;
     private String dayOfWeek;
@@ -17,6 +19,7 @@ public class Transaction {
     private String customerID;
     private String seatID;
     private String bookingTime;
+    private float ticketPrice;
 
     Transaction() {
     }
@@ -35,15 +38,23 @@ public class Transaction {
         this.seatID = seatID;
     }
 
-    public Transaction(String transactionID, String time, String age, String cinemaType, String movieType,
-            String dayOfWeek, Movie movie, String customerID, String seatID) {
+    public Transaction(String time, String age, Cinema cinema, String date, Movie movie, String customerID, String seatID) {
+ 
+        this.transactionID = cinema.getCinemaID().substring(0,2).toUpperCase() + LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYYMMDDhhmm"));
 
-        this.transactionID = transactionID;
-        this.time = time;
+        this.time = date + " : " + time;
         this.age = age;
-        this.cinemaType = cinemaType;
-        this.movieType = movieType;
-        this.dayOfWeek = dayOfWeek;
+        this.cinemaType = cinema.getCinemaType();
+        
+        if (movie.title.substring(0, 1) == "3D")
+            this.movieType = "3D";
+        else
+            this.movieType = "2D";
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime d = LocalDateTime.parse(date, formatter);
+        this.dayOfWeek = DayOfWeek.from(d).name();
+
         this.movie = movie;
         this.customerID = customerID;
         this.seatID = seatID;
@@ -60,6 +71,37 @@ public class Transaction {
         System.out.println("Movie: " + movie);
         System.out.println("Customer ID: " + customerID);
     }
+
+     public float getTicketPrice() {
+        MovieTicket movieTicket = new MovieTicket();
+        
+        if (getCinemaType() == "Normal")
+            movieTicket.setCinemaClass(CinemaClass.NORMAL);
+        else if (getCinemaType() == "Platinum")
+            movieTicket.setCinemaClass(CinemaClass.PLATINUM);
+
+        if (getMovieType() == "3D")
+            movieTicket.setMovieType(MovieType.MOVIE3D);
+        else if (getMovieType() == "2D")
+            movieTicket.setMovieType(MovieType.MOVIE2D);
+
+        if (Integer.parseInt(getAge()) <= 12)
+            movieTicket.setAge(Age.CHILD);
+        else if (Integer.parseInt(getAge()) >= 55)
+            movieTicket.setAge(Age.SENIOR_CITIZEN);
+        else if(Integer.parseInt(getAge()) > 12 && Integer.parseInt(getAge()) < 55)
+            movieTicket.setAge(Age.ADULT);
+
+        if (getDayOfWeek() == "Saturday" || getDayOfWeek() == "Sunday")
+            movieTicket.setDayOfWeek(Model.DayOfWeek.WEEKEND);
+        else
+            movieTicket.setDayOfWeek(Model.DayOfWeek.WEEKDAY);
+
+        movieTicket.calculateTicketPrice();
+        this.ticketPrice = movieTicket.getTicketPrice();
+        
+        return ticketPrice;
+     }
 
     public String getTransactionId() {
         return this.transactionID;

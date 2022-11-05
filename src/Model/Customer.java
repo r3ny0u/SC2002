@@ -45,7 +45,6 @@ public class Customer extends Account {
     public static boolean checkPassword(String username, String password) {
         return CustomerDB.getCustomerFromUsername(username, password) != null;
     }
- 
 
     public void printCustomerDetails() {
         // System.out.println("\nHere are your details UwU\n");
@@ -64,7 +63,7 @@ public class Customer extends Account {
     public boolean queryPurpose() {
         MovieDB movies = new MovieDB();
         movies.sortByAlphabet();
-        String movieChoiceString, cinemaChoice, cineplexChoice, seatID;
+        String movieChoiceString, cinemaChoice, cineplexChoice, seatID, showtimeChoice;
         Cineplex cineplex;
         Cinema cinema;
         Movie[] movieArray;
@@ -118,7 +117,13 @@ public class Customer extends Account {
                 // use db to find cineplex
                 cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
                 cinema = cineplex.findCinema(cinemaChoice);
-                movieChoice.printSeats(cinema.getCinemaID());
+                // let customer choose showtime
+                movieChoice.printShowtimes(cinemaChoice);
+                System.out.println("Please choose the showtime");
+                showtimeChoice = scanner.next();
+                // let customer check seat availability
+                System.out.println("Seat availablity is as follows");
+                movieChoice.printSeats(cinema.getCinemaID(), showtimeChoice);
                 break;
             case 4:
                 // make a booking
@@ -136,21 +141,24 @@ public class Customer extends Account {
                 cinemaChoice = scanner.next();
                 cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
                 cinema = cineplex.findCinema(cinemaChoice);
-                movieChoice.printSeats(cinema.getCinemaID());
+                // let customer choose showtime
+                movieChoice.printShowtimes(cinemaChoice);
+                System.out.println("Please choose the showtime");
+                showtimeChoice = scanner.next();
+                movieChoice.printSeats(cinema.getCinemaID(), showtimeChoice);
 
                 System.out.println("Select the seat you want (eg. A1)");
                 seatID = scanner.next();
-                boolean avail = movieChoice.checkSeat(cinemaChoice, seatID);
+                boolean avail = movieChoice.checkSeat(cinemaChoice, showtimeChoice, seatID);
                 while (!avail) {
                     System.out.println("Seat is already taken!");
                     System.out.println("Please choose another seat");
                     seatID = scanner.next();
-                    avail = movieChoice.checkSeat(cinemaChoice, seatID);
+                    avail = movieChoice.checkSeat(cinemaChoice, showtimeChoice, seatID);
                 }
-                movieChoice.assignSeat(cinemaChoice, seatID, this.name);
+                movieChoice.assignSeat(cinemaChoice, showtimeChoice, seatID, this.name);
 
                 // do bookings
-                
 
                 break;
             case 5:

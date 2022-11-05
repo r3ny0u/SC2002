@@ -17,7 +17,6 @@ public class Movie {
     protected Map<String, ArrayList<String>> showingPlaces;
     protected Map<String, Map<String, Seat[]>> seats; // cinemaID->showtimes->seats
 
-
     // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
     public Movie(String title, String status, String synopsis, String director, ArrayList<String> casts) {
         this.title = title;
@@ -60,31 +59,30 @@ public class Movie {
         // // rating.printRating()
         // }
     }
-    
+
     public void addShowtimes(String cinemaID, ArrayList<String> showtime) {
-        int i=0,j=0;
+        int i = 0, j = 0;
         Seat[] s = new Seat[100];
-        for(j=1; j<=100; j++)
-        {   
-            if(j%10 == 0)
+        for (j = 1; j <= 100; j++) {
+            if (j % 10 == 0)
                 i++;
-            String row = "" + (char)(65+i);
-            s[j-1] = new Seat(row + (j-1));
-            
+            String row = "" + (char) (65 + i);
+            s[j - 1] = new Seat(row + (j - 1));
+
         }
         Map<String, Seat[]> temp = new HashMap<>();
-            for(String str : showtime)
-                temp.put(str, s);
+        for (String str : showtime)
+            temp.put(str, s);
 
         if (seats == null || !seats.containsKey(cinemaID)) {
             seats = new HashMap<>();
             seats.put(cinemaID, temp);
         }
 
-        else if(seats.containsKey(cinemaID)) {
-            
+        else if (seats.containsKey(cinemaID)) {
+
             temp = seats.get(cinemaID);
-            for(String str : showtime)
+            for (String str : showtime)
                 temp.put(str, s);
             seats.put(cinemaID, temp);
         }
@@ -92,25 +90,24 @@ public class Movie {
 
     public void printShowtimes(String cinemaID) {
         Map<String, Seat[]> temp = seats.get(cinemaID);
-        for (String key :temp.keySet())
+        for (String key : temp.keySet())
             System.out.println(key);
     }
 
     public void printSeats(String cinemaID, String showtime) {
-        int i,j;
+        int i, j;
         int[][] seatMatrix = new int[10][10];
         i = j = 0;
 
         for (Seat s : seats.get(cinemaID).get(showtime)) {
-            if(s.assigned)
+            if (s.assigned)
                 seatMatrix[i][j] = 1;
             else
                 seatMatrix[i][i] = 0;
             j++;
 
-            if(j == 10)
-            {
-                j=0;
+            if (j == 10) {
+                j = 0;
                 i++;
             }
         }
@@ -118,14 +115,12 @@ public class Movie {
         System.out.println("=================Screen=================\n");
 
         System.out.println("   1   2   3   4   5   6   7   8   9   10");
-        for(i = 0; i < 10; i++)
-        {
-            System.out.print((char)(65+i) + " ");
-            for(j = 0; j < 10; j++)
-            {
+        for (i = 0; i < 10; i++) {
+            System.out.print((char) (65 + i) + " ");
+            for (j = 0; j < 10; j++) {
                 if (seatMatrix[i][j] == 1)
                     System.out.print("|x| ");
-                else    
+                else
                     System.out.print("|O| ");
             }
             System.out.println();
@@ -134,8 +129,7 @@ public class Movie {
         System.out.println("Legend\n|x| = taken\n|O| = available\n");
     }
 
-    public boolean assignSeat(String cinemaID, String showtime, String seatID, String customerID)
-    {
+    public boolean assignSeat(String cinemaID, String showtime, String seatID, String customerID) {
         Seat[] s = seats.get(cinemaID).get(showtime);
         int row = seatID.charAt(0);
         row -= 65;
@@ -143,9 +137,8 @@ public class Movie {
         this.salesCount++;
         return s[(row * 10) + col].assign(customerID);
     }
-    
-    public boolean checkSeat(String cinemaID, String showtime, String seatID)
-    {
+
+    public boolean checkSeat(String cinemaID, String showtime, String seatID) {
         Seat[] s = seats.get(cinemaID).get(showtime);
         int row = seatID.charAt(0);
         row -= 65;

@@ -13,7 +13,6 @@ public class Movie{
     protected double overallRating;
     protected int ratingCount;
     protected ArrayList<Rating> reviews;
-    // protected Map<String, Seat[]> seats;
     protected int salesCount;
     protected Map<String, ArrayList<String>> showingPlaces;
     protected Map<String, Map<String, Seat[]>> seats; // cinemaID->showtimes->seats

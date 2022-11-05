@@ -24,6 +24,10 @@ public class Cinema {
         this.cinemaID = cinemaID;
     }
 
+    public String getCinemaType() {
+        return this.cinemaType;
+    }
+
     public void printCinemaDetails() {
         System.out.println(cinemaID);
         System.out.println(cinemaType);

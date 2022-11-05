@@ -34,8 +34,9 @@ public class MovieDB {
         Movie[] movies = new MovieDB().getMovies();
         for (int i = 0; i < movies.length; i++) {
             System.out.printf("%2d. %s\n", i +  1, movies[i].getTitle());
-        }
 
+        }
+        System.out.println("\n========================================================");
     }
 
     public static Movie getMovieFromTitle(String title) {

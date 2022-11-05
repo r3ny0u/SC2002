@@ -60,7 +60,7 @@ public class Customer extends Account {
         Scanner scanner = new Scanner(System.in);
         int choice = 69420;
 
-        String cinemaChoice, cineplexChoice, seatID, showtimeChoice;
+        String cinemaChoice, cineplexChoice, seatID, showtimeChoice, dateChoice;
         Cineplex cineplex;
         Cinema cinema;
         int movieChoiceInt;
@@ -115,7 +115,7 @@ public class Customer extends Account {
                     movieChoiceInt = scanner.nextInt();
                     movieChoice = movies.getMovies()[movieChoiceInt - 1];
                     // find movie from movies[]
-                    movieChoice.printShowingPlaces();
+                    movieChoice.printAllShowtimes();
                     System.out.println("Please choose the cineplex: ");
                     cineplexChoice = scanner.next();
                     System.out.println("Please choose the cinema: ");
@@ -124,12 +124,13 @@ public class Customer extends Account {
                     cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
                     cinema = cineplex.findCinema(cinemaChoice);
                     // let customer choose showtime
-                    movieChoice.printShowtimes(cinemaChoice);
+                    System.out.println("Please choose a showing date (eg. 13/11/2022)");
+                    dateChoice = scanner.next();
                     System.out.println("Please choose the showtime: ");
                     showtimeChoice = scanner.next();
                     // let customer check seat availability
                     System.out.println("Seat availablity is as follows: ");
-                    movieChoice.printSeats(cinema.getCinemaID(), showtimeChoice);
+                    movieChoice.printSeats(cinema.getCinemaID(), dateChoice, showtimeChoice);
                     break;
 
                 case 4:
@@ -141,7 +142,7 @@ public class Customer extends Account {
                     movieChoiceInt = scanner.nextInt();
                     movieChoice = movies.getMovies()[movieChoiceInt - 1];
                     // let customer select from the available cinemas
-                    movieChoice.printShowingPlaces();
+                    movieChoice.printAllShowtimes();
                     System.out.println("Please choose the cineplex: ");
                     cineplexChoice = scanner.next();
                     System.out.println("Please choose the cinema: ");
@@ -149,10 +150,11 @@ public class Customer extends Account {
                     cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
                     cinema = cineplex.findCinema(cinemaChoice);
                     // let customer choose showtime
-                    movieChoice.printShowtimes(cinemaChoice);
+                    System.out.println("Please choose a showing date (eg. 13/11/2022)");
+                    dateChoice = scanner.next();
                     System.out.println("Please choose the showtime: ");
                     showtimeChoice = scanner.next();
-                    movieChoice.printSeats(cinema.getCinemaID(), showtimeChoice);
+                    movieChoice.printSeats(cinema.getCinemaID(), dateChoice, showtimeChoice);
 
                     System.out.println("Select the seat you want (eg. A1): ");
                     seatID = scanner.next();

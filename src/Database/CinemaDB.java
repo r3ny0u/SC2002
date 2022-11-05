@@ -7,7 +7,8 @@ public class CinemaDB {
     private Cinema[] cinemas;
 
     public CinemaDB() {
-        this.cinemas = DatabaseReader.readCinemaDatabase();
+        // readCinemaDatabase has not been implemented
+        // this.cinemas = DatabaseReader.readCinemaDatabase();
     }
 
     public Cinema[] getCinemas() {

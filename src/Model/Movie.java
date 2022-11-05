@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Movie{
+public class Movie {
     protected String title;
     protected String status;
     protected String synopsis;
@@ -17,6 +17,7 @@ public class Movie{
     protected Map<String, ArrayList<String>> showingPlaces;
     protected Map<String, Map<String, Seat[]>> seats; // cinemaID->showtimes->seats
 
+
     // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
     public Movie(String title, String status, String synopsis, String director, ArrayList<String> casts) {
         this.title = title;
@@ -26,7 +27,8 @@ public class Movie{
         this.casts = casts;
     }
 
-    public Movie(String title, String status, String synopsis, String director, ArrayList<String> casts, ArrayList<String> cinemaNames) {
+    public Movie(String title, String status, String synopsis, String director, ArrayList<String> casts,
+            ArrayList<String> cinemaNames) {
         this.title = title;
         this.status = status;
         this.synopsis = synopsis;
@@ -36,15 +38,13 @@ public class Movie{
         this.reviews = new ArrayList<Rating>();
         this.ratingCount = 0;
         this.salesCount = 0;
-        
-        
     }
 
     public String getTitle() {
         return this.title;
     }
 
-    public int getSalesCount(){
+    public int getSalesCount() {
         return this.salesCount;
     }
 
@@ -56,11 +56,11 @@ public class Movie{
         System.out.println("Cast      : " + String.join(", ", casts));
         System.out.println("Ratings   : " + overallRating + " / 5.0 stars");
         // for (Rating rating : reviews) {
-        //     // Haven't made this method thing yet
-        //     // rating.printRating()
+        // // Haven't made this method thing yet
+        // // rating.printRating()
         // }
     }
-
+    
     public void addShowtimes(String cinemaID, ArrayList<String> showtime) {
         int i=0,j=0;
         Seat[] s = new Seat[100];
@@ -116,6 +116,7 @@ public class Movie{
         }
 
         System.out.println("=================Screen=================\n");
+
         System.out.println("   1   2   3   4   5   6   7   8   9   10");
         for(i = 0; i < 10; i++)
         {
@@ -140,7 +141,7 @@ public class Movie{
         row -= 65;
         int col = Integer.parseInt(String.valueOf(seatID.substring(1))) - 1;
         this.salesCount++;
-        return s[(row*10)+col].assign(customerID);
+        return s[(row * 10) + col].assign(customerID);
     }
     
     public boolean checkSeat(String cinemaID, String showtime, String seatID)
@@ -149,38 +150,36 @@ public class Movie{
         int row = seatID.charAt(0);
         row -= 65;
         int col = Integer.parseInt(String.valueOf(seatID.charAt(1)));
-        return s[(row*10)+col].assigned;
+        return s[(row * 10) + col].assigned;
     }
 
     public void addReviews(String customerID, String review, float rating) {
-        Rating newRating = new Model.Rating(customerID,review,rating);
+        Rating newRating = new Model.Rating(customerID, review, rating);
         reviews.add(newRating);
         this.ratingCount++;
         overallRating = ((overallRating * review.length()) + rating) /
-        (review.length() + 1);
+                (review.length() + 1);
     }
-    public double getRating(){
-        if (ratingCount>1)
+
+    public double getRating() {
+        if (ratingCount > 1)
             return overallRating;
         else
             return -1;
     }
 
     public void addShowingPlaces(String cineplexID, String cinemaID) {
-        if(showingPlaces == null) {
+        if (showingPlaces == null) {
             showingPlaces = new HashMap<>();
-                ArrayList<String> temp = new ArrayList<String>();
-                temp.add(cinemaID);
-                showingPlaces.put(cineplexID, temp);
-            
+            ArrayList<String> temp = new ArrayList<String>();
+            temp.add(cinemaID);
+            showingPlaces.put(cineplexID, temp);
+
         }
 
-
-        else if(showingPlaces.containsKey(cineplexID)) {
+        else if (showingPlaces.containsKey(cineplexID)) {
             showingPlaces.computeIfAbsent(cineplexID, k -> new ArrayList<String>()).add(cinemaID);
-        }
-        else
-        {
+        } else {
             ArrayList<String> temp = new ArrayList<String>();
             temp.add(cinemaID);
             showingPlaces.put(cineplexID, temp);
@@ -189,7 +188,8 @@ public class Movie{
 
     public void printShowingPlaces() {
         for (String key : showingPlaces.keySet()) {
-            System.out.println("\n=====================================================================\nCineplex: " + key);
+            System.out.println(
+                    "\n=====================================================================\nCineplex: " + key);
             System.out.print("Cinemas: ");
             for (String str : showingPlaces.get(key)) {
                 System.out.print(str + "    ");

@@ -26,13 +26,14 @@ public class MovieDB {
         DatabaseWriter.removeMovie();
     }
 
+    /**
+     * Prints out movie titles
+     */
     public static void printMovieList() {
-        int count = 1;
-        for (Movie movie : new MovieDB().getMovies()) {
-            System.out.printf("(" + count + ") " + movie.getTitle()); // should just print out the titles instead of
-                                                                      // details for all movies
-            count++;
-            System.out.println("\n");
+        // Sorry dayna got conflict >_<
+        Movie[] movies = new MovieDB().getMovies();
+        for (int i = 0; i < movies.length; i++) {
+            System.out.printf("%2d. %s\n", i +  1, movies[i].getTitle());
         }
 
     }

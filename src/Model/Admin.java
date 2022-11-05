@@ -5,7 +5,6 @@ import java.util.Scanner;
 import Database.AdminDB;
 import Database.MovieDB;
 import Database.MovieTicketConfig;
-import DatabaseBoundary.DatabaseWriter;
 
 public class Admin extends Account {
     // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR

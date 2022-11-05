@@ -35,6 +35,8 @@ public class MovieTicket {
         calculateTicketPrice();
     }
 
+    public MovieTicket() {};
+
     public float getTicketPrice() {
         return this.ticketPrice;
     }

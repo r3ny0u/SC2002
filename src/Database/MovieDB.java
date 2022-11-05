@@ -27,11 +27,12 @@ public class MovieDB {
     }
 
     public static void printMovieList() {
+        System.out.println("\n========================================================");
         for (Movie movie : new MovieDB().getMovies()) {
             System.out.println(movie.getTitle()); // should just print out the titles instead of details for all movies
             System.out.println("\n");
         }
-
+        System.out.println("\n========================================================");
     }
 
     public static Movie getMovieFromTitle(String title) {

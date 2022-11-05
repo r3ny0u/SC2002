@@ -3,7 +3,9 @@ package Model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 public class Movie {
     protected String title;
     protected String status;
@@ -15,8 +17,7 @@ public class Movie {
     protected ArrayList<Rating> reviews;
     protected int salesCount;
     protected Map<String, ArrayList<String>> showingPlaces;
-    protected Map<String, Map<String, Seat[]>> seats; // cinemaID->showtimes->seats
-
+    protected Map<String, Map<Showtime, Seat[]>> seats; // cinemaID->showtimes->seats
 
     // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
     public Movie(String title, String status, String synopsis, String director, ArrayList<String> casts) {
@@ -49,83 +50,111 @@ public class Movie {
     }
 
     public void printMovieDetails() {
+        System.out.println("\n========================================================");
         System.out.println("Title     : " + title);
         System.out.println("Status    : " + status);
         System.out.println("Synopsis  :\n" + synopsis);
         System.out.println("Director  : " + director);
         System.out.println("Cast      : " + String.join(", ", casts));
         System.out.println("Ratings   : " + overallRating + " / 5.0 stars");
+        System.out.println("========================================================\n");
         // for (Rating rating : reviews) {
         // // Haven't made this method thing yet
         // // rating.printRating()
         // }
     }
-    
-    public void addShowtimes(String cinemaID, ArrayList<String> showtime) {
-        int i=0,j=0;
+
+    public void addShowtimes(String cinemaID, String date, ArrayList<String> showtimes) {
+        int i = 0, j = 0, n = 0;
         Seat[] s = new Seat[100];
-        for(j=1; j<=100; j++)
-        {   
-            if(j%10 == 0)
+        for (j = 1; j <= 100; j++) {
+            if (j % 10 == 0)
                 i++;
-            String row = "" + (char)(65+i);
-            s[j-1] = new Seat(row + (j-1));
-            
-        }
-        Map<String, Seat[]> temp = new HashMap<>();
-            for(String str : showtime)
-                temp.put(str, s);
-
-        if (seats == null || !seats.containsKey(cinemaID)) {
-            seats = new HashMap<>();
-            seats.put(cinemaID, temp);
+            String row = "" + (char) (65 + i);
+            s[j - 1] = new Seat(row + (j - 1));
         }
 
-        else if(seats.containsKey(cinemaID)) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate d = LocalDate.parse(date, formatter);
+        String day = DayOfWeek.from(d).name();
+
+        for (String st : showtimes) {
+            Showtime showtime = new Showtime(date, day, st);
+            Map<Showtime, Seat[]> temp = new HashMap<>();
+            temp.put(showtime, s);
+            if (seats == null) {
+                seats = new HashMap<>();
+                seats.put(cinemaID, temp);
+            }
+
+            else if (seats.containsKey(cinemaID)) {
+                seats.computeIfAbsent(cinemaID, k -> new HashMap()).put(showtime, s);
+            }
+
+            else {
+                seats.put(cinemaID, temp);
+            }
             
-            temp = seats.get(cinemaID);
-            for(String str : showtime)
-                temp.put(str, s);
-            seats.put(cinemaID, temp);
         }
     }
 
-    public void printShowtimes(String cinemaID) {
-        Map<String, Seat[]> temp = seats.get(cinemaID);
-        for (String key :temp.keySet())
-            System.out.println(key);
+    public void printAllShowtimes() {
+        String oldDate = "";
+        for (String cineplexID : showingPlaces.keySet()) {
+            System.out.println("\n=====================================================================\nCineplex: " + cineplexID);
+            
+            for (String cinemaID : showingPlaces.get(cineplexID)) {
+                System.out.println("Cinema: " + cinemaID);
+                
+                for (Showtime st : seats.get(cinemaID).keySet()) {
+                    if (oldDate != st.date) {
+                        oldDate = st.date;
+                        System.out.print("\n" + oldDate + ": " + st.time + " ");
+                    }
+
+                    else {
+                        System.out.print(st.time + " ");
+                    }
+                }
+                System.out.println();
+            }
+            System.out.println();
+        }
+
     }
 
-    public void printSeats(String cinemaID, String showtime) {
-        int i,j;
+    public void printSeats(String cinemaID, String date, String showtime) {
+        int i, j;
         int[][] seatMatrix = new int[10][10];
         i = j = 0;
 
-        for (Seat s : seats.get(cinemaID).get(showtime)) {
-            if(s.assigned)
-                seatMatrix[i][j] = 1;
-            else
-                seatMatrix[i][i] = 0;
-            j++;
+        for (Showtime st : seats.get(cinemaID).keySet()) {
+            if(st.date != date && st.time != showtime)
+                continue;
+            
+            for (Seat s : seats.get(cinemaID).get(st)) {    
+                if (s.assigned)
+                    seatMatrix[i][j] = 1;
+                else
+                    seatMatrix[i][i] = 0;
+                j++;
 
-            if(j == 10)
-            {
-                j=0;
-                i++;
+                if (j == 10) {
+                    j = 0;
+                    i++;
+                }
             }
         }
 
         System.out.println("=================Screen=================\n");
 
         System.out.println("   1   2   3   4   5   6   7   8   9   10");
-        for(i = 0; i < 10; i++)
-        {
-            System.out.print((char)(65+i) + " ");
-            for(j = 0; j < 10; j++)
-            {
+        for (i = 0; i < 10; i++) {
+            System.out.print((char) (65 + i) + " ");
+            for (j = 0; j < 10; j++) {
                 if (seatMatrix[i][j] == 1)
                     System.out.print("|x| ");
-                else    
+                else
                     System.out.print("|O| ");
             }
             System.out.println();
@@ -134,19 +163,17 @@ public class Movie {
         System.out.println("Legend\n|x| = taken\n|O| = available\n");
     }
 
-    public boolean assignSeat(String cinemaID, String showtime, String seatID, String customerID)
-    {
-        Seat[] s = seats.get(cinemaID).get(showtime);
+    public boolean assignSeat(String cinemaID, String showtimes, String seatID, String customerID) {
+        Seat[] s = seats.get(cinemaID).get(showtimes);
         int row = seatID.charAt(0);
         row -= 65;
         int col = Integer.parseInt(String.valueOf(seatID.substring(1))) - 1;
         this.salesCount++;
         return s[(row * 10) + col].assign(customerID);
     }
-    
-    public boolean checkSeat(String cinemaID, String showtime, String seatID)
-    {
-        Seat[] s = seats.get(cinemaID).get(showtime);
+
+    public boolean checkSeat(String cinemaID, String showtimes, String seatID) {
+        Seat[] s = seats.get(cinemaID).get(showtimes);
         int row = seatID.charAt(0);
         row -= 65;
         int col = Integer.parseInt(String.valueOf(seatID.charAt(1)));
@@ -197,4 +224,5 @@ public class Movie {
         }
         System.out.println("\n=====================================================================");
     }
+
 }

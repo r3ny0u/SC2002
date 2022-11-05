@@ -13,9 +13,10 @@ public class Movie{
     protected double overallRating;
     protected int ratingCount;
     protected ArrayList<Rating> reviews;
-    protected Map<String, Seat[]> seats;
+    // protected Map<String, Seat[]> seats;
     protected int salesCount;
     protected Map<String, ArrayList<String>> showingPlaces;
+    protected Map<String, Map<String, Seat[]>> seats; // cinemaID->showtimes->seats
 
     // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
     public Movie(String title, String status, String synopsis, String director, ArrayList<String> casts) {
@@ -37,20 +38,7 @@ public class Movie{
         this.ratingCount = 0;
         this.salesCount = 0;
         
-        int n=0,i=0,j=0;
-        Seat[] s = new Seat[100];
-        for(n=0; n < cinemaNames.size(); n++)
-        {
-            for(j=1; j<=100; j++)
-            {   
-                if(j%10 == 0)
-                    i++;
-                String row = "" + (char)(65+i);
-                s[j-1] = new Seat(row + (j-1));
-                
-            }
-            seats.put(cinemaNames.get(n),s);
-        }
+        
     }
 
     public String getTitle() {
@@ -74,36 +62,71 @@ public class Movie{
         // }
     }
 
-    public void printSeats(String cinemaName) {
+    public void addShowtimes(String cinemaID, ArrayList<String> showtime) {
+        int i=0,j=0;
+        Seat[] s = new Seat[100];
+        for(j=1; j<=100; j++)
+        {   
+            if(j%10 == 0)
+                i++;
+            String row = "" + (char)(65+i);
+            s[j-1] = new Seat(row + (j-1));
+            
+        }
+        Map<String, Seat[]> temp = new HashMap<>();
+            for(String str : showtime)
+                temp.put(str, s);
+
+        if (seats == null || !seats.containsKey(cinemaID)) {
+            seats = new HashMap<>();
+            seats.put(cinemaID, temp);
+        }
+
+        else if(seats.containsKey(cinemaID)) {
+            
+            temp = seats.get(cinemaID);
+            for(String str : showtime)
+                temp.put(str, s);
+            seats.put(cinemaID, temp);
+        }
+    }
+
+    public void printShowtimes(String cinemaID) {
+        Map<String, Seat[]> temp = seats.get(cinemaID);
+        for (String key :temp.keySet())
+            System.out.println(key);
+    }
+
+    public void printSeats(String cinemaID, String showtime) {
         int i,j;
         int[][] seatMatrix = new int[10][10];
         i = j = 0;
 
-        for (Seat s : seats.get(cinemaName)) {
+        for (Seat s : seats.get(cinemaID).get(showtime)) {
             if(s.assigned)
                 seatMatrix[i][j] = 1;
             else
                 seatMatrix[i][i] = 0;
             j++;
 
-            if(j == 9)
+            if(j == 10)
             {
                 j=0;
                 i++;
             }
-            System.out.println("\n");
         }
 
         System.out.println("=================Screen=================\n");
+        System.out.println("   1   2   3   4   5   6   7   8   9   10");
         for(i = 0; i < 10; i++)
         {
-            System.out.println((char)(65+i));
+            System.out.print((char)(65+i) + " ");
             for(j = 0; j < 10; j++)
             {
                 if (seatMatrix[i][j] == 1)
-                    System.out.println("|x| ");
+                    System.out.print("|x| ");
                 else    
-                    System.out.println("|O| ");
+                    System.out.print("|O| ");
             }
             System.out.println();
         }
@@ -111,19 +134,19 @@ public class Movie{
         System.out.println("Legend\n|x| = taken\n|O| = available\n");
     }
 
-    public boolean assignSeat(String cinemaName, String seatID, String customerID)
+    public boolean assignSeat(String cinemaID, String showtime, String seatID, String customerID)
     {
-        Seat[] s = seats.get(cinemaName);
+        Seat[] s = seats.get(cinemaID).get(showtime);
         int row = seatID.charAt(0);
         row -= 65;
-        int col = Integer.parseInt(String.valueOf(seatID.charAt(1)));
+        int col = Integer.parseInt(String.valueOf(seatID.substring(1))) - 1;
         this.salesCount++;
         return s[(row*10)+col].assign(customerID);
     }
     
-    public boolean checkSeat(String cinemaName, String seatID)
+    public boolean checkSeat(String cinemaID, String showtime, String seatID)
     {
-        Seat[] s = seats.get(cinemaName);
+        Seat[] s = seats.get(cinemaID).get(showtime);
         int row = seatID.charAt(0);
         row -= 65;
         int col = Integer.parseInt(String.valueOf(seatID.charAt(1)));

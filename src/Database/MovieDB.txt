@@ -13,3 +13,13 @@ Not showing
 TestSynopsis1
 Jason's Father
 Jason's Father,Jason's Mother,Jason's xiaodidi,why is it all Jason lol
+Sensor Interfacing
+Not showing
+This course is a revamped version of the previous CE3002 to focus on the latest sensor and control technologies that are used in the industry which have largely migrated to the digital domains.   
+Clement Chia
+No one,You,Me,Us
+Statistics
+Not showing
+I love stats
+Adams Kong
+Mrs Kong

@@ -31,9 +31,11 @@ public class MovieDB {
      */
     public static void printMovieList() {
         // Sorry dayna got conflict >_<
-        Movie[] movies = new MovieDB().getMovies();
+        MovieDB movieDB = new MovieDB();
+        movieDB.sortByAlphabet();
+        Movie[] movies = movieDB.getMovies();
         for (int i = 0; i < movies.length; i++) {
-            System.out.printf("%2d. %s\n", i +  1, movies[i].getTitle());
+            System.out.printf("%2d. %s\n", i + 1, movies[i].getTitle());
 
         }
         System.out.println("\n========================================================");
@@ -57,7 +59,7 @@ public class MovieDB {
     }
 
     public void sortByRating() {
-        Arrays.sort(movies, new Comparator<Movie>() {
+        Arrays.sort(this.movies, new Comparator<Movie>() {
 
             @Override
             public int compare(Movie o1, Movie o2) {
@@ -71,7 +73,7 @@ public class MovieDB {
     }
 
     public void sortByAlphabet() {
-        Arrays.sort(movies, new Comparator<Movie>() {
+        Arrays.sort(this.movies, new Comparator<Movie>() {
 
             @Override
             public int compare(Movie o1, Movie o2) {

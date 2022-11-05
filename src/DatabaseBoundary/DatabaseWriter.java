@@ -389,6 +389,7 @@ public class DatabaseWriter {
      */
     public static void removeRating() {
         // Should this be implemented idk i lazy
+        // d: think dn lah kinda mafan LOL
     }
 
     /**

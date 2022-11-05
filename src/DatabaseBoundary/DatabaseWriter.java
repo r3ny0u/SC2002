@@ -233,14 +233,14 @@ public class DatabaseWriter {
             // Asking time!!
             System.out.println("Adding new customer account...\n");
 
-            System.out.println("Username: ");
+            System.out.print("Username: ");
             username = sc.nextLine();
 
-            System.out.println("Password: ");
+            System.out.print("Password: ");
             password = sc.nextLine();
 
             do {
-                System.out.println("Confirm password: ");
+                System.out.print("Confirm password: ");
                 confirmPassword = sc.nextLine();
             } while (confirmPassword.compareTo(password) != 0);
 
@@ -250,10 +250,10 @@ public class DatabaseWriter {
                 return;
             }
 
-            System.out.println("Email: ");
+            System.out.print("Email: ");
             email = sc.nextLine();
 
-            System.out.println("Mobile: ");
+            System.out.print("Mobile: ");
             mobile = sc.nextLine();
 
             bufferedWriter.write(username + "\n");

@@ -54,7 +54,7 @@ public class Cinema {
 
     public void removeMovieFromCinema(String movieName) {
         for (int i = 0; i < movies.size(); i++) {
-            if (movies.get(i).getTitle().compareTo(movieName) == 0) {
+            if (movies.get(i).getTitle().toLowerCase().compareTo(movieName.toLowerCase()) == 0) {
                 movies.remove(i);
             }
         }

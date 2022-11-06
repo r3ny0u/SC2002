@@ -3,6 +3,9 @@ package Model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import Database.RatingDB;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -15,7 +18,7 @@ public class Movie {
     protected ArrayList<String> casts;
     protected double overallRating;
     protected int ratingCount;
-    protected ArrayList<Rating> reviews;
+    protected ArrayList<Rating> reviews = new ArrayList<Rating>();
     protected int salesCount;
     protected Map<String, ArrayList<String>> showingPlaces;
     protected Map<String, Map<Showtime, Seat[]>> seats; // cinemaID->showtimes->seats
@@ -36,7 +39,7 @@ public class Movie {
         this.synopsis = synopsis;
         this.director = director;
         this.casts = casts;
-        this.overallRating = 5.0;
+        this.overallRating = 0.0;
         this.reviews = new ArrayList<Rating>();
         this.ratingCount = 0;
         this.salesCount = 0;
@@ -51,18 +54,24 @@ public class Movie {
     }
 
     public void printMovieDetails() {
-        System.out.println("\n========================================================");
+        this.loadRatingsAndReviews();
+        System.out.println("\n================== Movie Details =======================");
         System.out.println("Title     : " + title);
         System.out.println("Status    : " + status);
         System.out.println("Synopsis  : " + synopsis);
         System.out.println("Director  : " + director);
         System.out.println("Cast      : " + String.join(", ", casts));
-        System.out.println("Ratings   : " + overallRating + " / 5.0 stars");
+        System.out.printf("Ratings   : %.2f / 5.0 STARS\n", this.overallRating);
+
+        if (this.reviews.size() != 0) {
+            System.out.println("\nReviews   : ");
+            for (int i = 0; i < this.reviews.size(); i++) {
+                Rating rating = this.reviews.get(i);
+                System.out.printf("%2d. %-14s: %s\n", i + 1, rating.getUsername(), rating.getReview());
+            }
+        }
+
         System.out.println("========================================================\n");
-        // for (Rating rating : reviews) {
-        // // Haven't made this method thing yet
-        // // rating.printRating()
-        // }
     }
 
     public void addShowtimes(String cinemaID, String date, ArrayList<String> showtimes) {
@@ -227,4 +236,20 @@ public class Movie {
         System.out.println("\n=====================================================================");
     }
 
+    public void loadRatingsAndReviews() {
+        // Get all ratings, then match rating movie title to this.title, if the same
+        // then we know that the rating belongs to this movie, and then we add the
+        // rating to this movie
+        // Shit now i confuse rating and reviews, rating is number, revies is string
+        Rating[] allRatings = new RatingDB().getRatings();
+        double ratingSum = 0;
+        for (Rating rating : allRatings) {
+            if (rating.getMovie().compareTo(this.getTitle()) == 0) {
+                this.reviews.add(rating);
+                this.ratingCount++;
+                ratingSum += rating.getRating();
+            }
+        }
+        this.overallRating = this.ratingCount == 0 ? 0 : ratingSum / ratingCount;
+    }
 }

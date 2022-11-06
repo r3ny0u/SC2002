@@ -2,12 +2,14 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 // import javax.sound.midi.Soundbank;
 
 import Database.CineplexDB;
 import Database.CustomerDB;
 import Database.MovieDB;
+import Database.RatingDB;
 
 public class Customer extends Account {
     private String name;
@@ -114,12 +116,18 @@ public class Customer extends Account {
                         System.out.print("Please choose a movie: ");
                         movieChoiceInt = scanner.nextInt();
 
-                        if (movieChoiceInt == movieArray.length + 1) break;
+                        if (movieChoiceInt == movieArray.length + 1)
+                            break;
+
+                        if (movieChoiceInt <= 0 || movieChoiceInt > movieArray.length + 1)
+                            continue;
 
                         movieChoice = movieArray[movieChoiceInt - 1];
-                        // System.out.println("\n========================================================");
+
+                        System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
+                        System.out.flush();
                         movieChoice.printMovieDetails();
-                        // System.out.println("========================================================\n");
+
                         System.out.println("Press <Enter> to Exit View");
                         scanner.nextLine();
                         scanner.nextLine();
@@ -223,30 +231,61 @@ public class Customer extends Account {
                     break;
 
                 case 8:
-                    System.out.println("Which movie would you like to add a review for?");
+                    // Show movie listings, let user choose movie, and add ratings
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+                    System.out.println("\n=================== Movie Titles =====================");
                     MovieDB.printMovieList();
-                    System.out.printf("Enter your movie choice: ");
+                    System.out.printf("%2d. Quit\n", movieArray.length + 1);
+                    System.out.println("========================================================\n");
+
+                    // Show movie details corresponding to the movie choice
+                    System.out.print("Please choose a movie to add review: ");
                     movieChoiceInt = scanner.nextInt();
+
+                    if (movieChoiceInt == movieArray.length + 1)
+                        break;
+
+                    if (movieChoiceInt <= 0 || movieChoiceInt > movieArray.length + 1)
+                        continue;
+
                     movieChoice = movieArray[movieChoiceInt - 1];
-                    System.out.println("How many stars out of 5 would you give this movie?");
-                    System.out.printf("Enter your rating: ");
-                    int stars = scanner.nextInt();
-                    System.out.println("What is your review for this movie?");
-                    System.out.printf("Enter your review: ");
-                    String review = scanner.nextLine();
-                    movieChoice.addReviews(this.accountID, review, stars);
+
+                    // Print our movie detail for user to see before adding review
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+                    movieChoice.printMovieDetails();
+                    System.out.println("===================== Add a Review =====================\n");
+
+                    // Add review to movie, after added, wait a while then return to menu
+                    RatingDB.addNewRating(movieChoice.getTitle(), username);
+                    System.out.println("\nReview added...");
+
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(1500);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    // System.out.println("Which movie would you like to add a review for?");
+                    // MovieDB.printMovieList();
+                    // System.out.printf("Enter your movie choice: ");
+                    // movieChoiceInt = scanner.nextInt();
+                    // movieChoice = movieArray[movieChoiceInt - 1];
+                    // System.out.println("How many stars out of 5 would you give this movie?");
+                    // System.out.printf("Enter your rating: ");
+                    // int stars = scanner.nextInt();
+                    // System.out.println("What is your review for this movie?");
+                    // System.out.printf("Enter your review: ");
+                    // String review = scanner.nextLine();
+                    // movieChoice.addReviews(this.accountID, review, stars);
                     break;
 
                 case 9:
                     break;
 
                 default:
-                    // Just print the menu for them again i think
-                    // do {
-                    // System.out.println("Invalid. Try again.");
-                    // System.out.print("Enter choice: ");
-                    // choice = scanner.nextInt();
-                    // } while (choice < 1 || choice > 8);
+                    break;
             }
         } while (choice != 9);
     }
@@ -261,7 +300,7 @@ public class Customer extends Account {
         System.out.println(" 5. Check my booking history");
         System.out.println(" 6. List the Top 5 ranking by ticket sales");
         System.out.println(" 7. List the Top 5 ranking by overall reviewers' ratings");
-        System.out.println(" 8. Add your review for a movie");
+        System.out.println(" 8. Add review for a movie");
         System.out.println(" 9. Quit");
         System.out.println("-----------------------------------------------------");
     }

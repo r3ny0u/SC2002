@@ -14,6 +14,10 @@ public class RatingDB {
         DatabaseWriter.addNewRating(movie, username);
     }
 
+    @Deprecated
+    /**
+     * I don't know whether we want to like remove the rating is that necessary idk
+     */
     public static void removeRating() {
         DatabaseWriter.removeRating();
     }

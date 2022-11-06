@@ -60,12 +60,12 @@ public class Rating {
         System.out.println("\n");
     }
 
-    public void setCustomerID(String customerID) {
-        this.customerID = customerID;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getCustomerID() {
-        return this.customerID;
+    public String getUsername() {
+        return this.username;
 
     }
 }

@@ -364,10 +364,10 @@ public class DatabaseWriter {
             // Asking time!!
             System.out.println("Adding new rating...\n");
 
-            System.out.println("Rating (out of 5): ");
+            System.out.print("Rating (out of 5): ");
             rating = Float.parseFloat(sc.nextLine());
 
-            System.out.println("Review: ");
+            System.out.print("Review: ");
             review = sc.nextLine();
 
             bufferedWriter.write(movie + "\n");

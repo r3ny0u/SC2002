@@ -197,8 +197,8 @@ public class Movie {
         Rating newRating = new Model.Rating(customerID, review, rating);
         reviews.add(newRating);
         this.ratingCount++;
-        overallRating = ((overallRating * review.length()) + rating) /
-                (review.length() + 1);
+        overallRating = ((overallRating * ratingCount) + rating) /
+                (ratingCount + 1);
     }
 
     public double getRating() {

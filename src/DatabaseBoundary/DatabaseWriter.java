@@ -64,7 +64,52 @@ public class DatabaseWriter {
             }
 
             bufferedWriter.write(title + "\n");
-            bufferedWriter.write("Not showing\n");
+            bufferedWriter.write("NOT SHOWING\n");
+            bufferedWriter.write(synopsis + "\n");
+            bufferedWriter.write(director + "\n");
+            bufferedWriter.write(String.join(",", casts) + "\n");
+
+            bufferedWriter.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void updateMovieDetails() {
+        try {
+            FileWriter writer = new FileWriter(movieDatabasePath, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+            // I'm not to sure whether want to put the query part here or put it into
+            // another method
+            Scanner sc = new Scanner(System.in);
+            String title, synopsis, director, cast;
+            ArrayList<String> casts = new ArrayList<String>();
+
+            // Asking time!!
+            System.out.println("Adding new movie...\n");
+
+            System.out.println("Title: ");
+            title = sc.nextLine();
+
+            System.out.println("Synopsis: ");
+            synopsis = sc.nextLine();
+
+            System.out.println("Director: ");
+            director = sc.nextLine();
+
+            System.out.println("Casts (enter exit to complete entry): ");
+
+            while (true) {
+                cast = sc.nextLine();
+                if (cast.toLowerCase().compareTo("exit") == 0)
+                    break;
+                casts.add(cast);
+            }
+
+            bufferedWriter.write(title + "\n");
+            bufferedWriter.write("NOT SHOWING\n");
             bufferedWriter.write(synopsis + "\n");
             bufferedWriter.write(director + "\n");
             bufferedWriter.write(String.join(",", casts) + "\n");
@@ -89,6 +134,40 @@ public class DatabaseWriter {
         System.out.println("Please enter title: ");
         title = sc.nextLine();
 
+        if (MovieDB.getMovieFromTitle(title) == null) {
+            System.out.println("Oops movie does not exist :(");
+            return;
+        }
+
+        // Remove movie from txt file idk how, can just rewrite the entire file
+        ArrayList<String> movies = DatabaseReader.readtxt(movieDatabasePath);
+        int lineNo = 0;
+        for (String string : movies) {
+            if (string.toLowerCase().strip().compareTo(title.toLowerCase().strip()) == 0) {
+                break;
+            }
+            lineNo++;
+        }
+
+        try {
+            FileWriter writer = new FileWriter(movieDatabasePath);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+            for (int i = 0; i < movies.size(); i++) {
+                if (lineNo <= i && i < lineNo + 5) {
+                    continue;
+                }
+                bufferedWriter.write(movies.get(i) + "\n");
+            }
+
+            bufferedWriter.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void removeMovieByTitle(String title) {
         if (MovieDB.getMovieFromTitle(title) == null) {
             System.out.println("Oops movie does not exist :(");
             return;

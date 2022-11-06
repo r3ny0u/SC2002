@@ -5,6 +5,7 @@ import java.util.Scanner;
 import Database.AdminDB;
 import Database.MovieDB;
 import Database.MovieTicketConfig;
+import DatabaseBoundary.DatabaseWriter;
 
 public class Admin extends Account {
     // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
@@ -35,6 +36,12 @@ public class Admin extends Account {
 
             choice = scanner.nextInt();
 
+            int movieChoiceInt;
+            Movie movieChoice;
+            MovieDB movies = new MovieDB();
+            movies.sortByAlphabet();
+            Movie[] movieArray = movies.getMovies();
+
             switch (choice) {
                 case 1:
                     // Create new movie
@@ -53,10 +60,39 @@ public class Admin extends Account {
                     break;
 
                 case 3:
-                    // Remove movie
+                    // Print movie listings, and let admin choose movie to remove
+                    // Show movie listings
+                    movies = new MovieDB();
+                    movies.sortByAlphabet();
+                    movieArray = movies.getMovies();
+
                     System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
                     System.out.flush();
-                    removeMovieListing();
+                    System.out.println("\n=================== Movie Titles =====================");
+                    MovieDB.printMovieList();
+                    System.out.printf("%2d. Quit\n", movieArray.length + 1);
+                    System.out.println("========================================================\n");
+
+                    // Remove movie corresponding to the movie choice
+                    System.out.print("Please choose a movie to remove: ");
+                    movieChoiceInt = scanner.nextInt();
+
+                    if (movieChoiceInt == movieArray.length + 1)
+                        break;
+
+                    if (movieChoiceInt <= 0 || movieChoiceInt > movieArray.length + 1)
+                        break;
+
+                    movieChoice = movieArray[movieChoiceInt - 1];
+
+                    System.out.printf("Removed \"%s\"\n", movieChoice.getTitle());
+
+                    DatabaseWriter.removeMovieByTitle(movieChoice.title);
+
+                    System.out.println("Press <Enter> to Exit View");
+                    scanner.nextLine();
+                    scanner.nextLine();
+
                     break;
 
                 case 4:
@@ -104,15 +140,38 @@ public class Admin extends Account {
                     break;
 
                 case 9:
-                    // Print movie details
-                    System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
-                    System.out.flush();
-                    System.out.println("Details of " + new MovieDB().getMovies().length + " Movies:");
-                    MovieDB.printMovieDBDetails();
-                    System.out.println("Press <Enter> to Exit View");
+                    // Print movie listings, and let admin choose details, i copied this from
+                    // customer side
+                    do {
+                        // Show movie listings
+                        System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
+                        System.out.flush();
+                        System.out.println("\n=================== Movie Titles =====================");
+                        MovieDB.printMovieList();
+                        System.out.printf("%2d. Quit\n", movieArray.length + 1);
+                        System.out.println("========================================================\n");
 
-                    scanner.nextLine();
-                    scanner.nextLine(); // Wait for user to press enter
+                        // Show movie details corresponding to the movie choice
+                        System.out.print("Please choose a movie: ");
+                        movieChoiceInt = scanner.nextInt();
+
+                        if (movieChoiceInt == movieArray.length + 1)
+                            break;
+
+                        if (movieChoiceInt <= 0 || movieChoiceInt > movieArray.length + 1)
+                            continue;
+
+                        movieChoice = movieArray[movieChoiceInt - 1];
+
+                        System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
+                        System.out.flush();
+                        movieChoice.printMovieDetails();
+
+                        System.out.println("Press <Enter> to Exit View");
+                        scanner.nextLine();
+                        scanner.nextLine();
+                    } while (choice != movieArray.length + 1);
+
                     break;
 
                 case 10:

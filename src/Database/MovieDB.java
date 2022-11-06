@@ -63,7 +63,7 @@ public class MovieDB {
 
             @Override
             public int compare(Movie o1, Movie o2) {
-                if (o1.getRating() - o2.getRating() > 0)
+                if ((o1.getRating() - o2.getRating()) > 0)
                     return 1;
                 else
                     return 0;
@@ -92,5 +92,19 @@ public class MovieDB {
             }
 
         });
+    }
+
+    public static void main(String[] args) {
+        // test
+        MovieDB movieDB = new MovieDB();
+        Movie[] movies = movieDB.getMovies();
+
+        movieDB.sortByRating();
+
+        movies = movieDB.getMovies();
+
+        for (Movie movie : movies) {
+            System.out.println(movie.getRating() + " " + movie.getTitle());
+        }
     }
 }

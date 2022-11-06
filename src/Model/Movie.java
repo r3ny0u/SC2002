@@ -19,7 +19,7 @@ public class Movie {
     protected double overallRating;
     protected int ratingCount;
     protected ArrayList<Rating> reviews = new ArrayList<Rating>();
-    protected int salesCount;
+    protected int salesCount = 0;
     protected Map<String, ArrayList<String>> showingPlaces;
     protected Map<String, Map<Showtime, Seat[]>> seats; // cinemaID->showtimes->seats
 
@@ -30,6 +30,7 @@ public class Movie {
         this.synopsis = synopsis;
         this.director = director;
         this.casts = casts;
+        this.loadRatingsAndReviews();
     }
 
     public Movie(String title, String status, String synopsis, String director, ArrayList<String> casts,
@@ -43,6 +44,7 @@ public class Movie {
         this.reviews = new ArrayList<Rating>();
         this.ratingCount = 0;
         this.salesCount = 0;
+        this.loadRatingsAndReviews();
     }
 
     public String getTitle() {
@@ -200,10 +202,10 @@ public class Movie {
     }
 
     public double getRating() {
-        if (ratingCount > 1)
+        if (ratingCount >= 1)
             return overallRating;
         else
-            return -1;
+            return 0.0f;
     }
 
     public void addShowingPlaces(String cineplexID, String cinemaID) {
@@ -243,6 +245,8 @@ public class Movie {
         // Shit now i confuse rating and reviews, rating is number, revies is string
         Rating[] allRatings = new RatingDB().getRatings();
         double ratingSum = 0;
+        this.ratingCount = 0;
+        this.reviews = new ArrayList<Rating>();
         for (Rating rating : allRatings) {
             if (rating.getMovie().compareTo(this.getTitle()) == 0) {
                 this.reviews.add(rating);

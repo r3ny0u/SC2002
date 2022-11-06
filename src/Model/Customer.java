@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -70,9 +71,9 @@ public class Customer extends Account {
         Movie movieChoice;
 
         do {
-            MovieDB movies = new MovieDB();
-            movies.sortByAlphabet();
-            Movie[] movieArray = movies.getMovies();
+            MovieDB movieDB = new MovieDB();
+            movieDB.sortByAlphabet();
+            Movie[] movieArray = movieDB.getMovies();
             Movie[] movieArrayEmpty;
 
             System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
@@ -124,7 +125,7 @@ public class Customer extends Account {
 
                         movieChoice = movieArray[movieChoiceInt - 1];
 
-                        System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
+                        System.out.print("\033[H\033[2J");
                         System.out.flush();
                         movieChoice.printMovieDetails();
 
@@ -211,23 +212,48 @@ public class Customer extends Account {
                     break;
 
                 case 6:
-                    // show top 5 based on ticket sales
-                    movies.sortBySales();
-                    movieArrayEmpty = movies.getMovies();
+                    // Show top 5 movies based on ticket sales
+                    movieArrayEmpty = new Movie[5];
+                    movieDB.sortBySales();
+                    movieArrayEmpty = Arrays.copyOfRange(movieDB.getMovies(), 0, 5);
+
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+                    System.out.println("\n=============== Movie Titles by Sales ================");
                     for (int i = 0; i < 5; i++) {
-                        System.out.println((i + 1) + ". " + movieArrayEmpty[i].getTitle());
+                        if (movieArrayEmpty[i] == null)
+                            break;
+                        System.out.printf("%2d. %s\n", i + 1, movieArrayEmpty[i].getTitle());
                     }
-                    movies.sortByAlphabet();
+                    System.out.println("========================================================\n");
+                    movieDB.sortByAlphabet();
+
+                    System.out.println("Press <Enter> to Exit View");
+                    scanner.nextLine();
+                    scanner.nextLine();
                     break;
 
                 case 7:
-                    // show top 5 based on rating
-                    movies.sortByRating();
-                    movieArrayEmpty = movies.getMovies();
+                    // Show top 5 movies based on ratings
+                    movieDB = new MovieDB();
+                    movieDB.sortByRating();
+                    Movie[] movies = movieDB.getMovies();
+                    movieArrayEmpty = movies.clone();
+
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+                    System.out.println("\n============== Movie Titles by Ratings ===============");
                     for (int i = 0; i < 5; i++) {
-                        System.out.println((i + 1) + ". " + movieArrayEmpty[i].getTitle());
+                        if (movieArrayEmpty[i] == null)
+                            break;
+                        System.out.printf("%2d. (%.1f / 5.0 Stars) %s\n", i + 1, movieArrayEmpty[i].getRating(),
+                                movieArrayEmpty[i].getTitle());
                     }
-                    movies.sortByAlphabet();
+                    System.out.println("========================================================\n");
+
+                    System.out.println("Press <Enter> to Exit View");
+                    scanner.nextLine();
+                    scanner.nextLine();
                     break;
 
                 case 8:

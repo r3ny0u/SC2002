@@ -8,11 +8,6 @@ NOW SHOWING
 If this is not the Synopsis then i will go to sleep
 Mr. 8==D haha funny
 Jason,Bobby McBobbyFace,Henry Cavill,Tom Cruise,DuaineTestTitle
-TestTitle1
-Not showing
-TestSynopsis1
-Jason's Father
-Jason's Father,Jason's Mother,Jason's xiaodidi,why is it all Jason lol
 Sensor Interfacing
 Not showing
 This course is a revamped version of the previous CE3002 to focus on the latest sensor and control technologies that are used in the industry which have largely migrated to the digital domains.   
@@ -23,8 +18,13 @@ Not showing
 I love stats
 Adams Kong
 Mrs Kong
-bobatea
+Bobatea
 Not showing
 boba boba boba
 bobaman
 bob the builder
+TestTitle1
+SHOWING
+TestSynopsis1
+Jason's Father
+Jason,Jafather,Jadaughter

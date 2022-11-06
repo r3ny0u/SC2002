@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import Database.AdminDB;
@@ -52,11 +53,88 @@ public class Admin extends Account {
                     break;
 
                 case 2:
-                    // Update movie
+                    // Show movie titles, let admin choose movie to edit details
+                    // shit so messy, just close your eyes when working on this
+                    movies = new MovieDB();
+                    movies.sortByAlphabet();
+                    movieArray = movies.getMovies();
+
                     System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
                     System.out.flush();
-                    System.out.println("Enter the movie title you wish to update: ");
-                    updateMovieListing();
+                    System.out.println("\n=================== Movie Titles =====================");
+                    MovieDB.printMovieList();
+                    System.out.printf("%2d. Quit\n", movieArray.length + 1);
+                    System.out.println("========================================================\n");
+
+                    // Update movie corresponding to the movie choice
+                    System.out.print("Please choose a movie to update: ");
+                    movieChoiceInt = scanner.nextInt();
+
+                    if (movieChoiceInt == movieArray.length + 1)
+                        break;
+
+                    if (movieChoiceInt <= 0 || movieChoiceInt > movieArray.length + 1)
+                        break;
+
+                    movieChoice = movieArray[movieChoiceInt - 1];
+
+                    System.out.printf("Editing \"%s\"...\n", movieChoice.getTitle());
+                    System.out.println("\n================== Movie Details =====================");
+                    System.out.println(" 1. Title");
+                    System.out.println(" 2. Showing Status");
+                    System.out.println(" 3. Synopsis");
+                    System.out.println(" 4. Director");
+                    System.out.println(" 5. Cast");
+                    System.out.printf(" 6. Quit\n");
+                    System.out.println("========================================================\n");
+
+                    // Update movie corresponding to the movie choice
+                    System.out.print("Please choose a detail to update: ");
+                    movieChoiceInt = scanner.nextInt(); // I'm just gonna use this var to hold the user choice
+                    String title = movieChoice.getTitle(), showingStatus = movieChoice.status,
+                            synopsis = movieChoice.synopsis, director = movieChoice.director, cast;
+                    ArrayList<String> casts = movieChoice.casts;
+
+                    scanner.nextLine(); // Clear input buffer
+
+                    if (movieChoiceInt <= 0 || movieChoiceInt >= 6)
+                        break;
+
+                    switch (movieChoiceInt) {
+                        case 1:
+                            System.out.printf("New title: ");
+                            title = scanner.nextLine();
+                            break;
+                        case 2:
+                            System.out.printf("New showing status: ");
+                            showingStatus = scanner.nextLine();
+                            break;
+                        case 3:
+                            System.out.printf("New synopsis: ");
+                            synopsis = scanner.nextLine();
+                            break;
+                        case 4:
+                            System.out.printf("New director: ");
+                            director = scanner.nextLine();
+                            break;
+                        case 5:
+                            casts.clear();
+                            System.out.printf("New casts: (enter exit to complete entry)");
+                            while (true) {
+                                cast = scanner.nextLine();
+                                if (cast.toLowerCase().compareTo("exit") == 0)
+                                    break;
+                                casts.add(cast);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    DatabaseWriter.updateMovieDetails(movieChoice, title, showingStatus, synopsis, director, casts);
+                    System.out.printf("Editing \"%s\"...\n", movieChoice.getTitle());
+
+                    System.out.println("Press <Enter> to Exit View");
+                    scanner.nextLine();
                     break;
 
                 case 3:

@@ -12,6 +12,7 @@ import Database.CineplexDB;
 import Database.CustomerDB;
 import Database.MovieDB;
 import Model.Cinema;
+import Model.Movie;
 import Model.Transaction;
 
 /**
@@ -76,40 +77,16 @@ public class DatabaseWriter {
         }
     }
 
-    public static void updateMovieDetails() {
+    public static void updateMovieDetails(Movie originalMovieObject, String title, String status, String synopsis, String director, ArrayList<String> casts) {
         try {
+            // Remove movie and add in new movie lo, lol im lazy 
             FileWriter writer = new FileWriter(movieDatabasePath, true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
-            // I'm not to sure whether want to put the query part here or put it into
-            // another method
-            Scanner sc = new Scanner(System.in);
-            String title, synopsis, director, cast;
-            ArrayList<String> casts = new ArrayList<String>();
-
-            // Asking time!!
-            System.out.println("Adding new movie...\n");
-
-            System.out.println("Title: ");
-            title = sc.nextLine();
-
-            System.out.println("Synopsis: ");
-            synopsis = sc.nextLine();
-
-            System.out.println("Director: ");
-            director = sc.nextLine();
-
-            System.out.println("Casts (enter exit to complete entry): ");
-
-            while (true) {
-                cast = sc.nextLine();
-                if (cast.toLowerCase().compareTo("exit") == 0)
-                    break;
-                casts.add(cast);
-            }
+            removeMovieByTitle(originalMovieObject.getTitle());
 
             bufferedWriter.write(title + "\n");
-            bufferedWriter.write("NOT SHOWING\n");
+            bufferedWriter.write(status + "\n");
             bufferedWriter.write(synopsis + "\n");
             bufferedWriter.write(director + "\n");
             bufferedWriter.write(String.join(",", casts) + "\n");

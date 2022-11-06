@@ -69,7 +69,8 @@ public class Movie {
             System.out.println("\nReviews   : ");
             for (int i = 0; i < this.reviews.size(); i++) {
                 Rating rating = this.reviews.get(i);
-                System.out.printf("%2d. %-14s: %s\n", i + 1, rating.getUsername(), rating.getReview());
+                System.out.printf("%2d. %-10s: %.2f\n", i + 1, rating.getUsername(), rating.getRating());
+                System.out.println("       " + rating.getReview());
             }
         }
 

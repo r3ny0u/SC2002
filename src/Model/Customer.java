@@ -3,7 +3,7 @@ package Model;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import javax.sound.midi.Soundbank;
+// import javax.sound.midi.Soundbank;
 
 import Database.CineplexDB;
 import Database.CustomerDB;
@@ -84,8 +84,8 @@ public class Customer extends Account {
 
             switch (choice) {
                 case 1:
-                    // show movie listings
-                    // read from db
+                    // Show movie listings from MovieDB by alphabetical order
+                    // Movies with NOT SHOWING status would not be shown
                     System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
                     System.out.flush();
                     System.out.println("\n=================== Movie Titles =====================");
@@ -97,18 +97,34 @@ public class Customer extends Account {
                     break;
 
                 case 2:
-                    // show movie details
-                    // read from db
-                    MovieDB.printMovieList();
-                    System.out.println("Please choose the movie");
-                    movieChoiceInt = scanner.nextInt();
-                    movieChoice = movieArray[movieChoiceInt - 1];
-                    System.out.println("\n========================================================");
-                    movieChoice.printMovieDetails();
-                    System.out.println("========================================================\n");
-                    System.out.println("Press <Enter> to Exit View");
-                    scanner.nextLine();
-                    scanner.nextLine();
+                    // Show movie listings, and then ask customer to select a movie from the list
+                    // I think we don't go back to customer menu after done looking at movie details
+                    // After customer press enter, it will still show the movie listings unless
+                    // customer choose to quit
+                    do {
+                        // Show movie listings
+                        System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
+                        System.out.flush();
+                        System.out.println("\n=================== Movie Titles =====================");
+                        MovieDB.printMovieList();
+                        System.out.printf("%2d. Quit\n", movieArray.length + 1);
+                        System.out.println("========================================================\n");
+
+                        // Show movie details corresponding to the movie choice
+                        System.out.print("Please choose a movie: ");
+                        movieChoiceInt = scanner.nextInt();
+
+                        if (movieChoiceInt == movieArray.length + 1) break;
+
+                        movieChoice = movieArray[movieChoiceInt - 1];
+                        // System.out.println("\n========================================================");
+                        movieChoice.printMovieDetails();
+                        // System.out.println("========================================================\n");
+                        System.out.println("Press <Enter> to Exit View");
+                        scanner.nextLine();
+                        scanner.nextLine();
+                    } while (choice != movieArray.length + 1);
+
                     break;
 
                 case 3:
@@ -174,7 +190,8 @@ public class Customer extends Account {
                     // do bookings
                     System.out.println("Please enter your age");
                     String age = scanner.next();
-                    Transaction newTrans = new Transaction(showtimeChoice, age, cinema, dateChoice, movieChoice, accountID, seatID);
+                    Transaction newTrans = new Transaction(showtimeChoice, age, cinema, dateChoice, movieChoice,
+                            accountID, seatID);
                     System.out.println("Price of ticket : " + newTrans.getTicketPrice());
                     transactions.add(newTrans);
                     System.out.println("Booking Successful! :)");

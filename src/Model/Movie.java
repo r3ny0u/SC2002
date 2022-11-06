@@ -54,7 +54,7 @@ public class Movie {
         System.out.println("\n========================================================");
         System.out.println("Title     : " + title);
         System.out.println("Status    : " + status);
-        System.out.println("Synopsis  :\n" + synopsis);
+        System.out.println("Synopsis  : " + synopsis);
         System.out.println("Director  : " + director);
         System.out.println("Cast      : " + String.join(", ", casts));
         System.out.println("Ratings   : " + overallRating + " / 5.0 stars");

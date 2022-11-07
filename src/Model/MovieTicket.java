@@ -1,4 +1,7 @@
 package Model;
+
+import Database.MovieTicketConfig;
+
 /**
  * Class for MovieTicket
  * <p>
@@ -35,7 +38,8 @@ public class MovieTicket {
         calculateTicketPrice();
     }
 
-    public MovieTicket() {};
+    public MovieTicket() {
+    };
 
     public float getTicketPrice() {
         return this.ticketPrice;
@@ -48,23 +52,33 @@ public class MovieTicket {
     public void calculateTicketPrice() {
         float basePrice;
 
+        // Get base price based on day of week
         if (getDayOfWeek() == DayOfWeek.WEEKDAY)
-            basePrice = MovieTicketCSVUtil.getCSVData(Constants.MOVIE_TICKET_CSV_FILEPATH, DataType.WEEKDAY_PRICE);
+            basePrice = MovieTicketConfig.getWeekdayPrice();
         else if (getDayOfWeek() == DayOfWeek.WEEKEND)
-            basePrice = MovieTicketCSVUtil.getCSVData(Constants.MOVIE_TICKET_CSV_FILEPATH, DataType.WEEKEND_PRICE);
+            basePrice = MovieTicketConfig.getWeekendPrice();
         else
-            basePrice = MovieTicketCSVUtil.getCSVData(Constants.MOVIE_TICKET_CSV_FILEPATH, DataType.PH_PRICE);
+            basePrice = MovieTicketConfig.getPHPrice();
 
+        // Markup price based on movie type
         if (getMovieType() == MovieType.MOVIE3D)
-            basePrice *= MovieTicketCSVUtil.getCSVData(Constants.MOVIE_TICKET_CSV_FILEPATH, DataType.MOVIE3D);
+            basePrice *= MovieTicketConfig.get3DMoviePercentage();
+        else
+            basePrice *= MovieTicketConfig.get2DMoviePercentage();
 
+        // Markup price based on cinema type
         if (getCinemaClass() == CinemaClass.PLATINUM)
-            basePrice *= MovieTicketCSVUtil.getCSVData(Constants.MOVIE_TICKET_CSV_FILEPATH, DataType.PLATINUM);
+            basePrice *= MovieTicketConfig.getPlatinumCinemaPercentage();
+        else
+            basePrice *= MovieTicketConfig.getNormalCinemaPercentage();
 
+        // Discount based on age
         if (getAge() == Age.SENIOR_CITIZEN)
-            basePrice *= MovieTicketCSVUtil.getCSVData(Constants.MOVIE_TICKET_CSV_FILEPATH, DataType.SENIOR_CITIZEN);
+            basePrice *= MovieTicketConfig.getSeniorPercentage();
         else if (getAge() == Age.CHILD)
-            basePrice *= MovieTicketCSVUtil.getCSVData(Constants.MOVIE_TICKET_CSV_FILEPATH, DataType.CHILD);
+            basePrice *= MovieTicketConfig.getChildPercentage();
+        else
+            basePrice *= MovieTicketConfig.getAdultPercentage();
 
         setTicketPrice(basePrice);
     }

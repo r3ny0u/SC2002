@@ -39,7 +39,7 @@ public class Transaction {
     }
 
     public Transaction(String time, String age, Cinema cinema, String date, Movie movie, String customerID, String seatID) {
- 
+        // Wow nice job b(°-°)d
         this.transactionID = cinema.getCinemaID().substring(0,2).toUpperCase() + LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYYMMDDhhmm"));
 
         this.time = date + " : " + time;

@@ -47,6 +47,10 @@ public class Movie {
         this.loadRatingsAndReviews();
     }
 
+    public String getStatus() {
+        return this.status;
+    }
+
     public String getTitle() {
         return this.title;
     }

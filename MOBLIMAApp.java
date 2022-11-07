@@ -76,7 +76,7 @@ public class MOBLIMAApp {
                 System.out.println("\n\u001B[36mWelcome ~~ " + username + " ~~ :D\n\u001B[0m");
 
             try {
-                TimeUnit.MILLISECONDS.sleep(1500);
+                TimeUnit.MILLISECONDS.sleep(1250);
             } catch (Exception e) {
                 e.printStackTrace();
             }

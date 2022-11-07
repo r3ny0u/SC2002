@@ -223,6 +223,7 @@ public class Customer extends Account {
                         continue;
 
                     movieChoice = movieArray[movieChoiceInt - 1];
+                    scanner.nextLine();
 
                     // Print our movie detail for user to see before adding review
                     // System.out.print("\033[H\033[2J");

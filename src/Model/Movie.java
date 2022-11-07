@@ -20,7 +20,7 @@ public class Movie {
     protected int ratingCount;
     protected ArrayList<Rating> reviews = new ArrayList<Rating>();
     protected int salesCount = 0;
-    protected Map<String, ArrayList<String>> showingPlaces;
+    protected Map<String, ArrayList<String>> showingPlaces = new HashMap<String, ArrayList<String>>();
     protected Map<String, Map<Showtime, Seat[]>> seats; // cinemaID->showtimes->seats
 
     // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR

@@ -7,7 +7,7 @@ public class CineplexDB {
     private Cineplex[] cineplexes;
 
     public CineplexDB() {
-        this.cineplexes = DatabaseReader.readCineplexDatabase();
+        this.cineplexes = DatabaseReader.readCineplexDatabase2();
     }
 
     public Cineplex[] getCineplexes() {
@@ -46,7 +46,7 @@ public class CineplexDB {
     public static void printCineplexDBDetails() {
         for (Cineplex cineplex : new CineplexDB().getCineplexes()) {
             cineplex.printCineplexDetails();
-            System.out.println("\n");
+            System.out.print("\n");
         }
     }
 }

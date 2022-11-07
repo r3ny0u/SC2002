@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Database.AdminDB;
+import Database.CineplexDB;
 import Database.MovieDB;
 import Database.MovieTicketConfig;
 import DatabaseBoundary.DatabaseWriter;
@@ -253,6 +254,18 @@ public class Admin extends Account {
                     break;
 
                 case 10:
+                    // Show cineplex and cinemas (easier to debug lol)
+                    System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
+                    System.out.flush();
+                    System.out.println("\n==================== Cineplexes ======================");
+                    CineplexDB.printCineplexDBDetails();
+                    System.out.println("========================================================\n");
+                    System.out.println("Press <Enter> to Exit View");
+                    scanner.nextLine();
+                    scanner.nextLine();
+                    break;
+
+                case 11:
                     // Exit
                     System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
                     System.out.flush();
@@ -263,7 +276,7 @@ public class Admin extends Account {
                     System.out.println("Invalid Choice!");
             }
 
-        } while (choice != 10);
+        } while (choice != 11);
 
         return;
     }
@@ -414,7 +427,8 @@ public class Admin extends Account {
         System.out.println(" 7. Configure Movie Ticket Prices and System Settings");
         System.out.println(" 8. View Movie Ticket Prices and System Settings");
         System.out.println(" 9. List Movies");
-        System.out.println("10. Quit");
+        System.out.println("10. List cineplex ID and cinema ID");
+        System.out.println("11. Quit");
         System.out.println("-----------------------------------------------------");
         System.out.print("Enter choice: ");
     }

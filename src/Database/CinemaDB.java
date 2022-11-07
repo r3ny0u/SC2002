@@ -8,7 +8,7 @@ public class CinemaDB {
 
     public CinemaDB() {
         // readCinemaDatabase has not been implemented
-        // this.cinemas = DatabaseReader.readCinemaDatabase();
+        this.cinemas = DatabaseReader.readCinemaDatabase2();
     }
 
     public Cinema[] getCinemas() {
@@ -25,7 +25,7 @@ public class CinemaDB {
 
     public static Cinema getCinemaFromID(String cinemaID) {
         for (Cinema cinema : new CinemaDB().getCinemas()) {
-            if (cinema.getCinemaID().compareTo(cinemaID) == 0) {
+            if (cinema.getCinemaID().toLowerCase().compareTo(cinemaID.toLowerCase()) == 0) {
                 return cinema;
             }
         }

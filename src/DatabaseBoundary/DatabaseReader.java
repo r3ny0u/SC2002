@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import Database.*;
 import Model.*;
@@ -171,5 +174,44 @@ public class DatabaseReader {
             ratings[i] = temp;
         }
         return ratings;
+    }
+
+    public static Cineplex[] readCineplexDatabase2() {
+        ArrayList<String> strings = readtxt(cineplexDatabasePath);
+        
+        int numOfCineplex = strings.size() / 2;
+        Cineplex[] cineplexes = new Cineplex[numOfCineplex];
+        Cineplex tempCineplex;
+        ArrayList<Cinema> cinemas;
+
+        // Contains CineplexID, and cinemaIDs
+        for (int i = 0; i < cineplexes.length; i++) {
+            cinemas = new ArrayList<Cinema>();
+            for (String cinemaID : strings.get(i * 2 + 1).split(",")) {
+                cinemas.add(CinemaDB.getCinemaFromID(cinemaID));
+            }
+            tempCineplex = new Cineplex(strings.get(i * 2 + 0), cinemas);
+            cineplexes[i] = tempCineplex;
+        }
+
+        return cineplexes;
+    }
+
+    public static Cinema[] readCinemaDatabase2() {
+        ArrayList<String> strings = readtxt(cinemaDatabasePath);
+        
+        int numOfCinemas = strings.size() / 2;
+        Cinema[] cinemas = new Cinema[numOfCinemas];
+
+        // Contains CineplexID, and cinemaIDs
+        for (int i = 0; i < cinemas.length; i++) {
+            cinemas[i] = new Cinema(strings.get(i * 2 + 0), strings.get(i * 2 + 1));
+        }
+
+        return cinemas;
+    }
+
+    public static Map<String, ArrayList<Seat>> readShowtime() {
+        return new HashMap<String, ArrayList<Seat>>();
     }
 }

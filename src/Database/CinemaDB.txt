@@ -1,15 +1,16 @@
-CinemaID1234
-platinum imax
-Jason's Bizzare Adventure
-0830,1230,1430,1630
-seatsidkla
-CinemaID1235
-platinum imax
-abc Adventure
-0830,1230,1430,1630
-seatsidkla
-CinemaID123456
-platinum imax
-abc Adventure
-0830,1230,1430,1630
-seatsidkla
+001
+Platinum
+002
+Normal
+003
+Normal
+004
+Normal
+420
+Platinum
+069
+Platinum
+701
+Normal
+123
+Normal

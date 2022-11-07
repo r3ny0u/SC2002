@@ -1,4 +1,5 @@
 package Model;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,17 +25,17 @@ public class Cineplex {
     public ArrayList<Cinema> getCinemas() {
         return this.cinemas;
     }
-    
+
     public void printCineplexDetails() {
         System.out.println("Cineplex ID: " + cineplexID);
         for (Cinema cinema : cinemas) {
-            System.out.println("  - " + cinema.getCinemaID());
+            System.out.printf("  - Cinema ID: %s (%s)\n", cinema.getCinemaID(), cinema.getCinemaType());
         }
     }
 
-    public Cinema findCinema(String name){
-        for (Cinema cinema:cinemas){
-            if (cinema.getCinemaID()==name)
+    public Cinema findCinema(String name) {
+        for (Cinema cinema : cinemas) {
+            if (cinema.getCinemaID() == name)
                 return cinema;
         }
         return null;

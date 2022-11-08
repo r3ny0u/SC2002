@@ -3,8 +3,10 @@ package Model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import Database.RatingDB;
+import DatabaseBoundary.DatabaseReader;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -20,7 +22,7 @@ public class Movie {
     protected int ratingCount;
     protected ArrayList<Rating> reviews = new ArrayList<Rating>();
     protected int salesCount = 0;
-    protected Map<String, ArrayList<String>> showingPlaces = new HashMap<String, ArrayList<String>>();
+    protected Map<String, ArrayList<String>> showingPlaces = new HashMap<String, ArrayList<String>>(); // Cineplex -> Cinema
     protected Map<String, Map<Showtime, Seat[]>> seats; // cinemaID->showtimes->seats
 
     // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
@@ -31,6 +33,12 @@ public class Movie {
         this.director = director;
         this.casts = casts;
         this.loadRatingsAndReviews();
+        Map<Map<String, ArrayList<String>>, Map<String, Map<Showtime, Seat[]>>> bla = DatabaseReader.readShowtime(title);
+        for (Map<String, ArrayList<String>> bla2 : bla.keySet()) {
+            this.showingPlaces = bla2;
+            this.seats = bla.get(bla2);
+        }
+        System.out.println("");
     }
 
     public Movie(String title, String status, String synopsis, String director, ArrayList<String> casts,

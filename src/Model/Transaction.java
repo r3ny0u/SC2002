@@ -1,8 +1,13 @@
 package Model;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 
 public class Transaction {
@@ -38,27 +43,29 @@ public class Transaction {
         this.seatID = seatID;
     }
 
-    public Transaction(String time, String age, Cinema cinema, String date, Movie movie, String customerID, String seatID) {
+    public Transaction(String time, String age, Cinema cinema, String date, Movie movie, String customerID,
+            String seatID) {
         // Wow nice job b(°-°)d
-        this.transactionID = cinema.getCinemaID().substring(0,2).toUpperCase() + LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYYMMDDhhmm"));
+        this.transactionID = cinema.getCinemaID().substring(0, 3).toUpperCase()
+                + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddhhmm"));
 
         this.time = date + " : " + time;
         this.age = age;
         this.cinemaType = cinema.getCinemaType();
-        
+
         if (movie.title.substring(0, 1) == "3D")
             this.movieType = "3D";
         else
             this.movieType = "2D";
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDateTime d = LocalDateTime.parse(date, formatter);
-        this.dayOfWeek = DayOfWeek.from(d).name();
+        Date date2 = new Date(date);
+        DateFormat formatter = new SimpleDateFormat("EEEE", Locale.UK);
+        this.dayOfWeek = formatter.format(date2);
 
         this.movie = movie;
         this.customerID = customerID;
         this.seatID = seatID;
-        this.bookingTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-mm-yyyy HH:mm:ss"));
+        this.bookingTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
     }
 
     public void printTransactionDetails() {
@@ -72,9 +79,9 @@ public class Transaction {
         System.out.println("Customer ID: " + customerID);
     }
 
-     public float getTicketPrice() {
+    public float getTicketPrice() {
         MovieTicket movieTicket = new MovieTicket();
-        
+
         if (getCinemaType() == "Normal")
             movieTicket.setCinemaClass(CinemaClass.NORMAL);
         else if (getCinemaType() == "Platinum")
@@ -89,7 +96,7 @@ public class Transaction {
             movieTicket.setAge(Age.CHILD);
         else if (Integer.parseInt(getAge()) >= 55)
             movieTicket.setAge(Age.SENIOR_CITIZEN);
-        else if(Integer.parseInt(getAge()) > 12 && Integer.parseInt(getAge()) < 55)
+        else if (Integer.parseInt(getAge()) > 12 && Integer.parseInt(getAge()) < 55)
             movieTicket.setAge(Age.ADULT);
 
         if (getDayOfWeek() == "Saturday" || getDayOfWeek() == "Sunday")
@@ -99,9 +106,9 @@ public class Transaction {
 
         movieTicket.calculateTicketPrice();
         this.ticketPrice = movieTicket.getTicketPrice();
-        
+
         return ticketPrice;
-     }
+    }
 
     public String getTransactionId() {
         return this.transactionID;
@@ -161,5 +168,12 @@ public class Transaction {
 
     public void setCustomerID(String custID) {
         this.customerID = custID;
+    }
+
+    public static void main(String[] args) {
+        String date = "2022/11/08";
+        Date date2 = new Date(date);
+        DateFormat formatter = new SimpleDateFormat("yyyy/MM/dd EEEE", Locale.UK);
+        System.out.println(formatter.format(date2));
     }
 }

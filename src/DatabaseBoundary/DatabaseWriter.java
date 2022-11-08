@@ -13,6 +13,8 @@ import Database.CustomerDB;
 import Database.MovieDB;
 import Model.Cinema;
 import Model.Movie;
+import Model.Seat;
+import Model.Showtime;
 import Model.Transaction;
 
 /**
@@ -77,9 +79,10 @@ public class DatabaseWriter {
         }
     }
 
-    public static void updateMovieDetails(Movie originalMovieObject, String title, String status, String synopsis, String director, ArrayList<String> casts) {
+    public static void updateMovieDetails(Movie originalMovieObject, String title, String status, String synopsis,
+            String director, ArrayList<String> casts) {
         try {
-            // Remove movie and add in new movie lo, lol im lazy 
+            // Remove movie and add in new movie lo, lol im lazy
             FileWriter writer = new FileWriter(movieDatabasePath, true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
@@ -730,5 +733,11 @@ public class DatabaseWriter {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    // TODO: Update movie showtimes thing, maybe can move to movie.java idk
+    public static void updateShowtimes(String movieTitle, String cineplex, String cinema, Showtime showtime,
+            Seat[] seats) {
+
     }
 }

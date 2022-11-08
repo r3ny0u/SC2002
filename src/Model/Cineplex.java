@@ -35,7 +35,7 @@ public class Cineplex {
 
     public Cinema findCinema(String name) {
         for (Cinema cinema : cinemas) {
-            if (cinema.getCinemaID() == name)
+            if (cinema.getCinemaID().toLowerCase().compareTo(name.toLowerCase()) == 0)
                 return cinema;
         }
         return null;

@@ -22,7 +22,8 @@ public class Movie {
     protected int ratingCount;
     protected ArrayList<Rating> reviews = new ArrayList<Rating>();
     protected int salesCount = 0;
-    protected Map<String, ArrayList<String>> showingPlaces = new HashMap<String, ArrayList<String>>(); // Cineplex -> Cinema
+    protected Map<String, ArrayList<String>> showingPlaces = new HashMap<String, ArrayList<String>>(); // Cineplex ->
+                                                                                                       // Cinema
     protected Map<String, Map<Showtime, Seat[]>> seats; // cinemaID->showtimes->seats
 
     // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
@@ -33,12 +34,12 @@ public class Movie {
         this.director = director;
         this.casts = casts;
         this.loadRatingsAndReviews();
-        Map<Map<String, ArrayList<String>>, Map<String, Map<Showtime, Seat[]>>> bla = DatabaseReader.readShowtime(title);
+        Map<Map<String, ArrayList<String>>, Map<String, Map<Showtime, Seat[]>>> bla = DatabaseReader
+                .readShowtime(title);
         for (Map<String, ArrayList<String>> bla2 : bla.keySet()) {
             this.showingPlaces = bla2;
             this.seats = bla.get(bla2);
         }
-        System.out.println("");
     }
 
     public Movie(String title, String status, String synopsis, String director, ArrayList<String> casts,
@@ -127,18 +128,16 @@ public class Movie {
         String oldDate = "";
         for (String cineplexID : showingPlaces.keySet()) {
             System.out.println(
-                    "\n=====================================================================\nCineplex: " + cineplexID);
+                    "========================================================\n\nCineplex   : " + cineplexID);
 
             for (String cinemaID : showingPlaces.get(cineplexID)) {
-                System.out.println("Cinema: " + cinemaID);
+                System.out.println("Cinema     : " + cinemaID);
 
                 for (Showtime st : seats.get(cinemaID).keySet()) {
                     if (oldDate != st.date) {
                         oldDate = st.date;
-                        System.out.print("\n" + oldDate + ": " + st.time + " ");
-                    }
-
-                    else {
+                        System.out.print(oldDate + " : " + st.time + " ");
+                    } else {
                         System.out.print(st.time + " ");
                     }
                 }
@@ -146,7 +145,7 @@ public class Movie {
             }
             System.out.println();
         }
-
+        System.out.println("========================================================");
     }
 
     public void printSeats(String cinemaID, String date, String showtime) {
@@ -172,7 +171,7 @@ public class Movie {
             }
         }
 
-        System.out.println("=================Screen=================\n");
+        System.out.println("================ Screen ================\n");
 
         System.out.println("   1   2   3   4   5   6   7   8   9   10");
         for (i = 0; i < 10; i++) {
@@ -185,12 +184,23 @@ public class Movie {
             }
             System.out.println();
         }
-        System.out.println("=================Entrance================\n");
+        System.out.println("================ Entrance ===============\n");
         System.out.println("Legend\n|x| = taken\n|O| = available\n");
     }
 
-    public boolean assignSeat(String cinemaID, String showtimes, String seatID, String customerID) {
-        Seat[] s = seats.get(cinemaID).get(showtimes);
+    public boolean assignSeat(String cinemaID, String date, String day, String time, String seatID, String customerID) {
+        Showtime showtime = null;
+        for (Showtime show : seats.get(cinemaID).keySet()) {
+            if ((show.date.toLowerCase().compareTo(date) == 0) && (show.day.toLowerCase().compareTo(day) == 0)
+                    && (show.time.toLowerCase().compareTo(time) == 0)) {
+                showtime = show;
+                break;
+            }
+        }
+        if (showtime == null) {
+            return false;
+        }
+        Seat[] s = seats.get(cinemaID).get(showtime);
         int row = seatID.charAt(0);
         row -= 65;
         int col = Integer.parseInt(String.valueOf(seatID.substring(1))) - 1;
@@ -198,8 +208,20 @@ public class Movie {
         return s[(row * 10) + col].assign(customerID);
     }
 
-    public boolean checkSeat(String cinemaID, String showtimes, String seatID) {
-        Seat[] s = seats.get(cinemaID).get(showtimes);
+    public boolean checkSeat(String cinemaID, String date, String day, String time, String seatID) {
+        Showtime showtime = null;
+        // TODO: make sure this works with multiple show times
+        for (Showtime show : seats.get(cinemaID).keySet()) {
+            if ((show.date.toLowerCase().compareTo(date) == 0) && (show.day.toLowerCase().compareTo(day) == 0)
+                    && (show.time.toLowerCase().compareTo(time) == 0)) {
+                showtime = show;
+                break;
+            }
+        }
+        if (showtime == null) {
+            return false;
+        }
+        Seat[] s = seats.get(cinemaID).get(showtime);
         int row = seatID.charAt(0);
         row -= 65;
         int col = Integer.parseInt(String.valueOf(seatID.charAt(1)));

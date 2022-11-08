@@ -8,4 +8,5 @@ public class DatabaseConstants {
     public static String MOVIE_DATABASE_PATH = "src\\Database\\MovieDB.txt";
     public static String RATING_DATABASE_PATH = "src\\Database\\RatingDB.txt";
     public static String TRANSACTION_DATABASE_PATH = "src\\Database\\TransactionDB.txt";
+    public static String SHOWTIMES_DATABASE_PATH = "src\\Database\\Showtimes.txt";
 }

@@ -22,6 +22,7 @@ public class DatabaseReader {
     private static final String movieDatabasePath = DatabaseConstants.MOVIE_DATABASE_PATH;
     private static final String ratingDatabasePath = DatabaseConstants.RATING_DATABASE_PATH;
     private static final String transactionDatabasePath = DatabaseConstants.TRANSACTION_DATABASE_PATH;
+    private static final String showtimesDatabasePath = DatabaseConstants.SHOWTIMES_DATABASE_PATH;
 
     /**
      * Returns all lines in a txt file.
@@ -178,7 +179,7 @@ public class DatabaseReader {
 
     public static Cineplex[] readCineplexDatabase2() {
         ArrayList<String> strings = readtxt(cineplexDatabasePath);
-        
+
         int numOfCineplex = strings.size() / 2;
         Cineplex[] cineplexes = new Cineplex[numOfCineplex];
         Cineplex tempCineplex;
@@ -199,7 +200,7 @@ public class DatabaseReader {
 
     public static Cinema[] readCinemaDatabase2() {
         ArrayList<String> strings = readtxt(cinemaDatabasePath);
-        
+
         int numOfCinemas = strings.size() / 2;
         Cinema[] cinemas = new Cinema[numOfCinemas];
 
@@ -211,7 +212,54 @@ public class DatabaseReader {
         return cinemas;
     }
 
-    public static Map<String, ArrayList<Seat>> readShowtime() {
-        return new HashMap<String, ArrayList<Seat>>();
+    public static Map<Map<String, ArrayList<String>>, Map<String, Map<Showtime, Seat[]>>> readShowtime(
+            String movieTitle) {
+        // IDK
+        ArrayList<String> strings = readtxt(showtimesDatabasePath);
+        int numOfShowtimes = strings.size();
+        Map<Map<String, ArrayList<String>>, Map<String, Map<Showtime, Seat[]>>> result = new HashMap<Map<String, ArrayList<String>>, Map<String, Map<Showtime, Seat[]>>>();
+
+        // Cineplexes -> Cinemas
+        ArrayList<String> cinemas = new ArrayList<String>();
+        Map<String, ArrayList<String>> cineplexesAndCinemas = new HashMap<>();
+
+        for (int i = 0; i < numOfShowtimes; i++) {
+            String[] temp = strings.get(i).split(",");
+            if (temp[0].toLowerCase().compareTo(movieTitle.toLowerCase()) == 0) {
+                cinemas.add(temp[2]);
+                if (cineplexesAndCinemas.containsKey(temp[1])) {
+                    cineplexesAndCinemas.get(temp[1]).add(temp[2]);
+                } else {
+                    ArrayList<String> bla = new ArrayList<String>();
+                    bla.add(temp[2]);
+                    cineplexesAndCinemas.put(temp[1], bla);
+                }
+            }
+        }
+
+        // Cinemas -> (Showtime -> Seat[])
+        Map<String, Map<Showtime, Seat[]>> cinemasAndShowtimes = new HashMap<>();
+        Seat[] seats = new Seat[100];
+
+        for (int i = 0; i < numOfShowtimes; i++) {
+            String[] temp = strings.get(i).split(",");
+            Map<Showtime, Seat[]> showtimesAndSeat = new HashMap<>();
+            if (temp[0].toLowerCase().compareTo(movieTitle.toLowerCase()) == 0) {
+                Showtime showtime = new Showtime(temp[3], temp[4], temp[5]);
+                for (int j = 0; j < seats.length; j++) {
+                    if (temp[6].charAt(j) == '1') {
+                        seats[j] = new Seat(String.format("%c%d", (char) (65 + j / 10), (j % 10 + 1)), true);
+                    } else {
+                        seats[j] = new Seat(String.format("%c%d", (char) (65 + j / 10), (j % 10 + 1)), false);
+                    }
+                }
+                showtimesAndSeat.put(showtime, seats);
+                cinemasAndShowtimes.put(cinemas.get(i), showtimesAndSeat);
+            }
+        }
+
+        result.put(cineplexesAndCinemas, cinemasAndShowtimes);
+
+        return result;
     }
 }

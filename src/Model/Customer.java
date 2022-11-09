@@ -294,6 +294,12 @@ public class Customer extends Account {
                     // Print all showtimes for customer to see, then let customer choose cineplex,
                     // cinema, date and time
                     movieChoice.printAllShowtimes();
+                    if (movieChoice.showingPlaces.size()==0){
+                        System.out.println("Sorry, the movie is not available for booking.");
+                        System.out.println("Press <Enter> to Exit View");
+                        scanner.nextLine();
+                        break;
+                    }
                     System.out.printf("Please choose a cineplex : ");
                     cineplexChoice = scanner.nextLine();
 

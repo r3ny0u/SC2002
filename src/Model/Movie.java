@@ -199,8 +199,7 @@ public class Movie {
     public Seat[] assignSeat(String cinemaID, String date, String day, String time, String seatID, String customerID) {
         Showtime showtime = null;
         for (Showtime show : seats.get(cinemaID).keySet()) {
-            if ((show.date.toLowerCase().compareTo(date) == 0) && (show.day.toLowerCase().compareTo(day) == 0)
-                    && (show.time.toLowerCase().compareTo(time) == 0)) {
+            if ((show.date.toLowerCase().compareTo(date) == 0) && (show.time.toLowerCase().compareTo(time) == 0)) {
                 showtime = show;
                 break;
             }
@@ -222,8 +221,7 @@ public class Movie {
         // TODO: make sure this works with multiple show times
         this.loadShowtimes();
         for (Showtime show : seats.get(cinemaID).keySet()) {
-            if ((show.date.toLowerCase().compareTo(date) == 0) && (show.day.toLowerCase().compareTo(day) == 0)
-                    && (show.time.toLowerCase().compareTo(time) == 0)) {
+            if ((show.date.toLowerCase().compareTo(date) == 0) && (show.time.toLowerCase().compareTo(time) == 0)) {
                 showtime = show;
                 break;
             }

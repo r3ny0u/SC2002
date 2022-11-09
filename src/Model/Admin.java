@@ -380,16 +380,79 @@ public class Admin extends Account {
         } while (userChoice != 11);
     }
 
+    // TODO: remove showtimes by choosing integer
     private void removeShowtimes() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("============= Removing showtimes ==============");
+        System.out.print("Movie Title : ");
+        String movie = scanner.nextLine();
 
+        System.out.print("Cineplex ID :");
+        String cineplexID = scanner.nextLine();
+
+        System.out.print("Cinema ID   : ");
+        String cinemaID = scanner.nextLine();
+
+        System.out.print("Date        : ");
+        String date = scanner.nextLine();
+
+        System.out.print("Day         : ");
+        String day = scanner.nextLine();
+
+        System.out.print("Time        : ");
+        String time = scanner.nextLine();
+
+        DatabaseWriter.removeShowtimes(movie, cineplexID, cinemaID, date, day, time);
     }
 
+    // TODO: remove showtimes by choosing integer, choose which info to edit, then
+    // after edit, then update txt file
     private void updateShowtimes() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("============= Updating showtimes ==============");
+        System.out.print("Movie Title : ");
+        String movie = scanner.nextLine();
 
+        System.out.print("Cineplex ID :");
+        String cineplexID = scanner.nextLine();
+
+        System.out.print("Cinema ID   : ");
+        String cinemaID = scanner.nextLine();
+
+        System.out.print("Date        : ");
+        String date = scanner.nextLine();
+
+        System.out.print("Day         : ");
+        String day = scanner.nextLine();
+
+        System.out.print("Time        : ");
+        String time = scanner.nextLine();
+
+        DatabaseWriter.removeShowtimes(movie, cineplexID, cinemaID, date, day, time);
     }
 
     private void createShowtimes() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("============= Creating showtimes ==============");
+        System.out.print("Movie Title : ");
+        String movie = scanner.nextLine();
 
+        System.out.print("Cineplex ID :");
+        String cineplexID = scanner.nextLine();
+
+        System.out.print("Cinema ID   : ");
+        String cinemaID = scanner.nextLine();
+
+        System.out.print("Date        : ");
+        String date = scanner.nextLine();
+
+        System.out.print("Day         : ");
+        String day = scanner.nextLine();
+
+        System.out.print("Time        : ");
+        String time = scanner.nextLine();
+
+        DatabaseWriter.createShowtimes(movie, cineplexID, cinemaID, date, day, time, new Seat[100]);
     }
 
     private void removeMovieListing() {

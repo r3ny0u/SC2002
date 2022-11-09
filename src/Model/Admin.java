@@ -209,9 +209,9 @@ public class Admin extends Account {
                     // Print sysem configurations
                     System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
                     System.out.flush();
-                    System.out.println("-----------------------------------------------------");
+                    System.out.println("=====================================================");
                     MovieTicketConfig.printConfigDetails();
-                    System.out.println("-----------------------------------------------------");
+                    System.out.println("=====================================================");
                     System.out.println("Press <Enter> to Exit View");
 
                     scanner.nextLine();
@@ -292,10 +292,10 @@ public class Admin extends Account {
             System.out.flush();
 
             System.out.println("Which settings to update?");
-            System.out.println("-----------------------------------------------------");
+            System.out.println("=====================================================");
             MovieTicketConfig.printConfigDetails();
             System.out.println("11. Quit");
-            System.out.println("-----------------------------------------------------");
+            System.out.println("=====================================================");
             System.out.print("Enter choice: ");
 
             userChoice = scanner.nextInt();
@@ -417,7 +417,7 @@ public class Admin extends Account {
         System.out.println("\u001B[36mHello ~~ " + username + " ~~ :)\n\u001B[0m");
 
         System.out.println("What would you like to do as ADMIN?");
-        System.out.println("-----------------------------------------------------");
+        System.out.println("=====================================================");
         System.out.println(" 1. Create movie listing");
         System.out.println(" 2. Update movie listing");
         System.out.println(" 3. Remove movie listing");
@@ -429,7 +429,7 @@ public class Admin extends Account {
         System.out.println(" 9. List Movies");
         System.out.println("10. List cineplex ID and cinema ID");
         System.out.println("11. Quit");
-        System.out.println("-----------------------------------------------------");
+        System.out.println("=====================================================");
         System.out.print("Enter choice: ");
     }
 

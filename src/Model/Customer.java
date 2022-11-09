@@ -13,6 +13,7 @@ import Database.CineplexDB;
 import Database.CustomerDB;
 import Database.MovieDB;
 import Database.RatingDB;
+import Database.ShowtimeDB;
 import Database.TransactionDB;
 
 public class Customer extends Account {
@@ -283,7 +284,7 @@ public class Customer extends Account {
                         assigned = movieChoice.checkSeat(cinemaChoice, dateChoice, "day", showtimeChoice, seatID);
                     }
 
-                    movieChoice.assignSeat(cinemaChoice, dateChoice, "day", showtimeChoice, seatID, this.accountID);
+                    Seat[] newSeats = movieChoice.assignSeat(cinemaChoice, dateChoice, "day", showtimeChoice, seatID, this.accountID);
 
                     // User to input age
                     System.out.printf("Please enter your age: ");
@@ -299,6 +300,8 @@ public class Customer extends Account {
                     transactions.add(newTrans);
 
                     TransactionDB.addNewTransaction(newTrans);
+                    ShowtimeDB.updateShowtimes(movieChoice.getTitle(), cineplexChoice, cinemaChoice, dateChoice, "day", showtimeChoice, newSeats);
+                    movieChoice.loadShowtimes();
 
                     // Continue booking progress
                     System.out.println("\nBooking successful :) ...");
@@ -378,6 +381,7 @@ public class Customer extends Account {
                     movieDB.sortByAlphabet();
 
                     System.out.println("Press <Enter> to Exit View");
+                    scanner.nextLine();
                     scanner.nextLine();
                     break;
 
@@ -466,7 +470,7 @@ public class Customer extends Account {
 
     public static void printMenu() {
         System.out.println("What would you like to do today?");
-        System.out.println("-----------------------------------------------------");
+        System.out.println("====================================================");
         System.out.println(" 1. View movie listings");
         System.out.println(" 2. View movie details");
         System.out.println(" 3. Check seat availability");
@@ -476,6 +480,6 @@ public class Customer extends Account {
         System.out.println(" 7. List the Top 5 ranking by overall reviewers' ratings");
         System.out.println(" 8. Add review for a movie");
         System.out.println(" 9. Quit");
-        System.out.println("-----------------------------------------------------");
+        System.out.println("====================================================");
     }
 }

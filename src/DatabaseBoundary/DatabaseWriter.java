@@ -3,6 +3,7 @@ package DatabaseBoundary;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -28,6 +29,7 @@ public class DatabaseWriter {
     private static final String movieDatabasePath = DatabaseConstants.MOVIE_DATABASE_PATH;
     private static final String ratingDatabasePath = DatabaseConstants.RATING_DATABASE_PATH;
     private static final String transactionDatabasePath = DatabaseConstants.TRANSACTION_DATABASE_PATH;
+    private static final String showtimesDatabasePath = DatabaseConstants.SHOWTIMES_DATABASE_PATH;
 
     /**
      * Adds new Movie into movie database via user inputs
@@ -735,9 +737,102 @@ public class DatabaseWriter {
         }
     }
 
-    // TODO: Update movie showtimes thing, maybe can move to movie.java idk
-    public static void updateShowtimes(String movieTitle, String cineplex, String cinema, Showtime showtime,
-            Seat[] seats) {
+    public static void updateShowtimes(String movieTitle, String cineplexID, String cinemaID, String date, String day,
+            String time, Seat[] seats) {
+        ArrayList<String> strings = DatabaseReader.readtxt(showtimesDatabasePath);
+        int lineCount = 0;
+        for (String string : strings) {
+            String[] s = string.split(",");
+            if (s[0].toLowerCase().compareTo(movieTitle.toLowerCase()) == 0 &&
+                    s[1].toLowerCase().compareTo(cineplexID.toLowerCase()) == 0 &&
+                    s[2].toLowerCase().compareTo(cinemaID.toLowerCase()) == 0 &&
+                    s[3].toLowerCase().compareTo(date.toLowerCase()) == 0 &&
+                    s[5].toLowerCase().compareTo(time.toLowerCase()) == 0) {
+                break;
+            }
+            lineCount++;
+        }
+        try {
+            FileWriter writer = new FileWriter(showtimesDatabasePath);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
+            for (int i = 0; i < strings.size(); i++) {
+                if (i == lineCount) {
+                    bufferedWriter.write(
+                            String.format("%s,%s,%s,%s,%s,%s,", movieTitle, cineplexID, cinemaID, date, day, time));
+                    String[] seatStringArray = new String[100];
+                    for (int j = 0; j < seatStringArray.length; j++) {
+                        seatStringArray[j] = seats[j].assigned ? "1" : "0";
+                    }
+                    bufferedWriter.write(String.join("", seatStringArray));
+                    bufferedWriter.write("\n");
+                    continue;
+                }
+                bufferedWriter.write(strings.get(i) + "\n");
+            }
+
+            bufferedWriter.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createShowtimes(String movieTitle, String cineplexID, String cinemaID, String date, String day,
+            String time, Seat[] seats) {
+        ArrayList<String> strings = DatabaseReader.readtxt(showtimesDatabasePath);
+
+        try {
+            FileWriter writer = new FileWriter(showtimesDatabasePath, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+            bufferedWriter.write(
+                    String.format("%s,%s,%s,%s,%s,%s,", movieTitle, cineplexID, cinemaID, date, day, time));
+            String[] seatStringArray = new String[100];
+            for (int j = 0; j < seatStringArray.length; j++) {
+                seatStringArray[j] = seats[j].assigned ? "1" : "0";
+            }
+            bufferedWriter.write(String.join("", seatStringArray));
+            bufferedWriter.write("\n");
+
+            bufferedWriter.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void removeShowtimes(String movieTitle, String cineplexID, String cinemaID, String date, String day,
+            String time) {
+        ArrayList<String> strings = DatabaseReader.readtxt(showtimesDatabasePath);
+        int lineCount = 0;
+        for (String string : strings) {
+            String[] s = string.split(",");
+            if (s[0].toLowerCase().compareTo(movieTitle.toLowerCase()) == 0 &&
+                    s[1].toLowerCase().compareTo(cineplexID.toLowerCase()) == 0 &&
+                    s[2].toLowerCase().compareTo(cinemaID.toLowerCase()) == 0 &&
+                    s[3].toLowerCase().compareTo(date.toLowerCase()) == 0 &&
+                    s[4].toLowerCase().compareTo(day.toLowerCase()) == 0 &&
+                    s[5].toLowerCase().compareTo(time.toLowerCase()) == 0) {
+                break;
+            }
+            lineCount++;
+        }
+        try {
+            FileWriter writer = new FileWriter(showtimesDatabasePath);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+            for (int i = 0; i < strings.size(); i++) {
+                if (i == lineCount) {
+                    continue;
+                }
+                bufferedWriter.write(strings.get(i) + "\n");
+            }
+
+            bufferedWriter.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

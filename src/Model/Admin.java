@@ -1,12 +1,15 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 import Database.AdminDB;
+import Database.CinemaDB;
 import Database.CineplexDB;
 import Database.MovieDB;
 import Database.MovieTicketConfig;
+import DatabaseBoundary.DatabaseReader;
 import DatabaseBoundary.DatabaseWriter;
 
 public class Admin extends Account {
@@ -209,9 +212,9 @@ public class Admin extends Account {
                     // Print sysem configurations
                     System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
                     System.out.flush();
-                    System.out.println("-----------------------------------------------------");
+                    System.out.println("=====================================================");
                     MovieTicketConfig.printConfigDetails();
-                    System.out.println("-----------------------------------------------------");
+                    System.out.println("=====================================================");
                     System.out.println("Press <Enter> to Exit View");
 
                     scanner.nextLine();
@@ -292,10 +295,10 @@ public class Admin extends Account {
             System.out.flush();
 
             System.out.println("Which settings to update?");
-            System.out.println("-----------------------------------------------------");
+            System.out.println("=====================================================");
             MovieTicketConfig.printConfigDetails();
             System.out.println("11. Quit");
-            System.out.println("-----------------------------------------------------");
+            System.out.println("=====================================================");
             System.out.print("Enter choice: ");
 
             userChoice = scanner.nextInt();
@@ -324,52 +327,52 @@ public class Admin extends Account {
                     break;
 
                 case 4:
-                    System.out.printf("Updating 2D Movie Markup from %-2.2f %% to ",
-                            MovieTicketConfig.get2DMoviePercentage());
+                    System.out.printf("Updating 2D Movie Markup from SGD %-2.2f to ",
+                            MovieTicketConfig.get2DMovieMarkup());
                     newValue = scanner.nextFloat();
-                    MovieTicketConfig.update2DMoviePercentage(newValue);
+                    MovieTicketConfig.update2DMovieMarkup(newValue);
                     break;
 
                 case 5:
-                    System.out.printf("Updating 3D Movie markup from %-2.2f %% to ",
-                            MovieTicketConfig.get3DMoviePercentage());
+                    System.out.printf("Updating 3D Movie markup from SGD %-2.2f to ",
+                            MovieTicketConfig.get3DMovieMarkup());
                     newValue = scanner.nextFloat();
-                    MovieTicketConfig.update3DMoviePercentage(newValue);
+                    MovieTicketConfig.update3DMovieMarkup(newValue);
                     break;
 
                 case 6:
-                    System.out.printf("Updating Normal Cinema Markup from %-2.2f %% to ",
-                            MovieTicketConfig.getNormalCinemaPercentage());
+                    System.out.printf("Updating Normal Cinema Markup from SGD %-2.2f to ",
+                            MovieTicketConfig.getNormalCinemaMarkup());
                     newValue = scanner.nextFloat();
-                    MovieTicketConfig.updateNormalCinemaPercentage(newValue);
+                    MovieTicketConfig.updateNormalCinemaMarkup(newValue);
                     break;
 
                 case 7:
-                    System.out.printf("Updating Platinum Cinema Markup from %-2.2f %% to ",
-                            MovieTicketConfig.getPlatinumCinemaPercentage());
+                    System.out.printf("Updating Platinum Cinema Markup from SGD %-2.2f to ",
+                            MovieTicketConfig.getPlatinumCinemaMarkup());
                     newValue = scanner.nextFloat();
-                    MovieTicketConfig.updatePlatinumCinemaPercentage(newValue);
+                    MovieTicketConfig.updatePlatinumCinemaMarkup(newValue);
                     break;
 
                 case 8:
-                    System.out.printf("Updating Adult Markup from %-2.2f %% to ",
-                            MovieTicketConfig.getAdultPercentage());
+                    System.out.printf("Updating Adult Markup from SGD %-2.2f to ",
+                            MovieTicketConfig.getAdultMarkup());
                     newValue = scanner.nextFloat();
-                    MovieTicketConfig.updateAdultPercentage(newValue);
+                    MovieTicketConfig.updateAdultMarkup(newValue);
                     break;
 
                 case 9:
-                    System.out.printf("Updating Senior Markup from %-2.2f %% to ",
-                            MovieTicketConfig.getSeniorPercentage());
+                    System.out.printf("Updating Senior Markup from SGD %-2.2f to ",
+                            MovieTicketConfig.getSeniorMarkup());
                     newValue = scanner.nextFloat();
-                    MovieTicketConfig.updateSeniorPercentage(newValue);
+                    MovieTicketConfig.updateSeniorMarkup(newValue);
                     break;
 
                 case 10:
-                    System.out.printf("Updating Child Markup from %-2.2f %% to ",
-                            MovieTicketConfig.getChildPercentage());
+                    System.out.printf("Updating Child Markup from SGD %-2.2f to ",
+                            MovieTicketConfig.getChildMarkup());
                     newValue = scanner.nextFloat();
-                    MovieTicketConfig.updateChildPercentage(newValue);
+                    MovieTicketConfig.updateChildMarkup(newValue);
                     break;
 
                 default:
@@ -380,27 +383,136 @@ public class Admin extends Account {
         } while (userChoice != 11);
     }
 
+    // TODO: remove showtimes by choosing integer
     private void removeShowtimes() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("============= Removing showtimes ==============");
+        System.out.print("Movie Title : ");
+        String movie = scanner.nextLine();
 
+        System.out.print("Cineplex ID :");
+        String cineplexID = scanner.nextLine();
+
+        System.out.print("Cinema ID   : ");
+        String cinemaID = scanner.nextLine();
+
+        System.out.print("Date        : ");
+        String date = scanner.nextLine();
+
+        System.out.print("Day         : ");
+        String day = scanner.nextLine();
+
+        System.out.print("Time        : ");
+        String time = scanner.nextLine();
+
+        DatabaseWriter.removeShowtimes(movie, cineplexID, cinemaID, date, day, time);
     }
 
+    // TODO: remove showtimes by choosing integer, choose which info to edit, then
+    // after edit, then update txt file
     private void updateShowtimes() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("============= Updating showtimes ==============");
+        System.out.print("Movie Title : ");
+        String movie = scanner.nextLine();
 
+        System.out.print("Cineplex ID :");
+        String cineplexID = scanner.nextLine();
+
+        System.out.print("Cinema ID   : ");
+        String cinemaID = scanner.nextLine();
+
+        System.out.print("Date        : ");
+        String date = scanner.nextLine();
+
+        System.out.print("Day         : ");
+        String day = scanner.nextLine();
+
+        System.out.print("Time        : ");
+        String time = scanner.nextLine();
+
+        DatabaseWriter.removeShowtimes(movie, cineplexID, cinemaID, date, day, time);
     }
 
     private void createShowtimes() {
+        // Print menu to user
+        System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
+        System.out.flush();
+        System.out.println("\n=================== Movie Titles =====================");
+        MovieDB.printMovieList();
+        System.out.println("========================================================\n");
 
-    }
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("============= Creating showtimes ==============");
+        System.out.print("Movie Title : ");
+        String movie = scanner.nextLine();
 
-    private void removeMovieListing() {
-        // Remove movie
-        MovieDB.removeMovie();
-    }
+        if (MovieDB.getMovieFromTitle(movie) == null) {
+            System.out.println("Movie not found");
+            System.out.println("Press <Enter> to Exit View");
+            scanner.nextLine();
+            return;
+        }
 
-    private void updateMovieListing() {
-        // find the movie in db
-        // check which part needs to be updated
-        // update that part
+        System.out.print("Cineplex ID : ");
+        String cineplexID = scanner.nextLine();
+
+        if (CineplexDB.getCineplexFromID(cineplexID) == null) {
+            System.out.println("Cineplex not found");
+            System.out.println("Press <Enter> to Exit View");
+            scanner.nextLine();
+            return;
+        }
+
+        System.out.print("Cinema ID   : ");
+        String cinemaID = scanner.nextLine();
+
+        if (CinemaDB.getCinemaFromID(cinemaID) == null) {
+            System.out.println("Cinema not found");
+            System.out.println("Press <Enter> to Exit View");
+            scanner.nextLine();
+            return;
+        }
+
+        System.out.print("Date        : ");
+        String date = scanner.nextLine();
+
+        System.out.print("Day         : ");
+        String day = scanner.nextLine();
+
+        System.out.print("Time        : ");
+        String time = scanner.nextLine();
+
+        // Check whether show time exists already
+        Showtime showtime = null;
+        for (Map<String, Map<Showtime, Seat[]>> bla : DatabaseReader.readShowtime(movie).values()) {
+            if (bla.keySet().size() == 0) break;
+            if (!bla.keySet().contains(cinemaID)) continue;
+            for (Showtime show : bla.get(cinemaID).keySet()) {
+                if (show == null) break;
+                if ((show.date.toLowerCase().compareTo(date) == 0)
+                        && (show.time.toLowerCase().compareTo(time) == 0)) {
+                    showtime = show;
+                    break;
+                }
+            }
+        }
+        if (showtime != null) {
+            System.out.println("Show time already exist");
+            System.out.println("Press <Enter> to Exit View");
+            scanner.nextLine();
+            return;
+        }
+        
+        Seat[] newSeats = new Seat[100];
+        for (int i = 0; i < newSeats.length; i++) {
+            newSeats[i] = new Seat(String.format("%c%d", 65 + i / 10, i % 10 + 1), false);
+        }
+        DatabaseWriter.createShowtimes(movie, cineplexID, cinemaID, date, day, time, newSeats);
+
+        System.out.println("New showtime created!");
+        System.out.println("Press <Enter> to Exit View");
+        scanner.nextLine();
     }
 
     private void createMovieListing() {
@@ -408,8 +520,6 @@ public class Admin extends Account {
         MovieDB.addNewMovie();
     }
 
-    // TODO: Maybe can add more menu?? Like add cineplex or remove cinemas?? what am
-    // i even talking about -b
     private void printAdminOptions() {
         System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
         System.out.flush();
@@ -417,7 +527,7 @@ public class Admin extends Account {
         System.out.println("\u001B[36mHello ~~ " + username + " ~~ :)\n\u001B[0m");
 
         System.out.println("What would you like to do as ADMIN?");
-        System.out.println("-----------------------------------------------------");
+        System.out.println("=====================================================");
         System.out.println(" 1. Create movie listing");
         System.out.println(" 2. Update movie listing");
         System.out.println(" 3. Remove movie listing");
@@ -429,7 +539,7 @@ public class Admin extends Account {
         System.out.println(" 9. List Movies");
         System.out.println("10. List cineplex ID and cinema ID");
         System.out.println("11. Quit");
-        System.out.println("-----------------------------------------------------");
+        System.out.println("=====================================================");
         System.out.print("Enter choice: ");
     }
 

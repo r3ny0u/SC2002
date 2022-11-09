@@ -34,12 +34,7 @@ public class Movie {
         this.director = director;
         this.casts = casts;
         this.loadRatingsAndReviews();
-        Map<Map<String, ArrayList<String>>, Map<String, Map<Showtime, Seat[]>>> bla = DatabaseReader
-                .readShowtime(title);
-        for (Map<String, ArrayList<String>> bla2 : bla.keySet()) {
-            this.showingPlaces = bla2;
-            this.seats = bla.get(bla2);
-        }
+        this.loadShowtimes();
     }
 
     public Movie(String title, String status, String synopsis, String director, ArrayList<String> casts,
@@ -54,6 +49,19 @@ public class Movie {
         this.ratingCount = 0;
         this.salesCount = 0;
         this.loadRatingsAndReviews();
+        this.loadShowtimes();
+    }
+
+    public Seat[] getSeats(String cinemaID, String date, String day, String time) {
+        Showtime showtime = null;
+        for (Showtime show : seats.get(cinemaID).keySet()) {
+            if ((show.date.toLowerCase().compareTo(date) == 0) && (show.day.toLowerCase().compareTo(day) == 0)
+                    && (show.time.toLowerCase().compareTo(time) == 0)) {
+                showtime = show;
+                break;
+            }
+        }
+        return seats.get(cinemaID).get(showtime);
     }
 
     public String getStatus() {
@@ -154,14 +162,14 @@ public class Movie {
         i = j = 0;
 
         for (Showtime st : seats.get(cinemaID).keySet()) {
-            if (st.date != date && st.time != showtime)
+            if (st.date.compareTo(date) != 0 || st.time.compareTo(showtime) != 0)
                 continue;
 
             for (Seat s : seats.get(cinemaID).get(st)) {
                 if (s.assigned)
                     seatMatrix[i][j] = 1;
                 else
-                    seatMatrix[i][i] = 0;
+                    seatMatrix[i][j] = 0;
                 j++;
 
                 if (j == 10) {
@@ -188,32 +196,31 @@ public class Movie {
         System.out.println("Legend\n|x| = taken\n|O| = available\n");
     }
 
-    public boolean assignSeat(String cinemaID, String date, String day, String time, String seatID, String customerID) {
+    public Seat[] assignSeat(String cinemaID, String date, String time, String seatID, String customerID) {
         Showtime showtime = null;
         for (Showtime show : seats.get(cinemaID).keySet()) {
-            if ((show.date.toLowerCase().compareTo(date) == 0) && (show.day.toLowerCase().compareTo(day) == 0)
-                    && (show.time.toLowerCase().compareTo(time) == 0)) {
+            if ((show.date.toLowerCase().compareTo(date) == 0) && (show.time.toLowerCase().compareTo(time) == 0)) {
                 showtime = show;
                 break;
             }
         }
         if (showtime == null) {
-            return false;
+            return null;
         }
         Seat[] s = seats.get(cinemaID).get(showtime);
         int row = seatID.charAt(0);
         row -= 65;
         int col = Integer.parseInt(String.valueOf(seatID.substring(1))) - 1;
         this.salesCount++;
-        return s[(row * 10) + col].assign(customerID);
+        s[(row * 10) + col].assign(customerID);
+        return s;
     }
 
-    public boolean checkSeat(String cinemaID, String date, String day, String time, String seatID) {
+    public boolean checkSeat(String cinemaID, String date, String time, String seatID) {
         Showtime showtime = null;
-        // TODO: make sure this works with multiple show times
+        this.loadShowtimes();
         for (Showtime show : seats.get(cinemaID).keySet()) {
-            if ((show.date.toLowerCase().compareTo(date) == 0) && (show.day.toLowerCase().compareTo(day) == 0)
-                    && (show.time.toLowerCase().compareTo(time) == 0)) {
+            if ((show.date.toLowerCase().compareTo(date) == 0) && (show.time.toLowerCase().compareTo(time) == 0)) {
                 showtime = show;
                 break;
             }
@@ -224,8 +231,8 @@ public class Movie {
         Seat[] s = seats.get(cinemaID).get(showtime);
         int row = seatID.charAt(0);
         row -= 65;
-        int col = Integer.parseInt(String.valueOf(seatID.charAt(1)));
-        return s[(row * 10) + col].assigned;
+        int col = Integer.parseInt(String.valueOf(seatID.substring(1)));
+        return s[(row * 10) + col - 1].assigned;
     }
 
     public void addReviews(String customerID, String review, float rating) {
@@ -249,7 +256,6 @@ public class Movie {
             ArrayList<String> temp = new ArrayList<String>();
             temp.add(cinemaID);
             showingPlaces.put(cineplexID, temp);
-
         }
 
         else if (showingPlaces.containsKey(cineplexID)) {
@@ -290,5 +296,16 @@ public class Movie {
             }
         }
         this.overallRating = this.ratingCount == 0 ? 0 : ratingSum / ratingCount;
+    }
+
+    public void loadShowtimes() {
+        Map<Map<String, ArrayList<String>>, Map<String, Map<Showtime, Seat[]>>> bla = DatabaseReader
+                .readShowtime(title);
+        this.showingPlaces = null;
+        this.seats = null;
+        for (Map<String, ArrayList<String>> bla2 : bla.keySet()) {
+            this.showingPlaces = bla2;
+            this.seats = bla.get(bla2);
+        }
     }
 }

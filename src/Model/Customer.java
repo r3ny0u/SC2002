@@ -339,17 +339,17 @@ public class Customer extends Account {
                     // Second choice idk what's it for
                     Showtime showtime = new Showtime(dateChoice, "day", showtimeChoice);
 
-                    boolean assigned = movieChoice.checkSeat(cinemaChoice, dateChoice, "day", showtimeChoice, seatID);
+                    boolean assigned = movieChoice.checkSeat(cinemaChoice, dateChoice, showtimeChoice, seatID);
                     while (assigned) {
                         System.out.print("Seat is already taken!");
                         // System.out.print("\033[1K\033[1K"); // Erase line content
                         // System.out.print(String.format("\033[1A")); // Move up 1
                         System.out.print("Please choose another seat (eg. A1): ");
                         seatID = scanner.next();
-                        assigned = movieChoice.checkSeat(cinemaChoice, dateChoice, "day", showtimeChoice, seatID);
+                        assigned = movieChoice.checkSeat(cinemaChoice, dateChoice, showtimeChoice, seatID);
                     }
 
-                    Seat[] newSeats = movieChoice.assignSeat(cinemaChoice, dateChoice, "day", showtimeChoice, seatID,
+                    Seat[] newSeats = movieChoice.assignSeat(cinemaChoice, dateChoice, showtimeChoice, seatID,
                             this.accountID);
 
                     // User to input age

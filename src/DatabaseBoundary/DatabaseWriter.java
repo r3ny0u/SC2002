@@ -747,7 +747,6 @@ public class DatabaseWriter {
                     s[1].toLowerCase().compareTo(cineplexID.toLowerCase()) == 0 &&
                     s[2].toLowerCase().compareTo(cinemaID.toLowerCase()) == 0 &&
                     s[3].toLowerCase().compareTo(date.toLowerCase()) == 0 &&
-                    s[4].toLowerCase().compareTo(day.toLowerCase()) == 0 &&
                     s[5].toLowerCase().compareTo(time.toLowerCase()) == 0) {
                 break;
             }
@@ -782,22 +781,19 @@ public class DatabaseWriter {
     public static void createShowtimes(String movieTitle, String cineplexID, String cinemaID, String date, String day,
             String time, Seat[] seats) {
         ArrayList<String> strings = DatabaseReader.readtxt(showtimesDatabasePath);
-        
+
         try {
             FileWriter writer = new FileWriter(showtimesDatabasePath, true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
-            for (int i = 0; i < strings.size(); i++) {
-                bufferedWriter.write(
-                        String.format("%s,%s,%s,%s,%s,%s,", movieTitle, cineplexID, cinemaID, date, day, time));
-                String[] seatStringArray = new String[100];
-                for (int j = 0; j < seatStringArray.length; j++) {
-                    seatStringArray[j] = seats[j].assigned ? "1" : "0";
-                }
-                bufferedWriter.write(String.join("", seatStringArray));
-                bufferedWriter.write("\n");
-                bufferedWriter.write(strings.get(i) + "\n");
+            bufferedWriter.write(
+                    String.format("%s,%s,%s,%s,%s,%s,", movieTitle, cineplexID, cinemaID, date, day, time));
+            String[] seatStringArray = new String[100];
+            for (int j = 0; j < seatStringArray.length; j++) {
+                seatStringArray[j] = seats[j].assigned ? "1" : "0";
             }
+            bufferedWriter.write(String.join("", seatStringArray));
+            bufferedWriter.write("\n");
 
             bufferedWriter.close();
 

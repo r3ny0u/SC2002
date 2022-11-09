@@ -196,7 +196,7 @@ public class Movie {
         System.out.println("Legend\n|x| = taken\n|O| = available\n");
     }
 
-    public Seat[] assignSeat(String cinemaID, String date, String day, String time, String seatID, String customerID) {
+    public Seat[] assignSeat(String cinemaID, String date, String time, String seatID, String customerID) {
         Showtime showtime = null;
         for (Showtime show : seats.get(cinemaID).keySet()) {
             if ((show.date.toLowerCase().compareTo(date) == 0) && (show.time.toLowerCase().compareTo(time) == 0)) {
@@ -216,9 +216,8 @@ public class Movie {
         return s;
     }
 
-    public boolean checkSeat(String cinemaID, String date, String day, String time, String seatID) {
+    public boolean checkSeat(String cinemaID, String date, String time, String seatID) {
         Showtime showtime = null;
-        // TODO: make sure this works with multiple show times
         this.loadShowtimes();
         for (Showtime show : seats.get(cinemaID).keySet()) {
             if ((show.date.toLowerCase().compareTo(date) == 0) && (show.time.toLowerCase().compareTo(time) == 0)) {
@@ -232,7 +231,7 @@ public class Movie {
         Seat[] s = seats.get(cinemaID).get(showtime);
         int row = seatID.charAt(0);
         row -= 65;
-        int col = Integer.parseInt(String.valueOf(seatID.charAt(1)));
+        int col = Integer.parseInt(String.valueOf(seatID.substring(1)));
         return s[(row * 10) + col - 1].assigned;
     }
 

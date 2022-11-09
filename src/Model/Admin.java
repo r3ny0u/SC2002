@@ -209,9 +209,9 @@ public class Admin extends Account {
                     // Print sysem configurations
                     System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
                     System.out.flush();
-                    System.out.println("-----------------------------------------------------");
+                    System.out.println("=====================================================");
                     MovieTicketConfig.printConfigDetails();
-                    System.out.println("-----------------------------------------------------");
+                    System.out.println("=====================================================");
                     System.out.println("Press <Enter> to Exit View");
 
                     scanner.nextLine();
@@ -292,10 +292,10 @@ public class Admin extends Account {
             System.out.flush();
 
             System.out.println("Which settings to update?");
-            System.out.println("-----------------------------------------------------");
+            System.out.println("=====================================================");
             MovieTicketConfig.printConfigDetails();
             System.out.println("11. Quit");
-            System.out.println("-----------------------------------------------------");
+            System.out.println("=====================================================");
             System.out.print("Enter choice: ");
 
             userChoice = scanner.nextInt();
@@ -324,52 +324,52 @@ public class Admin extends Account {
                     break;
 
                 case 4:
-                    System.out.printf("Updating 2D Movie Markup from %-2.2f %% to ",
-                            MovieTicketConfig.get2DMoviePercentage());
+                    System.out.printf("Updating 2D Movie Markup from SGD %-2.2f to ",
+                            MovieTicketConfig.get2DMovieMarkup());
                     newValue = scanner.nextFloat();
-                    MovieTicketConfig.update2DMoviePercentage(newValue);
+                    MovieTicketConfig.update2DMovieMarkup(newValue);
                     break;
 
                 case 5:
-                    System.out.printf("Updating 3D Movie markup from %-2.2f %% to ",
-                            MovieTicketConfig.get3DMoviePercentage());
+                    System.out.printf("Updating 3D Movie markup from SGD %-2.2f to ",
+                            MovieTicketConfig.get3DMovieMarkup());
                     newValue = scanner.nextFloat();
-                    MovieTicketConfig.update3DMoviePercentage(newValue);
+                    MovieTicketConfig.update3DMovieMarkup(newValue);
                     break;
 
                 case 6:
-                    System.out.printf("Updating Normal Cinema Markup from %-2.2f %% to ",
-                            MovieTicketConfig.getNormalCinemaPercentage());
+                    System.out.printf("Updating Normal Cinema Markup from SGD %-2.2f to ",
+                            MovieTicketConfig.getNormalCinemaMarkup());
                     newValue = scanner.nextFloat();
-                    MovieTicketConfig.updateNormalCinemaPercentage(newValue);
+                    MovieTicketConfig.updateNormalCinemaMarkup(newValue);
                     break;
 
                 case 7:
-                    System.out.printf("Updating Platinum Cinema Markup from %-2.2f %% to ",
-                            MovieTicketConfig.getPlatinumCinemaPercentage());
+                    System.out.printf("Updating Platinum Cinema Markup from SGD %-2.2f to ",
+                            MovieTicketConfig.getPlatinumCinemaMarkup());
                     newValue = scanner.nextFloat();
-                    MovieTicketConfig.updatePlatinumCinemaPercentage(newValue);
+                    MovieTicketConfig.updatePlatinumCinemaMarkup(newValue);
                     break;
 
                 case 8:
-                    System.out.printf("Updating Adult Markup from %-2.2f %% to ",
-                            MovieTicketConfig.getAdultPercentage());
+                    System.out.printf("Updating Adult Markup from SGD %-2.2f to ",
+                            MovieTicketConfig.getAdultMarkup());
                     newValue = scanner.nextFloat();
-                    MovieTicketConfig.updateAdultPercentage(newValue);
+                    MovieTicketConfig.updateAdultMarkup(newValue);
                     break;
 
                 case 9:
-                    System.out.printf("Updating Senior Markup from %-2.2f %% to ",
-                            MovieTicketConfig.getSeniorPercentage());
+                    System.out.printf("Updating Senior Markup from SGD %-2.2f to ",
+                            MovieTicketConfig.getSeniorMarkup());
                     newValue = scanner.nextFloat();
-                    MovieTicketConfig.updateSeniorPercentage(newValue);
+                    MovieTicketConfig.updateSeniorMarkup(newValue);
                     break;
 
                 case 10:
-                    System.out.printf("Updating Child Markup from %-2.2f %% to ",
-                            MovieTicketConfig.getChildPercentage());
+                    System.out.printf("Updating Child Markup from SGD %-2.2f to ",
+                            MovieTicketConfig.getChildMarkup());
                     newValue = scanner.nextFloat();
-                    MovieTicketConfig.updateChildPercentage(newValue);
+                    MovieTicketConfig.updateChildMarkup(newValue);
                     break;
 
                 default:
@@ -417,7 +417,7 @@ public class Admin extends Account {
         System.out.println("\u001B[36mHello ~~ " + username + " ~~ :)\n\u001B[0m");
 
         System.out.println("What would you like to do as ADMIN?");
-        System.out.println("-----------------------------------------------------");
+        System.out.println("=====================================================");
         System.out.println(" 1. Create movie listing");
         System.out.println(" 2. Update movie listing");
         System.out.println(" 3. Remove movie listing");
@@ -429,7 +429,7 @@ public class Admin extends Account {
         System.out.println(" 9. List Movies");
         System.out.println("10. List cineplex ID and cinema ID");
         System.out.println("11. Quit");
-        System.out.println("-----------------------------------------------------");
+        System.out.println("=====================================================");
         System.out.print("Enter choice: ");
     }
 

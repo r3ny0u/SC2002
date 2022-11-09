@@ -372,12 +372,13 @@ public class Customer extends Account {
                     for (int i = 0; i < 5; i++) {
                         if (movieArrayEmpty[i] == null)
                             break;
-                        System.out.printf("%2d. %s\n", i + 1, movieArrayEmpty[i].getTitle());
+                        System.out.printf("%2d. %s: %d tickets sold\n", i + 1, movieArrayEmpty[i].getTitle(), movieArrayEmpty[i].getSalesCount());
                     }
                     System.out.println("========================================================\n");
                     movieDB.sortByAlphabet();
 
                     System.out.println("Press <Enter> to Exit View");
+                    scanner.nextLine();
                     scanner.nextLine();
                     break;
 

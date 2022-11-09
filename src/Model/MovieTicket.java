@@ -62,23 +62,23 @@ public class MovieTicket {
 
         // Markup price based on movie type
         if (getMovieType() == MovieType.MOVIE3D)
-            basePrice *= MovieTicketConfig.get3DMoviePercentage();
+            basePrice += MovieTicketConfig.get3DMovieMarkup();
         else
-            basePrice *= MovieTicketConfig.get2DMoviePercentage();
+            basePrice += MovieTicketConfig.get2DMovieMarkup();
 
         // Markup price based on cinema type
         if (getCinemaClass() == CinemaClass.PLATINUM)
-            basePrice *= MovieTicketConfig.getPlatinumCinemaPercentage();
+            basePrice += MovieTicketConfig.getPlatinumCinemaMarkup();
         else
-            basePrice *= MovieTicketConfig.getNormalCinemaPercentage();
+            basePrice += MovieTicketConfig.getNormalCinemaMarkup();
 
         // Discount based on age
         if (getAge() == Age.SENIOR_CITIZEN)
-            basePrice *= MovieTicketConfig.getSeniorPercentage();
+            basePrice += MovieTicketConfig.getSeniorMarkup();
         else if (getAge() == Age.CHILD)
-            basePrice *= MovieTicketConfig.getChildPercentage();
+            basePrice += MovieTicketConfig.getChildMarkup();
         else
-            basePrice *= MovieTicketConfig.getAdultPercentage();
+            basePrice += MovieTicketConfig.getAdultMarkup();
 
         setTicketPrice(basePrice);
     }

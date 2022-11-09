@@ -50,7 +50,7 @@ public class Customer extends Account {
         this.transactions.clear();
         TransactionDB transactionDB = new TransactionDB();
         for (Transaction transaction : transactionDB.getTransactions()) {
-            if (transaction.getCustomerID() == this.accountID) {
+            if (transaction.getCustomerID().compareTo(this.accountID.toLowerCase()) == 0) {
                 this.transactions.add(transaction);
             }
         }
@@ -66,12 +66,12 @@ public class Customer extends Account {
             System.out.println("No transactions recorded");
         } else {
             for (Transaction transaction : this.transactions) {
-                System.out.printf("\t%s - %.2f - %s\n", transaction.getTransactionId(), transaction.getTicketPrice(),
+                System.out.printf("  %s - %.2f - %s\n", transaction.getTransactionId(), transaction.getTicketPrice(),
                         transaction.getMovie().getTitle());
             }
         }
 
-        System.out.println("========================================================\n");
+        System.out.println("======================================================\n");
         System.out.println("Press <Enter> to Exit View");
         scanner.nextLine();
     }
@@ -277,8 +277,8 @@ public class Customer extends Account {
                     boolean assigned = movieChoice.checkSeat(cinemaChoice, dateChoice, "day", showtimeChoice, seatID);
                     while (assigned) {
                         System.out.print("Seat is already taken!");
-                        System.out.print("\033[1K\033[1K"); // Erase line content
-                        System.out.print(String.format("\033[1A")); // Move up 1
+                        // System.out.print("\033[1K\033[1K"); // Erase line content
+                        // System.out.print(String.format("\033[1A")); // Move up 1
                         System.out.print("Please choose another seat (eg. A1): ");
                         seatID = scanner.next();
                         assigned = movieChoice.checkSeat(cinemaChoice, dateChoice, "day", showtimeChoice, seatID);

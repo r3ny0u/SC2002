@@ -162,14 +162,14 @@ public class Movie {
         i = j = 0;
 
         for (Showtime st : seats.get(cinemaID).keySet()) {
-            if (st.date != date && st.time != showtime)
+            if (st.date.compareTo(date) != 0 || st.time.compareTo(showtime) != 0)
                 continue;
 
             for (Seat s : seats.get(cinemaID).get(st)) {
                 if (s.assigned)
                     seatMatrix[i][j] = 1;
                 else
-                    seatMatrix[i][i] = 0;
+                    seatMatrix[i][j] = 0;
                 j++;
 
                 if (j == 10) {
@@ -220,6 +220,7 @@ public class Movie {
     public boolean checkSeat(String cinemaID, String date, String day, String time, String seatID) {
         Showtime showtime = null;
         // TODO: make sure this works with multiple show times
+        this.loadShowtimes();
         for (Showtime show : seats.get(cinemaID).keySet()) {
             if ((show.date.toLowerCase().compareTo(date) == 0) && (show.day.toLowerCase().compareTo(day) == 0)
                     && (show.time.toLowerCase().compareTo(time) == 0)) {
@@ -234,7 +235,7 @@ public class Movie {
         int row = seatID.charAt(0);
         row -= 65;
         int col = Integer.parseInt(String.valueOf(seatID.charAt(1)));
-        return s[(row * 10) + col].assigned;
+        return s[(row * 10) + col - 1].assigned;
     }
 
     public void addReviews(String customerID, String review, float rating) {

@@ -239,9 +239,9 @@ public class DatabaseReader {
 
         // Cinemas -> (Showtime -> Seat[])
         Map<String, Map<Showtime, Seat[]>> cinemasAndShowtimes = new HashMap<>();
-        Seat[] seats = new Seat[100];
 
         for (int i = 0; i < numOfShowtimes; i++) {
+            Seat[] seats = new Seat[100];
             String[] temp = strings.get(i).split(",");
             Map<Showtime, Seat[]> showtimesAndSeat = new HashMap<>();
             if (temp[0].toLowerCase().compareTo(movieTitle.toLowerCase()) == 0) {
@@ -254,6 +254,11 @@ public class DatabaseReader {
                     }
                 }
                 showtimesAndSeat.put(showtime, seats);
+
+                if (cinemasAndShowtimes.containsKey(cinemas.get(i))) {
+                    // cinemasAndShowtimes.computeIfAbsent(cinemas.get(i), k-> new HashMap()).put(showtime, seats);
+                    cinemasAndShowtimes.get(cinemas.get(i)).put(showtime, seats);
+                }
                 cinemasAndShowtimes.put(cinemas.get(i), showtimesAndSeat);
             }
         }

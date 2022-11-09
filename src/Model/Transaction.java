@@ -47,13 +47,13 @@ public class Transaction {
             String seatID) {
         // Wow nice job b(°-°)d
         this.transactionID = cinema.getCinemaID().substring(0, 3).toUpperCase()
-                + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddhhmm"));
+                + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmm"));
 
         this.time = date + " : " + time;
         this.age = age;
         this.cinemaType = cinema.getCinemaType();
 
-        if (movie.title.substring(0, 1) == "3D")
+        if (movie.title.substring(0, 2) == "3D")
             this.movieType = "3D";
         else
             this.movieType = "2D";
@@ -99,7 +99,7 @@ public class Transaction {
         else if (Integer.parseInt(getAge()) > 12 && Integer.parseInt(getAge()) < 55)
             movieTicket.setAge(Age.ADULT);
 
-        if (getDayOfWeek() == "Saturday" || getDayOfWeek() == "Sunday")
+        if (getDayOfWeek().toLowerCase().compareTo("saturday") == 0 || getDayOfWeek().toLowerCase().compareTo("sunday") == 0)
             movieTicket.setDayOfWeek(Model.DayOfWeek.WEEKEND);
         else
             movieTicket.setDayOfWeek(Model.DayOfWeek.WEEKDAY);

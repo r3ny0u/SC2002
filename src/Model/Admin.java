@@ -1,12 +1,15 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 import Database.AdminDB;
+import Database.CinemaDB;
 import Database.CineplexDB;
 import Database.MovieDB;
 import Database.MovieTicketConfig;
+import DatabaseBoundary.DatabaseReader;
 import DatabaseBoundary.DatabaseWriter;
 
 public class Admin extends Account {
@@ -432,16 +435,44 @@ public class Admin extends Account {
     }
 
     private void createShowtimes() {
+        // Print menu to user
+        System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
+        System.out.flush();
+        System.out.println("\n=================== Movie Titles =====================");
+        MovieDB.printMovieList();
+        System.out.println("========================================================\n");
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("============= Creating showtimes ==============");
         System.out.print("Movie Title : ");
         String movie = scanner.nextLine();
 
-        System.out.print("Cineplex ID :");
+        if (MovieDB.getMovieFromTitle(movie) == null) {
+            System.out.println("Movie not found");
+            System.out.println("Press <Enter> to Exit View");
+            scanner.nextLine();
+            return;
+        }
+
+        System.out.print("Cineplex ID : ");
         String cineplexID = scanner.nextLine();
+
+        if (CineplexDB.getCineplexFromID(cineplexID) == null) {
+            System.out.println("Cineplex not found");
+            System.out.println("Press <Enter> to Exit View");
+            scanner.nextLine();
+            return;
+        }
 
         System.out.print("Cinema ID   : ");
         String cinemaID = scanner.nextLine();
+
+        if (CinemaDB.getCinemaFromID(cinemaID) == null) {
+            System.out.println("Cinema not found");
+            System.out.println("Press <Enter> to Exit View");
+            scanner.nextLine();
+            return;
+        }
 
         System.out.print("Date        : ");
         String date = scanner.nextLine();
@@ -452,18 +483,36 @@ public class Admin extends Account {
         System.out.print("Time        : ");
         String time = scanner.nextLine();
 
-        DatabaseWriter.createShowtimes(movie, cineplexID, cinemaID, date, day, time, new Seat[100]);
-    }
+        // Check whether show time exists already
+        Showtime showtime = null;
+        for (Map<String, Map<Showtime, Seat[]>> bla : DatabaseReader.readShowtime(movie).values()) {
+            if (bla.keySet().size() == 0) break;
+            if (!bla.keySet().contains(cinemaID)) continue;
+            for (Showtime show : bla.get(cinemaID).keySet()) {
+                if (show == null) break;
+                if ((show.date.toLowerCase().compareTo(date) == 0)
+                        && (show.time.toLowerCase().compareTo(time) == 0)) {
+                    showtime = show;
+                    break;
+                }
+            }
+        }
+        if (showtime != null) {
+            System.out.println("Show time already exist");
+            System.out.println("Press <Enter> to Exit View");
+            scanner.nextLine();
+            return;
+        }
+        
+        Seat[] newSeats = new Seat[100];
+        for (int i = 0; i < newSeats.length; i++) {
+            newSeats[i] = new Seat(String.format("%c%d", 65 + i / 10, i % 10 + 1), false);
+        }
+        DatabaseWriter.createShowtimes(movie, cineplexID, cinemaID, date, day, time, newSeats);
 
-    private void removeMovieListing() {
-        // Remove movie
-        MovieDB.removeMovie();
-    }
-
-    private void updateMovieListing() {
-        // find the movie in db
-        // check which part needs to be updated
-        // update that part
+        System.out.println("New showtime created!");
+        System.out.println("Press <Enter> to Exit View");
+        scanner.nextLine();
     }
 
     private void createMovieListing() {
@@ -471,8 +520,6 @@ public class Admin extends Account {
         MovieDB.addNewMovie();
     }
 
-    // TODO: Maybe can add more menu?? Like add cineplex or remove cinemas?? what am
-    // i even talking about -b
     private void printAdminOptions() {
         System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
         System.out.flush();

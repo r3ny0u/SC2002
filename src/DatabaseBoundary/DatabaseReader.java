@@ -225,8 +225,8 @@ public class DatabaseReader {
 
         for (int i = 0; i < numOfShowtimes; i++) {
             String[] temp = strings.get(i).split(",");
+            cinemas.add(temp[2]);
             if (temp[0].toLowerCase().compareTo(movieTitle.toLowerCase()) == 0) {
-                cinemas.add(temp[2]);
                 if (cineplexesAndCinemas.containsKey(temp[1])) {
                     cineplexesAndCinemas.get(temp[1]).add(temp[2]);
                 } else {
@@ -256,7 +256,6 @@ public class DatabaseReader {
                 showtimesAndSeat.put(showtime, seats);
 
                 if (cinemasAndShowtimes.containsKey(cinemas.get(i))) {
-                    // cinemasAndShowtimes.computeIfAbsent(cinemas.get(i), k-> new HashMap()).put(showtime, seats);
                     cinemasAndShowtimes.get(cinemas.get(i)).put(showtime, seats);
                 }
                 cinemasAndShowtimes.put(cinemas.get(i), showtimesAndSeat);

@@ -70,7 +70,8 @@ public class Transaction {
         
         for (Showtime show : movie.seats.get(cinema.getCinemaID()).keySet()) {
             if ((show.date.toLowerCase().compareTo(date) == 0) && (show.time.toLowerCase().compareTo(time) == 0)) {
-                isPH = true;
+                if (show.day.toLowerCase().compareTo("ph") == 0)
+                    isPH = true;
                 break;
             }
         }

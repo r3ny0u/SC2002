@@ -18,16 +18,33 @@ public class ShowtimeDB {
         return this.showtimes;
     }
 
-    public static void createShowtimes() {
-
+    /**
+     * Create a new showtime by prompting users
+     */
+    public static void createShowtimes(String movieTitle, String cineplexID, String cinemaID, String date, String day,
+    String time) {
+        Seat[] seats = new Seat[100];
+        DatabaseWriter.createShowtimes(movieTitle, cineplexID, cinemaID, date, day, time, seats);
     }
-    
-    public static void updateShowtimes(String movieTitle, String cineplexID, String cinemaID, String date, String day,
+
+    /**
+     * Edit current showtimes
+     */
+    public static void editShowtimes(String movieTitle, String cineplexID, String cinemaID, String date, String day,
     String time, Seat[] seats) {
         DatabaseWriter.updateShowtimes(movieTitle, cineplexID, cinemaID, date, day, time, seats);
     }
 
-    public static void removeShowtimes() {
+    public static void updateShowtimes(String movieTitle, String cineplexID, String cinemaID, String date, String day,
+            String time, Seat[] seats) {
+        DatabaseWriter.updateShowtimes(movieTitle, cineplexID, cinemaID, date, day, time, seats);
+    }
 
+    /**
+     * Remove showtimes
+     */
+    public static void removeShowtimes(String movieTitle, String cineplexID, String cinemaID, String date, String day,
+    String time) {
+        DatabaseWriter.removeShowtimes(movieTitle, cineplexID, cinemaID, date, day, time);
     }
 }

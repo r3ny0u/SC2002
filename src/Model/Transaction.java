@@ -25,6 +25,7 @@ public class Transaction {
     private String seatID;
     private String bookingTime;
     private float ticketPrice;
+    private boolean isPH = false;
 
     Transaction() {
     }
@@ -66,6 +67,13 @@ public class Transaction {
         this.customerID = customerID;
         this.seatID = seatID;
         this.bookingTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
+        
+        for (Showtime show : movie.seats.get(cinema.getCinemaID()).keySet()) {
+            if ((show.date.toLowerCase().compareTo(date) == 0) && (show.time.toLowerCase().compareTo(time) == 0)) {
+                isPH = true;
+                break;
+            }
+        }
     }
 
     public void printTransactionDetails() {
@@ -103,6 +111,10 @@ public class Transaction {
             movieTicket.setDayOfWeek(Model.DayOfWeek.WEEKEND);
         else
             movieTicket.setDayOfWeek(Model.DayOfWeek.WEEKDAY);
+        
+        if (isPH) {
+            movieTicket.setDayOfWeek(Model.DayOfWeek.PUBLIC_HOLIDAY);
+        }
 
         movieTicket.calculateTicketPrice();
         this.ticketPrice = movieTicket.getTicketPrice();
@@ -168,12 +180,5 @@ public class Transaction {
 
     public void setCustomerID(String custID) {
         this.customerID = custID;
-    }
-
-    public static void main(String[] args) {
-        String date = "2022/11/08";
-        Date date2 = new Date(date);
-        DateFormat formatter = new SimpleDateFormat("yyyy/MM/dd EEEE", Locale.UK);
-        System.out.println(formatter.format(date2));
     }
 }

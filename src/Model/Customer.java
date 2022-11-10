@@ -508,6 +508,7 @@ public class Customer extends Account {
                     LinkedHashMap<String, Integer> sortedMovMap = new LinkedHashMap<>();
                     ArrayList<Integer> list = new ArrayList<>();
 
+                    // sort map in descending order of key
                     for (Map.Entry<String, Integer> entry : movMap.entrySet()) {
                         list.add(entry.getValue());
                     }
@@ -519,16 +520,17 @@ public class Customer extends Account {
                             }
                         }
                     }
+
+                    // print top 5 movies by sales
                     int k = 1;
                     System.out.println("\n=============== Movie Titles by Sales ================");
                     for (String str : sortedMovMap.keySet()) {
                         System.out.printf("%2d. %s: %d tickets sold\n", k++, str,
                                 sortedMovMap.get(str));
-                        if (k == 6)
+                        if (k > 5)
                             break;
                     }
                     System.out.println("========================================================\n");
-                    movieDB.sortByAlphabet();
 
                     System.out.println("Press <Enter> to Exit View");
                     scanner.nextLine();

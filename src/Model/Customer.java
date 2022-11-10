@@ -119,7 +119,7 @@ public class Customer extends Account {
             System.out.println("\u001B[36mHello ~~ " + username + " ~~ :)\n\u001B[0m");
 
             printMenu();
-
+            System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
 
             switch (choice) {
@@ -195,7 +195,8 @@ public class Customer extends Account {
                     movieChoice = movieArray[movieChoiceInt - 1];
                     scanner.nextLine();
 
-                    if (movieChoice.getStatus().toLowerCase().compareTo("now showing") == 0 || movieChoice.getStatus().toLowerCase().compareTo("preview") ==  0) {
+                    if (movieChoice.getStatus().toLowerCase().compareTo("now showing") == 0
+                            || movieChoice.getStatus().toLowerCase().compareTo("preview") == 0) {
 
                         // Print our movie detail for user to see before adding review
                         System.out.print("\033[H\033[2J");
@@ -297,23 +298,27 @@ public class Customer extends Account {
                     movieChoice = movieArray[movieChoiceInt - 1];
                     scanner.nextLine();
 
-                    // Print our movie detail for user to see before adding review
+                    // Print our movie detail for user to see before booking
                     System.out.print("\033[H\033[2J");
                     System.out.flush();
                     movieChoice.printMovieDetails();
 
-                    if (movieChoice.getStatus().toLowerCase().compareTo("now showing") == 0 || movieChoice.getStatus().toLowerCase().compareTo("preview") ==  0) {
+                    if (movieChoice.getStatus().toLowerCase().compareTo("now showing") == 0
+                            || movieChoice.getStatus().toLowerCase().compareTo("preview") == 0) {
                         System.out.println("======================= Booking ========================\n");
 
                         // Print all showtimes for customer to see, then let customer choose cineplex,
                         // cinema, date and time
-                        movieChoice.printAllShowtimes();
+
                         if (movieChoice.showingPlaces.size() == 0) {
                             System.out.println("Sorry, the movie is not available for booking.");
                             System.out.println("Press <Enter> to Exit View");
                             scanner.nextLine();
                             break;
                         }
+
+                        movieChoice.printAllShowtimes();
+
                         System.out.printf("Please choose a cineplex : ");
                         cineplexChoice = scanner.nextLine();
 
@@ -346,7 +351,8 @@ public class Customer extends Account {
 
                         // Check if showtime exists
                         Showtime showtime = null;
-                        for (Map<String, Map<Showtime, Seat[]>> bla : DatabaseReader.readShowtime(movieChoice.getTitle()).values()) {
+                        for (Map<String, Map<Showtime, Seat[]>> bla : DatabaseReader
+                                .readShowtime(movieChoice.getTitle()).values()) {
                             if (bla.keySet().size() == 0)
                                 break;
                             if (!bla.keySet().contains(cinemaChoice))
@@ -404,7 +410,8 @@ public class Customer extends Account {
                         transactions.add(newTrans);
 
                         TransactionDB.addNewTransaction(newTrans);
-                        ShowtimeDB.updateShowtimes(movieChoice.getTitle(), cineplexChoice, cinemaChoice, dateChoice, "day",
+                        ShowtimeDB.updateShowtimes(movieChoice.getTitle(), cineplexChoice, cinemaChoice, dateChoice,
+                                "day",
                                 showtimeChoice, newSeats);
                         movieChoice.loadShowtimes();
 
@@ -499,7 +506,8 @@ public class Customer extends Account {
 
                     movieChoice = movieArray[movieChoiceInt - 1];
 
-                    if (movieChoice.getStatus().toLowerCase().compareTo("now showing") == 0 || movieChoice.getStatus().toLowerCase().compareTo("preview") ==  0) {
+                    if (movieChoice.getStatus().toLowerCase().compareTo("now showing") == 0
+                            || movieChoice.getStatus().toLowerCase().compareTo("preview") == 0) {
                         // Print our movie detail for user to see before adding review
                         System.out.print("\033[H\033[2J");
                         System.out.flush();

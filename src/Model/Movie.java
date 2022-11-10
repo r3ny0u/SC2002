@@ -134,37 +134,43 @@ public class Movie {
     }
 
     public void printAllShowtimes() {
-        String oldDate = "", oldCinemaID = "";
+
+        String oldDate = "date", oldCinemaID = "ID";
+
         for (String cineplexID : showingPlaces.keySet()) {
             System.out.println(
-                    "========================================================\n\nCineplex   : " + cineplexID);
-            
+                    "----------\n\nCineplex   : " + cineplexID);
+
             for (String cinemaID : showingPlaces.get(cineplexID)) {
-                if (cinemaID.toLowerCase().compareTo(oldCinemaID) != 0) {
-                    oldCinemaID = cinemaID.toLowerCase();
+                if (cinemaID.equals(oldCinemaID) == false) {
+                    oldCinemaID = cinemaID;
                     System.out.println("Cinema     : " + cinemaID);
+
+                    ArrayList<Showtime> showtimeAL = new ArrayList<>(seats.get(cinemaID).keySet());
+
+                    showtimeAL.sort(new Comparator<Showtime>() {
+
+                        @Override
+                        public int compare(Showtime s1, Showtime s2) {
+                            return (s1.date + s1.time).compareTo(s2.date + s2.time);
+                        }
+
+                    });
+
+                    for (Showtime st : showtimeAL) {
+                        if (st.date.equals(oldDate) == false) {
+                            oldDate = st.date;
+                            System.out.println();
+                            System.out.print(oldDate + " : " + st.time + " ");
+                        } else {
+                            System.out.print(st.time + " ");
+                        }
+                    }
+                    System.out.println();
                 }
 
-                ArrayList<Showtime> showtimeAL = new ArrayList<>(seats.get(cinemaID).keySet());
-                showtimeAL.sort(new Comparator<Showtime>() {
+                // sort showtimes according to date and time in ascending order
 
-                    @Override
-                    public int compare(Showtime s1, Showtime s2) {
-                        return (s1.date + s1.time).compareTo(s2.date + s2.time);
-                    }
-        
-                });
-
-                for (Showtime st : showtimeAL) {
-                    if (st.date.toLowerCase().compareTo(oldDate) != 0) {
-                        oldDate = st.date.toLowerCase();
-                        System.out.println();
-                        System.out.print(oldDate + " : " + st.time + " ");
-                    } else {
-                        System.out.print(st.time + " ");
-                    }
-                }
-                System.out.println();
             }
             System.out.println();
         }

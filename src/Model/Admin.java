@@ -123,7 +123,7 @@ public class Admin extends Account {
                             break;
                         case 5:
                             casts.clear();
-                            System.out.printf("New casts: (enter exit to complete entry)");
+                            System.out.printf("New casts: (enter 'exit' to complete entry)");
                             while (true) {
                                 cast = scanner.nextLine();
                                 if (cast.toLowerCase().compareTo("exit") == 0)
@@ -469,14 +469,14 @@ public class Admin extends Account {
             }
         }
         if (showtime == null) {
-            System.out.println("Show time does not exist");
+            System.out.println("Showtime does not exist");
             System.out.println("Press <Enter> to Exit View");
             scanner.nextLine();
             return;
         }
 
         // Make sure admin wants to delete
-        System.out.println("Are you sure? (type yes to proceed)");
+        System.out.println("Are you sure? (type 'yes' to proceed)");
         if (scanner.nextLine().toLowerCase().compareTo("yes") == 0) {
             DatabaseWriter.removeShowtimes(movieTitle, cineplexID, cinemaID, date, "not important", time);
 
@@ -579,7 +579,7 @@ public class Admin extends Account {
             }
         }
         if (showtime == null) {
-            System.out.println("Show time does not exist");
+            System.out.println("Showtime does not exist");
             System.out.println("Press <Enter> to Exit View");
             scanner.nextLine();
             return;
@@ -651,7 +651,7 @@ public class Admin extends Account {
                 }
             }
             if (showtime != null) {
-                System.out.println("Show time already exist");
+                System.out.println("Showtime already exists");
                 System.out.println("Press <Enter> to Exit View");
                 scanner.nextLine();
                 continue;

@@ -18,8 +18,8 @@ public class MOBLIMAApp {
             System.out.println("==================== Welcome to MOBLIMA ====================");
             System.out.println("======================== Login Menu ========================");
             System.out.println("Enter login details");
-            System.out.println(" - (type exit to quit MOBLIMA login page)");
-            System.out.println(" - (type new to create new customer account)");
+            System.out.println(" - (type 'exit' to quit MOBLIMA login page)");
+            System.out.println(" - (type 'new' to create new customer account)");
 
             // ============================== LOGIN MENU ===============================
             // Login Menu for both Admin and Customer

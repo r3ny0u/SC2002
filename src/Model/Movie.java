@@ -26,6 +26,7 @@ public class Movie {
     protected Map<String, ArrayList<String>> showingPlaces = new HashMap<String, ArrayList<String>>(); // Cineplex ->
                                                                                                        // Cinema
     protected Map<String, Map<Showtime, Seat[]>> seats; // cinemaID->showtimes->seats
+    protected String movieRating;
 
     // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
     public Movie(String title, String status, String synopsis, String director, ArrayList<String> casts) {
@@ -36,6 +37,7 @@ public class Movie {
         this.casts = casts;
         this.loadRatingsAndReviews();
         this.loadShowtimes();
+        this.movieRating = title.substring(title.lastIndexOf(" ")+1, title.length());
     }
 
     public Movie(String title, String status, String synopsis, String director, ArrayList<String> casts,
@@ -51,6 +53,7 @@ public class Movie {
         this.salesCount = 0;
         this.loadRatingsAndReviews();
         this.loadShowtimes();
+        
     }
 
     public Seat[] getSeats(String cinemaID, String date, String day, String time) {
@@ -328,5 +331,13 @@ public class Movie {
             this.showingPlaces = bla2;
             this.seats = bla.get(bla2);
         }
+    }
+
+    public String getMovieRating() {
+        return movieRating;
+    }
+
+    public void setMovieRating(String movieRating) {
+        this.movieRating = movieRating;
     }
 }

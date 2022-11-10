@@ -12,7 +12,7 @@ import Database.*;
 import Model.*;
 
 /**
- * Returns the different types of database.
+ * A class for reading database txt files
  */
 public class DatabaseReader {
     private static final String cineplexDatabasePath = DatabaseConstants.CINEPLEX_DATABASE_PATH;
@@ -52,12 +52,17 @@ public class DatabaseReader {
         }
     }
 
+    /**
+     * Reads the movie database
+     * 
+     * @return An array of Movie
+     * @see Model.Movie
+     */
     public static Movie[] readMovieDatabase() {
         ArrayList<String> strings = readtxt(movieDatabasePath);
 
         // MovieDB text file has only five information per movie
         // Title, Showing Status, Synopsis, Director, Cast
-        // Ratings and reviews err that one, i think can just get from the ratings DB
         int numOfMovies = strings.size() / 5;
         Movie[] movies = new Movie[numOfMovies];
         Movie temp;
@@ -70,6 +75,12 @@ public class DatabaseReader {
         return movies;
     }
 
+    /**
+     * Reads the admin database
+     * 
+     * @return An array of Admin
+     * @see Model.Admin
+     */
     public static Admin[] readAdminDatabase() {
         ArrayList<String> strings = readtxt(adminDatabasePath);
 
@@ -85,11 +96,17 @@ public class DatabaseReader {
         return adminAccounts;
     }
 
+    /**
+     * Reads the customer database
+     * 
+     * @return An array of Customer
+     * @see Model.Customer
+     */
     public static Customer[] readCustomerDatabase() {
         ArrayList<String> strings = readtxt(customerDatabasePath);
 
         // CustomerDB text file has only five information per account
-        // Username, Password, accountID
+        // Username, Password, accountID, email, mobile
         int numOfAccounts = strings.size() / 5;
         Customer[] customerAccounts = new Customer[numOfAccounts];
         Customer temp;
@@ -101,6 +118,12 @@ public class DatabaseReader {
         return customerAccounts;
     }
 
+    /**
+     * Reads the transaction database
+     * 
+     * @return An array of Transaction
+     * @see Model.Transaction
+     */
     public static Transaction[] readTransactionDatabase() {
         ArrayList<String> strings = readtxt(transactionDatabasePath);
 
@@ -119,27 +142,16 @@ public class DatabaseReader {
         return transactions;
     }
 
-    // public static Cinema[] readCinemaDatabase() {
-    // ArrayList<String> strings = readtxt(cinemaDatabasePath);
-
-    // // CInemaDB text file has only three information per account
-    // // Username, Password, accountID
-    // int numOfCinemas = strings.size() / 5;
-    // Cinema[] cinemas = new Cinema[numOfCinemas];
-    // Cinema temp;
-    // for (int i = 0; i < cinemas.length; i++) {
-    // temp = new Cinema(strings.get(i * 5 + 0), strings.get(i * 5 + 1),
-    // strings.get(i * 5 + 2),
-    // new ArrayList<String>(Arrays.asList(strings.get(i * 5 + 3).split(","))));
-    // cinemas[i] = temp;
-    // }
-    // return cinemas;
-    // }
-
+    /**
+     * Reads the cineplex database
+     * 
+     * @return An array of Cineplex
+     * @see Model.Cineplex
+     */
     public static Cineplex[] readCineplexDatabase() {
         ArrayList<String> strings = readtxt(cineplexDatabasePath);
 
-        // Cineplex text file has only three information per account
+        // Cineplex text file has only two information per account
         // CineplexID, cinemas
         int numOfCineplex = strings.size() / 2;
         Cineplex[] cineplexes = new Cineplex[numOfCineplex];
@@ -160,12 +172,17 @@ public class DatabaseReader {
         return cineplexes;
     }
 
+    /**
+     * Reads the rating database
+     * 
+     * @return An array of Rating
+     * @see Model.Rating
+     */
     public static Rating[] readRatingDatabase() {
         ArrayList<String> strings = readtxt(ratingDatabasePath);
 
-        // MovieDB text file has only five information per movie
-        // Title, Showing Status, Synopsis, Director, Cast
-        // Ratings and reviews err that one, i think can just get from the ratings DB
+        // Rating text file has only five information per movie
+        // movie title, rating, review, ratingID, username
         int numOfRatings = strings.size() / 5;
         Rating[] ratings = new Rating[numOfRatings];
         Rating temp;
@@ -177,6 +194,12 @@ public class DatabaseReader {
         return ratings;
     }
 
+    /**
+     * Reads the cineplex database
+     * 
+     * @return An array of cineplex
+     * @see Model.Cineplex
+     */
     public static Cineplex[] readCineplexDatabase2() {
         ArrayList<String> strings = readtxt(cineplexDatabasePath);
 
@@ -198,6 +221,12 @@ public class DatabaseReader {
         return cineplexes;
     }
 
+    /**
+     * Reads the cinema database
+     * 
+     * @return An array of Cinema
+     * @see Model.Cinema
+     */
     public static Cinema[] readCinemaDatabase2() {
         ArrayList<String> strings = readtxt(cinemaDatabasePath);
 
@@ -212,6 +241,16 @@ public class DatabaseReader {
         return cinemas;
     }
 
+    /**
+     * Reads the showtime database, considers only specific movie titles
+     * 
+     * @param movieTitle A String representing the movie title to be considered
+     * @return A HashMap that contains, a HashMap that contains Cineplex ID String
+     *         to Cinema ID String pairs, to a Hashmap that contains, a Cinema ID
+     *         String, to a Hashmap that contains a Showtime object to Seat object
+     *         array pairs pairs pairs
+     * @see Model.Showtime
+     */
     public static Map<Map<String, ArrayList<String>>, Map<String, Map<Showtime, Seat[]>>> readShowtime(
             String movieTitle) {
         // IDK

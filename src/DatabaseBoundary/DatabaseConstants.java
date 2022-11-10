@@ -1,5 +1,8 @@
 package DatabaseBoundary;
 
+/**
+ * Contains all the database txt file paths
+ */
 public class DatabaseConstants {
     public static String CINEPLEX_DATABASE_PATH = "src\\Database\\CineplexDB.txt";
     public static String CINEMA_DATABASE_PATH = "src\\Database\\CinemaDB.txt";

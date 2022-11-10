@@ -110,3 +110,19 @@ Normal
 Saturday
 Statistics
 1f3deee0f59945f09a0129a811adf2fb
+001202211101615
+2022/11/10 : 1615
+22
+Platinum
+2D
+Thursday
+Jason's Bizzare Adventure
+4b2e6a4a60b14e41ba0bcbe511987fc6
+001202211101700
+2022/11/10 : 1615
+25
+Platinum
+2D
+Thursday
+Jason's Bizzare Adventure
+1f3deee0f59945f09a0129a811adf2fb

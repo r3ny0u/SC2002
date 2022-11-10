@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -133,17 +134,31 @@ public class Movie {
     }
 
     public void printAllShowtimes() {
-        String oldDate = "";
+        String oldDate = "", oldCinemaID = "";
         for (String cineplexID : showingPlaces.keySet()) {
             System.out.println(
                     "========================================================\n\nCineplex   : " + cineplexID);
-
+            
             for (String cinemaID : showingPlaces.get(cineplexID)) {
-                System.out.println("Cinema     : " + cinemaID);
+                if (cinemaID.toLowerCase().compareTo(oldCinemaID) != 0) {
+                    oldCinemaID = cinemaID.toLowerCase();
+                    System.out.println("Cinema     : " + cinemaID);
+                }
 
-                for (Showtime st : seats.get(cinemaID).keySet()) {
-                    if (oldDate != st.date) {
-                        oldDate = st.date;
+                ArrayList<Showtime> showtimeAL = new ArrayList<>(seats.get(cinemaID).keySet());
+                showtimeAL.sort(new Comparator<Showtime>() {
+
+                    @Override
+                    public int compare(Showtime s1, Showtime s2) {
+                        return (s1.date + s1.time).compareTo(s2.date + s2.time);
+                    }
+        
+                });
+
+                for (Showtime st : showtimeAL) {
+                    if (st.date.toLowerCase().compareTo(oldDate) != 0) {
+                        oldDate = st.date.toLowerCase();
+                        System.out.println();
                         System.out.print(oldDate + " : " + st.time + " ");
                     } else {
                         System.out.print(st.time + " ");

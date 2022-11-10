@@ -95,6 +95,18 @@ public class Customer extends Account {
         System.out.println("Mobile: " + this.mobile);
     }
 
+    public boolean checkAge(String age, String rating) {
+        if (rating.toLowerCase().compareTo("g") == 0 || rating.toLowerCase().compareTo("pg") == 0) {
+            return true;
+        }
+        else {
+            if (Integer.valueOf(age) < Integer.valueOf(rating.substring(rating.length()-2, rating.length()))) {
+                return false;
+            }
+            return true;
+        }
+    }
+
     // I change the name to customerMenu ah to be consistent with the adminMenu
     // Also I changed it to a do while loop
     public void customerMenu() {
@@ -316,6 +328,17 @@ public class Customer extends Account {
                             break;
                         }
 
+                        // User to input age
+                        System.out.printf("Please enter your age: ");
+                        String age = scanner.nextLine();
+
+                        if (!checkAge(age,movieChoice.getMovieRating())) {
+                            System.out.printf("Sorry, this movie is %s.\n", movieChoice.getMovieRating());
+                            System.out.println("Press <Enter> to Exit View");
+                            scanner.nextLine();
+                            break;
+                        }
+
                         movieChoice.printAllShowtimes();
 
                         System.out.printf("Please choose a cineplex : ");
@@ -395,10 +418,10 @@ public class Customer extends Account {
                         Seat[] newSeats = movieChoice.assignSeat(cinemaChoice, dateChoice, showtimeChoice, seatID,
                                 this.accountID);
 
-                        // User to input age
-                        System.out.printf("Please enter your age: ");
-                        scanner.nextLine();
-                        String age = scanner.nextLine();
+                        // // User to input age
+                        // System.out.printf("Please enter your age: ");
+                        // scanner.nextLine();
+                        // String age = scanner.nextLine();
 
                         // Booking process done, creating transaction
                         Transaction newTrans = new Transaction(showtimeChoice, age, cinema, dateChoice, movieChoice,

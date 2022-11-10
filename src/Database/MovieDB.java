@@ -34,9 +34,13 @@ public class MovieDB {
         MovieDB movieDB = new MovieDB();
         movieDB.sortByAlphabet();
         Movie[] movies = movieDB.getMovies();
+        int j = 1;
         for (int i = 0; i < movies.length; i++) {
-            System.out.printf("%2d. %-30s: %s\n", i + 1, movies[i].getTitle(), movies[i].getStatus().toUpperCase());
-
+            // if (movies[i].getStatus().toLowerCase().compareTo("end of showing") == 0) {
+            //     j--;
+            //     continue;
+            // }
+            System.out.printf("%2d. %-30s: %s\n", i + j, movies[i].getTitle(), movies[i].getStatus().toUpperCase());
         }
     }
 

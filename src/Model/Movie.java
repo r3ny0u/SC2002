@@ -139,34 +139,34 @@ public class Movie {
 
         for (String cineplexID : showingPlaces.keySet()) {
             System.out.println(
-                    "----------\n\nCineplex   : " + cineplexID);
+                    "--------------------\n\nCineplex: " + cineplexID);
 
             for (String cinemaID : showingPlaces.get(cineplexID)) {
                 if (cinemaID.equals(oldCinemaID) == false) {
                     oldCinemaID = cinemaID;
-                    System.out.println("Cinema     : " + cinemaID);
+                    System.out.println("\nCinema: " + cinemaID);
                 }
-                    ArrayList<Showtime> showtimeAL = new ArrayList<>(seats.get(cinemaID).keySet());
+                ArrayList<Showtime> showtimeAL = new ArrayList<>(seats.get(cinemaID).keySet());
 
-                    showtimeAL.sort(new Comparator<Showtime>() {
+                showtimeAL.sort(new Comparator<Showtime>() {
 
-                        @Override
-                        public int compare(Showtime s1, Showtime s2) {
-                            return (s1.date + s1.time).compareTo(s2.date + s2.time);
-                        }
-
-                    });
-
-                    for (Showtime st : showtimeAL) {
-                        if (st.date.equals(oldDate) == false) {
-                            oldDate = st.date;
-                            System.out.println();
-                            System.out.print(oldDate + " : " + st.time + " ");
-                        } else {
-                            System.out.print(st.time + " ");
-                        }
+                    @Override
+                    public int compare(Showtime s1, Showtime s2) {
+                        return (s1.date + s1.time).compareTo(s2.date + s2.time);
                     }
-                    System.out.println();
+
+                });
+
+                for (Showtime st : showtimeAL) {
+                    if (st.date.equals(oldDate) == false) {
+                        oldDate = st.date;
+                        System.out.println();
+                        System.out.print("        " + oldDate + " - " + st.time + " ");
+                    } else {
+                        System.out.print(st.time + " ");
+                    }
+                }
+                System.out.println();
                 // }
 
                 // sort showtimes according to date and time in ascending order

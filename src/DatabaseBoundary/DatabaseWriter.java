@@ -19,7 +19,7 @@ import Model.Showtime;
 import Model.Transaction;
 
 /**
- * Class for writing and updating data into database txt files.
+ * A class for writing and updating data into database txt files.
  */
 public class DatabaseWriter {
     private static final String cineplexDatabasePath = DatabaseConstants.CINEPLEX_DATABASE_PATH;
@@ -41,13 +41,10 @@ public class DatabaseWriter {
             FileWriter writer = new FileWriter(movieDatabasePath, true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
-            // I'm not to sure whether want to put the query part here or put it into
-            // another method
             Scanner sc = new Scanner(System.in);
             String title, synopsis, director, cast;
             ArrayList<String> casts = new ArrayList<String>();
 
-            // Asking time!!
             System.out.println("Adding new movie...\n");
 
             System.out.println("Title: ");
@@ -81,6 +78,19 @@ public class DatabaseWriter {
         }
     }
 
+    /**
+     * Updates the details of a Movie object from the Movie database
+     * 
+     * @param originalMovieObject A Movie object that details are being updated
+     * @param title               A String representing the new title of the movie
+     * @param status              A String representing the new status of the movie
+     * @param synopsis            A String representing the new synopsis of the
+     *                            movie
+     * @param director            A String representing the new director of the
+     *                            movie
+     * @param casts               A String representing the new casts of the movie
+     * @see Model.Movie
+     */
     public static void updateMovieDetails(Movie originalMovieObject, String title, String status, String synopsis,
             String director, ArrayList<String> casts) {
         try {
@@ -121,7 +131,6 @@ public class DatabaseWriter {
             return;
         }
 
-        // Remove movie from txt file idk how, can just rewrite the entire file
         ArrayList<String> movies = DatabaseReader.readtxt(movieDatabasePath);
         int lineNo = 0;
         for (String string : movies) {
@@ -149,13 +158,18 @@ public class DatabaseWriter {
         }
     }
 
+    /**
+     * Removes Movie from movie database by movie title
+     * 
+     * @param title A String representing the title of the movie
+     * @see Model.Movie
+     */
     public static void removeMovieByTitle(String title) {
         if (MovieDB.getMovieFromTitle(title) == null) {
             System.out.println("Oops movie does not exist :(");
             return;
         }
 
-        // Remove movie from txt file idk how, can just rewrite the entire file
         ArrayList<String> movies = DatabaseReader.readtxt(movieDatabasePath);
         int lineNo = 0;
         for (String string : movies) {
@@ -193,12 +207,9 @@ public class DatabaseWriter {
             FileWriter writer = new FileWriter(adminDatabasePath, true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
-            // I'm not to sure whether want to put the query part here or put it into
-            // another method
             Scanner sc = new Scanner(System.in);
             String username, password, confirmPassword;
 
-            // Asking time!!
             System.out.println("Adding new admin account...\n");
 
             System.out.println("Username: ");
@@ -248,7 +259,6 @@ public class DatabaseWriter {
             return;
         }
 
-        // Remove account from txt file idk how, can just rewrite the entire file
         ArrayList<String> admins = DatabaseReader.readtxt(adminDatabasePath);
         int lineNo = 0;
         for (String string : admins) {
@@ -286,12 +296,9 @@ public class DatabaseWriter {
             FileWriter writer = new FileWriter(customerDatabasePath, true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
-            // I'm not to sure whether want to put the query part here or put it into
-            // another method
             Scanner sc = new Scanner(System.in);
             String username, password, confirmPassword, email, mobile;
 
-            // Asking time!!
             System.out.println("Adding new customer account...\n");
 
             System.out.print("Username: ");
@@ -349,7 +356,6 @@ public class DatabaseWriter {
             return;
         }
 
-        // Remove account from txt file idk how, can just rewrite the entire file
         ArrayList<String> customers = DatabaseReader.readtxt(customerDatabasePath);
         int lineNo = 0;
         for (String string : customers) {
@@ -380,8 +386,8 @@ public class DatabaseWriter {
     /**
      * Adds new Transaction into transaction database
      * 
-     * @param transaction a transaction object to be added into transaction database
-     * @see Model.Rating
+     * @param transaction A Transaction object to be added into transaction database
+     * @see Model.Transaction
      */
     public static void addNewTransaction(Transaction transaction) {
         try {
@@ -407,8 +413,8 @@ public class DatabaseWriter {
     /**
      * Adds new Rating into rating database via user inputs
      * 
-     * @param movie    the title of the movie associated with rating
-     * @param username the username associated with the rating
+     * @param movie    The title of the movie associated with rating
+     * @param username The username associated with the rating
      * @see Model.Rating
      */
     public static void addNewRating(String movie, String username) {
@@ -416,8 +422,6 @@ public class DatabaseWriter {
             FileWriter writer = new FileWriter(ratingDatabasePath, true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
-            // I'm not to sure whether want to put the query part here or put it into
-            // another method
             Scanner sc = new Scanner(System.in);
             float rating;
             String review;
@@ -445,15 +449,6 @@ public class DatabaseWriter {
     }
 
     /**
-     * @deprecated
-     *             Removes Rating from rating database
-     */
-    public static void removeRating() {
-        // Should this be implemented idk i lazy
-        // d: think dn lah kinda mafan LOL
-    }
-
-    /**
      * Adds new Cineplex into cineplex database via user inputs
      * 
      * @see Model.Cineplex
@@ -463,12 +458,9 @@ public class DatabaseWriter {
             FileWriter writer = new FileWriter(cineplexDatabasePath, true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
-            // I'm not to sure whether want to put the query part here or put it into
-            // another method
             Scanner sc = new Scanner(System.in);
             String cineplexName;
 
-            // Asking time!!
             System.out.println("Adding new cinplex...\n");
 
             System.out.println("Cineplex name: ");
@@ -501,7 +493,6 @@ public class DatabaseWriter {
             return;
         }
 
-        // Remove account from txt file idk how, can just rewrite the entire file
         ArrayList<String> cineplexes = DatabaseReader.readtxt(cineplexDatabasePath);
         int lineNo = 0;
         for (String string : cineplexes) {
@@ -555,9 +546,6 @@ public class DatabaseWriter {
             return;
         }
 
-        // Remove cinema from cinepelex txt file idk how, can just rewrite the entire
-        // file
-        // Get which line the cineplex is in, then at the next line add new cinema
         ArrayList<String> cineplexes = DatabaseReader.readtxt(cineplexDatabasePath);
         int lineNo = 0;
         for (String string : cineplexes) {
@@ -623,9 +611,6 @@ public class DatabaseWriter {
             return;
         }
 
-        // Remove cinema from cinepelex txt file idk how, can just rewrite the entire
-        // file
-        // Get which line the cineplex is in, then at the next line add remove cinema
         ArrayList<String> cineplexes = DatabaseReader.readtxt(cineplexDatabasePath);
         int lineNo = 0;
         for (String string : cineplexes) {
@@ -666,8 +651,6 @@ public class DatabaseWriter {
             FileWriter writer = new FileWriter(cinemaDatabasePath, true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
-            // I'm not to sure whether want to put the query part here or put it into
-            // another method
             Scanner sc = new Scanner(System.in);
             String cinemaID, cinemaType;
 
@@ -709,7 +692,6 @@ public class DatabaseWriter {
             return;
         }
 
-        // Remove account from txt file idk how, can just rewrite the entire file
         ArrayList<String> cinemas = DatabaseReader.readtxt(cinemaDatabasePath);
         int lineNo = 0;
         for (String string : cinemas) {
@@ -737,6 +719,21 @@ public class DatabaseWriter {
         }
     }
 
+    /**
+     * Updates the Seats corresponding to the Showtime
+     * 
+     * @param movieTitle A String representing the movie title associated to the
+     *                   showtime
+     * @param cineplexID A String representing the cineplex ID associated to the
+     *                   showtime
+     * @param cinemaID   A String representing the cinema ID associated to the
+     *                   showtime
+     * @param date       A String representing the date associated to the showtime
+     * @param day        A String representing the day associated to the showtime
+     * @param time       A String representing the time associated to the showtime
+     * @param seats      An array of Seat object representing the new seats
+     *                   associated to the showtime
+     */
     public static void updateShowtimeSeats(String movieTitle, String cineplexID, String cinemaID, String date,
             String day,
             String time, Seat[] seats) {
@@ -779,6 +776,33 @@ public class DatabaseWriter {
         }
     }
 
+    /**
+     * Updates the info of the Showtime
+     * 
+     * @param movieTitle    A String representing the movie title associated to the
+     *                      showtime
+     * @param cineplexIDA   A String representing the cineplex ID associated to the
+     *                      showtime
+     * @param cinemaIDA     A String representing the cinema ID associated to the
+     *                      showtime
+     * @param dateA         A String representing the date associated to the
+     *                      showtime
+     * @param dayA          A String representing the day associated to the showtime
+     * @param timeA         A String representing the time associated to the
+     *                      showtime
+     * @param newMovieTitle A String representing the new movie title associated to
+     *                      the showtime
+     * @param newCineplexID A String representing the new cineplex ID associated to
+     *                      the showtime
+     * @param newCinemaID   A String representing the new cinema ID associated to
+     *                      the showtime
+     * @param newDate       A String representing the new date associated to the
+     *                      showtime
+     * @param newDay        A String representing the new day associated to the
+     *                      showtime
+     * @param newTime       A String representing the new time associated to the
+     *                      showtime
+     */
     public static void updateShowtimeInfo(String movieTitle, String cineplexID, String cinemaID, String date,
             String day, String time, String newMovieTitle, String newCineplexID, String newCinemaID, String newDate,
             String newDay,
@@ -818,6 +842,18 @@ public class DatabaseWriter {
         }
     }
 
+    /**
+     * Creates a new Showtime to the showtime database
+     * 
+     * @param movieTitle A String representing the movie title of the new showtime
+     * @param cineplexID A String representing the cineplex ID of the new showtime
+     * @param cinemaID   A String representing the cinema ID of the new showtime
+     * @param date       A String representing the date of the new showtime
+     * @param day        A String representing the day of the new showtime
+     * @param time       A String representing the time of the new showtime
+     * @param seats      An array of Seat objects representing seats of the new
+     *                   showtime
+     */
     public static void createShowtime(String movieTitle, String cineplexID, String cinemaID, String date, String day,
             String time, Seat[] seats) {
         ArrayList<String> strings = DatabaseReader.readtxt(showtimesDatabasePath);
@@ -842,6 +878,16 @@ public class DatabaseWriter {
         }
     }
 
+    /**
+     * Removes the Showtime from the showtime database
+     * 
+     * @param movieTitle A String representing the movie title of the new showtime
+     * @param cineplexID A String representing the cineplex ID of the new showtime
+     * @param cinemaID   A String representing the cinema ID of the new showtime
+     * @param date       A String representing the date of the new showtime
+     * @param day        A String representing the day of the new showtime
+     * @param time       A String representing the time of the new showtime
+     */
     public static void removeShowtimes(String movieTitle, String cineplexID, String cinemaID, String date, String day,
             String time) {
         ArrayList<String> strings = DatabaseReader.readtxt(showtimesDatabasePath);

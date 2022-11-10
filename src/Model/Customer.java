@@ -259,7 +259,6 @@ public class Customer extends Account {
                         // // let customer check seat availability
                         // System.out.println("Seat availablity is as follows: ");
                         // movieChoice.printSeats(cinema.getCinemaID(), dateChoice, showtimeChoice);
-                        break;
                     }
 
                     else {
@@ -268,37 +267,6 @@ public class Customer extends Account {
                         scanner.nextLine();
                         break;
                     }
-
-                    // User to input date and showtime, to get seats
-                    System.out.printf("\nPlease choose a showing date (eg. 2022/11/13) : ");
-                    dateChoice = scanner.nextLine();
-
-                    System.out.printf("Please choose the showtime                    : ");
-                    showtimeChoice = scanner.nextLine();
-
-                    movieChoice.printSeats(cinema.getCinemaID(), dateChoice, showtimeChoice);
-
-                    System.out.println("Press <Enter> to Exit View");
-                    scanner.nextLine();
-
-                    // find movie from movies[]
-                    // movieChoice.printAllShowtimes();
-                    // System.out.printf("Please choose the cineplex: ");
-                    // cineplexChoice = scanner.next();
-                    // System.out.printf("Please choose the cinema: ");
-                    // cinemaChoice = scanner.next();
-                    // // use db to find cineplex
-                    // cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
-                    // cinema = cineplex.findCinema(cinemaChoice);
-                    // // let customer choose showtime
-                    // System.out.printf("Please choose a showing date (eg. 13/11/2022): ");
-                    // dateChoice = scanner.next();
-                    // System.out.printf("Please choose the showtime: ");
-                    // showtimeChoice = scanner.next();
-                    // // let customer check seat availability
-                    // System.out.println("Seat availablity is as follows: ");
-                    // movieChoice.printSeats(cinema.getCinemaID(), dateChoice, showtimeChoice);
-                    break;
 
                 case 4:
                     // TODO: Check for date and time is valid, if got error see can put into while
@@ -362,20 +330,23 @@ public class Customer extends Account {
                             break;
                         }
 
-                    // User to input date and showtime, to get seats
-                    System.out.printf("\nPlease choose a showing date (eg. 2022/11/13) : ");
-                    dateChoice = scanner.nextLine();
+                        System.out.printf("Please choose a cinema   : ");
+                        cinemaChoice = scanner.nextLine();
+                        cinema = cineplex.findCinema(cinemaChoice);
 
-                    System.out.printf("Please choose the showtime                    : ");
-                    showtimeChoice = scanner.nextLine();
+                        if (cinema == null) {
+                            System.out.println("Cinema does not exist...");
+                            System.out.println("Press <Enter> to Exit View");
+                            scanner.nextLine();
+                            break;
+                        }
 
                         // User to input date and showtime, to get seats
                         System.out.printf("\nPlease choose a showing date (eg. 2022/11/13) : ");
                         dateChoice = scanner.nextLine();
 
-                    // User to choose seats they want (check for empty seats)
-                    System.out.printf("Select the seat you want (eg. A1): ");
-                    seatID = scanner.next();
+                        System.out.printf("Please choose the showtime                    : ");
+                        showtimeChoice = scanner.nextLine();
 
                         // Check if showtime exists
                         Showtime showtime = null;
@@ -404,15 +375,9 @@ public class Customer extends Account {
 
                         movieChoice.printSeats(cinema.getCinemaID(), dateChoice, showtimeChoice);
 
-                    boolean assigned = movieChoice.checkSeat(cinemaChoice, dateChoice, showtimeChoice, seatID);
-                    while (assigned) {
-                        System.out.print("Seat is already taken!");
-                        // System.out.print("\033[1K\033[1K"); // Erase line content
-                        // System.out.print(String.format("\033[1A")); // Move up 1
-                        System.out.print("Please choose another seat (eg. A1): ");
+                        // User to choose seats they want (check for empty seats)
+                        System.out.printf("Select the seat you want (eg. A1): ");
                         seatID = scanner.next();
-                        assigned = movieChoice.checkSeat(cinemaChoice, dateChoice, showtimeChoice, seatID);
-                    }
 
                         // Second choice idk what's it for
                         showtime = new Showtime(dateChoice, "day", showtimeChoice);
@@ -430,18 +395,18 @@ public class Customer extends Account {
                         Seat[] newSeats = movieChoice.assignSeat(cinemaChoice, dateChoice, showtimeChoice, seatID,
                                 this.accountID);
 
-                    // User to input age
-                    System.out.printf("Please enter your age: ");
-                    scanner.nextLine();
-                    String age = scanner.nextLine();
+                        // User to input age
+                        System.out.printf("Please enter your age: ");
+                        scanner.nextLine();
+                        String age = scanner.nextLine();
 
-                    // Booking process done, creating transaction
-                    Transaction newTrans = new Transaction(showtimeChoice, age, cinema, dateChoice, movieChoice,
-                            accountID, seatID);
+                        // Booking process done, creating transaction
+                        Transaction newTrans = new Transaction(showtimeChoice, age, cinema, dateChoice, movieChoice,
+                                accountID, seatID);
 
-                    System.out.println("Price of ticket : " + newTrans.getTicketPrice());
+                        System.out.println("Price of ticket : " + newTrans.getTicketPrice());
 
-                    transactions.add(newTrans);
+                        transactions.add(newTrans);
 
                         TransactionDB.addNewTransaction(newTrans);
                         ShowtimeDB.updateShowtimes(movieChoice.getTitle(), cineplexChoice, cinemaChoice, dateChoice,

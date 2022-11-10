@@ -228,11 +228,11 @@ public class DatabaseReader {
             String[] temp = strings.get(i).split(",");
             if(!cinemas.contains(temp[2])) {
                 cinemas.add(temp[2]);
-                numOfCinemas++;
             }
             if (temp[0].toLowerCase().compareTo(movieTitle.toLowerCase()) == 0) {
                 if (cineplexesAndCinemas.containsKey(temp[1])) {
-                    cineplexesAndCinemas.get(temp[1]).add(temp[2]);
+                    if (!cineplexesAndCinemas.get(temp[1]).contains(temp[2]))
+                        cineplexesAndCinemas.get(temp[1]).add(temp[2]);
                 } else {
                     ArrayList<String> bla = new ArrayList<String>();
                     bla.add(temp[2]);

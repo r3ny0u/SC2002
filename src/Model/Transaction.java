@@ -27,9 +27,6 @@ public class Transaction {
     private float ticketPrice;
     private boolean isPH = false;
 
-    Transaction() {
-    }
-
     // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
     public Transaction(String transactionID, String time, String age, String cinemaType, String movieType,
             String dayOfWeek, Movie movie, String customerID) {
@@ -41,7 +38,6 @@ public class Transaction {
         this.dayOfWeek = dayOfWeek;
         this.movie = movie;
         this.customerID = customerID;
-        this.seatID = seatID;
     }
 
     public Transaction(String time, String age, Cinema cinema, String date, Movie movie, String customerID,
@@ -67,7 +63,7 @@ public class Transaction {
         this.customerID = customerID;
         this.seatID = seatID;
         this.bookingTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
-        
+
         for (Showtime show : movie.seats.get(cinema.getCinemaID()).keySet()) {
             if ((show.date.toLowerCase().compareTo(date) == 0) && (show.time.toLowerCase().compareTo(time) == 0)) {
                 if (show.day.toLowerCase().compareTo("ph") == 0)
@@ -108,11 +104,12 @@ public class Transaction {
         else if (Integer.parseInt(getAge()) > 12 && Integer.parseInt(getAge()) < 55)
             movieTicket.setAge(Age.ADULT);
 
-        if (getDayOfWeek().toLowerCase().compareTo("saturday") == 0 || getDayOfWeek().toLowerCase().compareTo("sunday") == 0)
+        if (getDayOfWeek().toLowerCase().compareTo("saturday") == 0
+                || getDayOfWeek().toLowerCase().compareTo("sunday") == 0)
             movieTicket.setDayOfWeek(Model.DayOfWeek.WEEKEND);
         else
             movieTicket.setDayOfWeek(Model.DayOfWeek.WEEKDAY);
-        
+
         if (isPH) {
             movieTicket.setDayOfWeek(Model.DayOfWeek.PUBLIC_HOLIDAY);
         }

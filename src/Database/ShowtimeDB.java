@@ -24,7 +24,7 @@ public class ShowtimeDB {
     public static void createShowtimes(String movieTitle, String cineplexID, String cinemaID, String date, String day,
     String time) {
         Seat[] seats = new Seat[100];
-        DatabaseWriter.createShowtimes(movieTitle, cineplexID, cinemaID, date, day, time, seats);
+        DatabaseWriter.createShowtime(movieTitle, cineplexID, cinemaID, date, day, time, seats);
     }
 
     /**
@@ -32,12 +32,12 @@ public class ShowtimeDB {
      */
     public static void editShowtimes(String movieTitle, String cineplexID, String cinemaID, String date, String day,
     String time, Seat[] seats) {
-        DatabaseWriter.updateShowtimes(movieTitle, cineplexID, cinemaID, date, day, time, seats);
+        DatabaseWriter.updateShowtimeSeats(movieTitle, cineplexID, cinemaID, date, day, time, seats);
     }
 
     public static void updateShowtimes(String movieTitle, String cineplexID, String cinemaID, String date, String day,
             String time, Seat[] seats) {
-        DatabaseWriter.updateShowtimes(movieTitle, cineplexID, cinemaID, date, day, time, seats);
+        DatabaseWriter.updateShowtimeSeats(movieTitle, cineplexID, cinemaID, date, day, time, seats);
     }
 
     /**

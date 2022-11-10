@@ -385,66 +385,325 @@ public class Admin extends Account {
 
     // TODO: remove showtimes by choosing integer
     private void removeShowtimes() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("============= Removing showtimes ==============");
-        System.out.print("Movie Title : ");
-        String movie = scanner.nextLine();
-
-        System.out.print("Cineplex ID :");
-        String cineplexID = scanner.nextLine();
-
-        System.out.print("Cinema ID   : ");
-        String cinemaID = scanner.nextLine();
-
-        System.out.print("Date        : ");
-        String date = scanner.nextLine();
-
-        System.out.print("Day         : ");
-        String day = scanner.nextLine();
-
-        System.out.print("Time        : ");
-        String time = scanner.nextLine();
-
-        DatabaseWriter.removeShowtimes(movie, cineplexID, cinemaID, date, day, time);
-    }
-
-    // TODO: remove showtimes by choosing integer, choose which info to edit, then
-    // after edit, then update txt file
-    private void updateShowtimes() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("============= Updating showtimes ==============");
-        System.out.print("Movie Title : ");
-        String movie = scanner.nextLine();
-
-        System.out.print("Cineplex ID :");
-        String cineplexID = scanner.nextLine();
-
-        System.out.print("Cinema ID   : ");
-        String cinemaID = scanner.nextLine();
-
-        System.out.print("Date        : ");
-        String date = scanner.nextLine();
-
-        System.out.print("Day         : ");
-        String day = scanner.nextLine();
-
-        System.out.print("Time        : ");
-        String time = scanner.nextLine();
-
-        DatabaseWriter.removeShowtimes(movie, cineplexID, cinemaID, date, day, time);
-    }
-
-    private void createShowtimes() {
         // Print menu to user
+        Scanner scanner = new Scanner(System.in);
+        int movieChoiceInt = -69;
+        MovieDB movieDB = new MovieDB();
+        movieDB.sortByAlphabet();
+        Movie[] movieArray = movieDB.getMovies();
+        Movie movieChoice = null;
+        String movieTitle;
+
         System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
         System.out.flush();
         System.out.println("\n=================== Movie Titles =====================");
         MovieDB.printMovieList();
         System.out.println("========================================================\n");
 
+        System.out.println("================= Removing showtimes ===================");
+        System.out.print("Movie No.   : ");
+
+        movieChoiceInt = scanner.nextInt();
+
+        if (movieChoiceInt == movieArray.length + 1) {
+            System.out.println("Movie not found");
+            System.out.println("Press <Enter> to Exit View");
+            scanner.nextLine();
+            return;
+        }
+
+        if (movieChoiceInt <= 0 || movieChoiceInt > movieArray.length + 1) {
+            System.out.println("Movie not found");
+            System.out.println("Press <Enter> to Exit View");
+            scanner.nextLine();
+            return;
+        }
+
+        movieChoice = movieArray[movieChoiceInt - 1];
+        movieTitle = movieChoice.getTitle();
+        scanner.nextLine();
+
+        movieChoice.printAllShowtimes();
+
+        System.out.print("Cineplex ID : ");
+        String cineplexID = scanner.nextLine();
+
+        if (CineplexDB.getCineplexFromID(cineplexID) == null) {
+            System.out.println("Cineplex not found");
+            System.out.println("Press <Enter> to Exit View");
+            scanner.nextLine();
+            return;
+        }
+
+        System.out.print("Cinema ID   : ");
+        String cinemaID = scanner.nextLine();
+
+        if (CinemaDB.getCinemaFromID(cinemaID) == null) {
+            System.out.println("Cinema not found");
+            System.out.println("Press <Enter> to Exit View");
+            scanner.nextLine();
+            return;
+        }
+
+        System.out.print("Date        : ");
+        String date = scanner.nextLine();
+
+        System.out.print("Time        : ");
+        String time = scanner.nextLine();
+
+        // Check whether show time exists already
+        Showtime showtime = null;
+        for (Map<String, Map<Showtime, Seat[]>> bla : DatabaseReader.readShowtime(movieTitle).values()) {
+            if (bla.keySet().size() == 0)
+                break;
+            if (!bla.keySet().contains(cinemaID))
+                continue;
+            for (Showtime show : bla.get(cinemaID).keySet()) {
+                if (show == null)
+                    break;
+                if ((show.date.toLowerCase().compareTo(date) == 0)
+                        && (show.time.toLowerCase().compareTo(time) == 0)) {
+                    showtime = show;
+                    break;
+                }
+            }
+        }
+        if (showtime == null) {
+            System.out.println("Show time does not exist");
+            System.out.println("Press <Enter> to Exit View");
+            scanner.nextLine();
+            return;
+        }
+
+        // Make sure admin wants to delete
+        System.out.println("Are you sure? (type yes to proceed)");
+        if (scanner.nextLine().toLowerCase().compareTo("yes") == 0) {
+            DatabaseWriter.removeShowtimes(movieTitle, cineplexID, cinemaID, date, "not important", time);
+
+            System.out.println("Showtime removed!");
+            System.out.println("Press <Enter> to Exit View");
+            scanner.nextLine();
+            return;
+        } else {
+            System.out.println("Showtime remove operation cancelled!");
+            System.out.println("Press <Enter> to Exit View");
+            scanner.nextLine();
+            return;
+        }
+    }
+
+    // TODO: remove showtimes by choosing integer, choose which info to edit, then
+    // after edit, then update txt file
+    private void updateShowtimes() {
+        // Print menu to user
         Scanner scanner = new Scanner(System.in);
-        System.out.println("============= Creating showtimes ==============");
-        System.out.print("Movie Title : ");
+        int movieChoiceInt = -69;
+        MovieDB movieDB = new MovieDB();
+        movieDB.sortByAlphabet();
+        Movie[] movieArray = movieDB.getMovies();
+        Movie movieChoice = null;
+        String movieTitle;
+
+        System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
+        System.out.flush();
+        System.out.println("\n=================== Movie Titles =====================");
+        MovieDB.printMovieList();
+        System.out.println("========================================================\n");
+
+        System.out.println("================= Updating showtimes ===================");
+        System.out.print("Movie No.   : ");
+
+        movieChoiceInt = scanner.nextInt();
+
+        if (movieChoiceInt == movieArray.length + 1) {
+            System.out.println("Movie not found");
+            System.out.println("Press <Enter> to Exit View");
+            scanner.nextLine();
+            return;
+        }
+
+        if (movieChoiceInt <= 0 || movieChoiceInt > movieArray.length + 1) {
+            System.out.println("Movie not found");
+            System.out.println("Press <Enter> to Exit View");
+            scanner.nextLine();
+            return;
+        }
+
+        movieChoice = movieArray[movieChoiceInt - 1];
+        movieTitle = movieChoice.getTitle();
+        scanner.nextLine();
+
+        movieChoice.printAllShowtimes();
+
+        System.out.print("Cineplex ID : ");
+        String cineplexID = scanner.nextLine();
+
+        if (CineplexDB.getCineplexFromID(cineplexID) == null) {
+            System.out.println("Cineplex not found");
+            System.out.println("Press <Enter> to Exit View");
+            scanner.nextLine();
+            return;
+        }
+
+        System.out.print("Cinema ID   : ");
+        String cinemaID = scanner.nextLine();
+
+        if (CinemaDB.getCinemaFromID(cinemaID) == null) {
+            System.out.println("Cinema not found");
+            System.out.println("Press <Enter> to Exit View");
+            scanner.nextLine();
+            return;
+        }
+
+        System.out.print("Date        : ");
+        String date = scanner.nextLine();
+
+        System.out.print("Time        : ");
+        String time = scanner.nextLine();
+
+        // Check whether show time exists already
+        Showtime showtime = null;
+        for (Map<String, Map<Showtime, Seat[]>> bla : DatabaseReader.readShowtime(movieTitle).values()) {
+            if (bla.keySet().size() == 0)
+                break;
+            if (!bla.keySet().contains(cinemaID))
+                continue;
+            for (Showtime show : bla.get(cinemaID).keySet()) {
+                if (show == null)
+                    break;
+                if ((show.date.toLowerCase().compareTo(date) == 0)
+                        && (show.time.toLowerCase().compareTo(time) == 0)) {
+                    showtime = show;
+                    break;
+                }
+            }
+        }
+        if (showtime == null) {
+            System.out.println("Show time does not exist");
+            System.out.println("Press <Enter> to Exit View");
+            scanner.nextLine();
+            return;
+        }
+
+        // Ask user which one to change
+        while (true) {
+            System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
+            System.out.flush();
+
+            System.out.println("Enter new info (enter exit as movie title to cancel): ");
+
+            System.out.printf("Movie Title @ %-15s: ", movieTitle);
+            String newMovieTitle = scanner.nextLine();
+            if (newMovieTitle.toLowerCase().compareTo("exit") == 0) {
+                break;
+            }
+
+            System.out.printf("Cineplex ID @ %-15s: ", cineplexID);
+            String newCineplexID = scanner.nextLine();
+
+            System.out.printf("Cinema ID   @ %-15s: ", cinemaID);
+            String newCinemaID = scanner.nextLine();
+
+            System.out.printf("Date        @ %-15s: ", date);
+            String newDate = scanner.nextLine();
+
+            System.out.printf("Day         @ %-15s: ", showtime.day);
+            String day = scanner.nextLine();
+
+            System.out.printf("Time        @ %-15s: ", time);
+            String newTime = scanner.nextLine();
+
+            if (MovieDB.getMovieFromTitle(newMovieTitle) == null) {
+                System.out.println("Movie not found");
+                System.out.println("Press <Enter> to Exit View");
+                scanner.nextLine();
+                continue;
+            }
+
+            if (CineplexDB.getCineplexFromID(newCineplexID) == null) {
+                System.out.println("Cineplex not found");
+                System.out.println("Press <Enter> to Exit View");
+                scanner.nextLine();
+                continue;
+            }
+
+            if (CinemaDB.getCinemaFromID(cinemaID) == null) {
+                System.out.println("Cinema not found");
+                System.out.println("Press <Enter> to Exit View");
+                scanner.nextLine();
+                continue;
+            }
+
+            showtime = null;
+            for (Map<String, Map<Showtime, Seat[]>> bla : DatabaseReader.readShowtime(newMovieTitle).values()) {
+                if (bla.keySet().size() == 0)
+                    break;
+                if (!bla.keySet().contains(newCinemaID))
+                    continue;
+                for (Showtime show : bla.get(newCinemaID).keySet()) {
+                    if (show == null)
+                        break;
+                    if ((show.date.toLowerCase().compareTo(newDate) == 0)
+                            && (show.time.toLowerCase().compareTo(newTime) == 0)) {
+                        showtime = show;
+                        break;
+                    }
+                }
+            }
+            if (showtime != null) {
+                System.out.println("Show time already exist");
+                System.out.println("Press <Enter> to Exit View");
+                scanner.nextLine();
+                continue;
+            }
+
+            DatabaseWriter.updateShowtimeInfo(movieTitle, cineplexID, cinemaID, date, day, time, newMovieTitle,
+                    newCineplexID, newCinemaID, newDate, newDate, newTime);
+
+            System.out.println("Showtime updated");
+            System.out.println("Press <Enter> to Exit View");
+            scanner.nextLine();
+            break;
+        }
+    }
+
+    private void createShowtimes() {
+        // Print menu to user
+        Scanner scanner = new Scanner(System.in);
+        int movieChoiceInt = -69;
+        MovieDB movieDB = new MovieDB();
+        movieDB.sortByAlphabet();
+        Movie[] movieArray = movieDB.getMovies();
+        Movie movieChoice = null;
+        String movieTitle;
+
+        System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
+        System.out.flush();
+        System.out.println("\n=================== Movie Titles =====================");
+        MovieDB.printMovieList();
+        System.out.println("========================================================\n");
+
+        System.out.println("================= Removing showtimes ===================");
+        System.out.print("Movie No.   : ");
+
+        movieChoiceInt = scanner.nextInt();
+
+        if (movieChoiceInt == movieArray.length + 1) {
+            System.out.println("Movie not found");
+            System.out.println("Press <Enter> to Exit View");
+            scanner.nextLine();
+            return;
+        }
+
+        if (movieChoiceInt <= 0 || movieChoiceInt > movieArray.length + 1) {
+            System.out.println("Movie not found");
+            System.out.println("Press <Enter> to Exit View");
+            scanner.nextLine();
+            return;
+        }
+
+        movieChoice = movieArray[movieChoiceInt - 1];
+        movieTitle = movieChoice.getTitle();
         String movie = scanner.nextLine();
 
         if (MovieDB.getMovieFromTitle(movie) == null) {
@@ -486,10 +745,13 @@ public class Admin extends Account {
         // Check whether show time exists already
         Showtime showtime = null;
         for (Map<String, Map<Showtime, Seat[]>> bla : DatabaseReader.readShowtime(movie).values()) {
-            if (bla.keySet().size() == 0) break;
-            if (!bla.keySet().contains(cinemaID)) continue;
+            if (bla.keySet().size() == 0)
+                break;
+            if (!bla.keySet().contains(cinemaID))
+                continue;
             for (Showtime show : bla.get(cinemaID).keySet()) {
-                if (show == null) break;
+                if (show == null)
+                    break;
                 if ((show.date.toLowerCase().compareTo(date) == 0)
                         && (show.time.toLowerCase().compareTo(time) == 0)) {
                     showtime = show;
@@ -503,12 +765,12 @@ public class Admin extends Account {
             scanner.nextLine();
             return;
         }
-        
+
         Seat[] newSeats = new Seat[100];
         for (int i = 0; i < newSeats.length; i++) {
             newSeats[i] = new Seat(String.format("%c%d", 65 + i / 10, i % 10 + 1), false);
         }
-        DatabaseWriter.createShowtimes(movie, cineplexID, cinemaID, date, day, time, newSeats);
+        DatabaseWriter.createShowtime(movie, cineplexID, cinemaID, date, day, time, newSeats);
 
         System.out.println("New showtime created!");
         System.out.println("Press <Enter> to Exit View");

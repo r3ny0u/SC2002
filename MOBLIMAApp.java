@@ -73,7 +73,7 @@ public class MOBLIMAApp {
             // https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
             // Not necessary need colours i just think they're neat
             if (isLoggedIn)
-                System.out.println("\n\u001B[36mWelcome ~~ " + username + " ~~ :D\n\u001B[0m");
+                System.out.println("\n\u001B[36mWelcome ~~ " + username.toUpperCase() + " ~~ :D\n\u001B[0m");
 
             try {
                 TimeUnit.MILLISECONDS.sleep(1250);

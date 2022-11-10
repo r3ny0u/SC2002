@@ -145,7 +145,7 @@ public class Movie {
                 if (cinemaID.equals(oldCinemaID) == false) {
                     oldCinemaID = cinemaID;
                     System.out.println("Cinema     : " + cinemaID);
-
+                }
                     ArrayList<Showtime> showtimeAL = new ArrayList<>(seats.get(cinemaID).keySet());
 
                     showtimeAL.sort(new Comparator<Showtime>() {
@@ -167,7 +167,7 @@ public class Movie {
                         }
                     }
                     System.out.println();
-                }
+                // }
 
                 // sort showtimes according to date and time in ascending order
 

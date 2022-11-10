@@ -216,7 +216,7 @@ public class DatabaseReader {
             String movieTitle) {
         // IDK
         ArrayList<String> strings = readtxt(showtimesDatabasePath);
-        int numOfShowtimes = strings.size(), numOfCinemas = 0;
+        int numOfShowtimes = strings.size();
         String cinemaID;
         Map<Map<String, ArrayList<String>>, Map<String, Map<Showtime, Seat[]>>> result = new HashMap<Map<String, ArrayList<String>>, Map<String, Map<Showtime, Seat[]>>>();
 

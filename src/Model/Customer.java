@@ -1,10 +1,15 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Scanner;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
+import java.util.Comparator;
 
 import Database.CinemaDB;
 
@@ -194,7 +199,7 @@ public class Customer extends Account {
 
                     movieChoice = movieArray[movieChoiceInt - 1];
                     scanner.nextLine();
-                    
+
                     if (movieChoice.getStatus().toLowerCase().compareTo("now showing") == 0
                             || movieChoice.getStatus().toLowerCase().compareTo("preview") == 0) {
 
@@ -440,18 +445,42 @@ public class Customer extends Account {
 
                 case 6:
                     // Show top 5 movies based on ticket sales
-                    movieArrayEmpty = new Movie[5];
-                    movieDB.sortBySales();
-                    movieArrayEmpty = Arrays.copyOfRange(movieDB.getMovies(), 0, 5);
+                    TransactionDB transactions = new TransactionDB();
+                    Transaction[] txnArr = transactions.getTransactions();
 
-                    System.out.print("\033[H\033[2J");
-                    System.out.flush();
+                    Map<String, Integer> movMap = new HashMap<String, Integer>();
+
+                    // initialise map
+                    for (Movie mov : movieArray) {
+                        movMap.put(mov.getTitle(), 0);
+                    }
+
+                    // update sales count
+                    for (Transaction txn : txnArr) {
+                        movMap.put(txn.getMovie().getTitle(), movMap.get(txn.getMovie().getTitle()) + 1);
+                    }
+
+                    LinkedHashMap<String, Integer> sortedMovMap = new LinkedHashMap<>();
+                    ArrayList<Integer> list = new ArrayList<>();
+
+                    for (Map.Entry<String, Integer> entry : movMap.entrySet()) {
+                        list.add(entry.getValue());
+                    }
+                    Collections.sort(list, Collections.reverseOrder());
+                    for (int num : list) {
+                        for (Entry<String, Integer> entry : movMap.entrySet()) {
+                            if (entry.getValue().equals(num)) {
+                                sortedMovMap.put(entry.getKey(), num);
+                            }
+                        }
+                    }
+                    int k = 1;
                     System.out.println("\n=============== Movie Titles by Sales ================");
-                    for (int i = 0; i < 5; i++) {
-                        if (movieArrayEmpty[i] == null)
+                    for (String str : sortedMovMap.keySet()) {
+                        System.out.printf("%2d. %s: %d tickets sold\n", k++, str,
+                                sortedMovMap.get(str));
+                        if (k == 6)
                             break;
-                        System.out.printf("%2d. %s: %d tickets sold\n", i + 1, movieArrayEmpty[i].getTitle(),
-                                movieArrayEmpty[i].getSalesCount());
                     }
                     System.out.println("========================================================\n");
                     movieDB.sortByAlphabet();

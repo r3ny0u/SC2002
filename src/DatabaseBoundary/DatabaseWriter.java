@@ -737,7 +737,8 @@ public class DatabaseWriter {
         }
     }
 
-    public static void updateShowtimes(String movieTitle, String cineplexID, String cinemaID, String date, String day,
+    public static void updateShowtimeSeats(String movieTitle, String cineplexID, String cinemaID, String date,
+            String day,
             String time, Seat[] seats) {
         ArrayList<String> strings = DatabaseReader.readtxt(showtimesDatabasePath);
         int lineCount = 0;
@@ -778,7 +779,46 @@ public class DatabaseWriter {
         }
     }
 
-    public static void createShowtimes(String movieTitle, String cineplexID, String cinemaID, String date, String day,
+    public static void updateShowtimeInfo(String movieTitle, String cineplexID, String cinemaID, String date,
+            String day, String time, String newMovieTitle, String newCineplexID, String newCinemaID, String newDate,
+            String newDay,
+            String newTime) {
+        ArrayList<String> strings = DatabaseReader.readtxt(showtimesDatabasePath);
+        int lineCount = 0;
+        for (String string : strings) {
+            String[] s = string.split(",");
+            if (s[0].toLowerCase().compareTo(movieTitle.toLowerCase()) == 0 &&
+                    s[1].toLowerCase().compareTo(cineplexID.toLowerCase()) == 0 &&
+                    s[2].toLowerCase().compareTo(cinemaID.toLowerCase()) == 0 &&
+                    s[3].toLowerCase().compareTo(date.toLowerCase()) == 0 &&
+                    s[5].toLowerCase().compareTo(time.toLowerCase()) == 0) {
+                break;
+            }
+            lineCount++;
+        }
+        try {
+            FileWriter writer = new FileWriter(showtimesDatabasePath);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+            for (int i = 0; i < strings.size(); i++) {
+                if (i == lineCount) {
+                    bufferedWriter.write(
+                            String.format("%s,%s,%s,%s,%s,%s,", newMovieTitle, newCineplexID, newCinemaID, newDate,
+                                    newDay, newTime));
+                    bufferedWriter.write(strings.get(i).split(",")[6] + "\n");
+                    continue;
+                }
+                bufferedWriter.write(strings.get(i) + "\n");
+            }
+
+            bufferedWriter.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createShowtime(String movieTitle, String cineplexID, String cinemaID, String date, String day,
             String time, Seat[] seats) {
         ArrayList<String> strings = DatabaseReader.readtxt(showtimesDatabasePath);
 
@@ -812,7 +852,6 @@ public class DatabaseWriter {
                     s[1].toLowerCase().compareTo(cineplexID.toLowerCase()) == 0 &&
                     s[2].toLowerCase().compareTo(cinemaID.toLowerCase()) == 0 &&
                     s[3].toLowerCase().compareTo(date.toLowerCase()) == 0 &&
-                    s[4].toLowerCase().compareTo(day.toLowerCase()) == 0 &&
                     s[5].toLowerCase().compareTo(time.toLowerCase()) == 0) {
                 break;
             }

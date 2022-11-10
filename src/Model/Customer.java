@@ -2,6 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -15,6 +16,7 @@ import Database.MovieDB;
 import Database.RatingDB;
 import Database.ShowtimeDB;
 import Database.TransactionDB;
+import DatabaseBoundary.DatabaseReader;
 
 public class Customer extends Account {
     private String name;
@@ -289,33 +291,43 @@ public class Customer extends Account {
 
                     movieChoice = movieArray[movieChoiceInt - 1];
                     scanner.nextLine();
+                    // Print our movie detail for user to see before adding review
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+                    movieChoice.printMovieDetails();
+                    System.out.println("======================= Booking ========================\n");
 
-                    if (movieChoice.status.toLowerCase().compareTo("now showing") == 0 || movieChoice.status.toLowerCase().compareTo("preview") == 0) {
-                        // Print our movie detail for user to see before adding review
-                        System.out.print("\033[H\033[2J");
-                        System.out.flush();
-                        movieChoice.printMovieDetails();
-                        System.out.println("======================= Booking ========================\n");
-                        // Print all showtimes for customer to see, then let customer choose cineplex,
-                        // cinema, date and time
-                        movieChoice.printAllShowtimes();
-                        if (movieChoice.showingPlaces.size()==0){
-                            System.out.println("Sorry, the movie is not available for booking.");
-                            System.out.println("Press <Enter> to Exit View");
-                            scanner.nextLine();
-                            break;
-                        }
-                        System.out.printf("Please choose a cineplex : ");
-                        cineplexChoice = scanner.nextLine();
-                        
-                        cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
+                    // Print all showtimes for customer to see, then let customer choose cineplex,
+                    // cinema, date and time
+                    movieChoice.printAllShowtimes();
+                    if (movieChoice.showingPlaces.size() == 0) {
+                        System.out.println("Sorry, the movie is not available for booking.");
+                        System.out.println("Press <Enter> to Exit View");
+                        scanner.nextLine();
+                        break;
+                    }
+                    System.out.printf("Please choose a cineplex : ");
+                    cineplexChoice = scanner.nextLine();
 
-                        if (cineplex == null) {
-                            System.out.println("Cineplex does not exist...");
-                            System.out.println("Press <Enter> to Exit View");
-                            scanner.nextLine();
-                            break;
-                        }
+                    cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
+
+                    if (cineplex == null) {
+                        System.out.println("Cineplex does not exist...");
+                        System.out.println("Press <Enter> to Exit View");
+                        scanner.nextLine();
+                        break;
+                    }
+
+                    System.out.printf("Please choose a cinema   : ");
+                    cinemaChoice = scanner.nextLine();
+                    cinema = cineplex.findCinema(cinemaChoice);
+
+                    if (cinema == null) {
+                        System.out.println("Cinema does not exist...");
+                        System.out.println("Press <Enter> to Exit View");
+                        scanner.nextLine();
+                        break;
+                    }
 
                         System.out.printf("Please choose a cinema   : ");
                         cinemaChoice = scanner.nextLine();
@@ -328,14 +340,37 @@ public class Customer extends Account {
                             break;
                         }
 
-                        // User to input date and showtime, to get seats
-                        System.out.printf("\nPlease choose a showing date (eg. 2022/11/13) : ");
-                        dateChoice = scanner.nextLine();
+                    // Check if showtime exists
+                    Showtime showtime = null;
+                    for (Map<String, Map<Showtime, Seat[]>> bla : DatabaseReader.readShowtime(movieChoice.getTitle()).values()) {
+                        if (bla.keySet().size() == 0)
+                            break;
+                        if (!bla.keySet().contains(cinemaChoice))
+                            continue;
+                        for (Showtime show : bla.get(cinemaChoice).keySet()) {
+                            if (show == null)
+                                break;
+                            if ((show.date.toLowerCase().compareTo(dateChoice) == 0)
+                                    && (show.time.toLowerCase().compareTo(showtimeChoice) == 0)) {
+                                showtime = show;
+                                break;
+                            }
+                        }
+                    }
+                    if (showtime == null) {
+                        System.out.println("Show time does not exist");
+                        System.out.println("Press <Enter> to Exit View");
+                        scanner.nextLine();
+                        break;
+                    }
+
+                    movieChoice.printSeats(cinema.getCinemaID(), dateChoice, showtimeChoice);
 
                         System.out.printf("Please choose the showtime                    : ");
                         showtimeChoice = scanner.nextLine();
 
-                        movieChoice.printSeats(cinema.getCinemaID(), dateChoice, showtimeChoice);
+                    // Second choice idk what's it for
+                    showtime = new Showtime(dateChoice, "day", showtimeChoice);
 
                         // User to choose seats they want (check for empty seats)
                         System.out.printf("Select the seat you want (eg. A1): ");
@@ -387,50 +422,6 @@ public class Customer extends Account {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
-                    // MovieDB.printMovieList();
-                    // // let customer select their movie
-                    // System.out.println("Which movie do you want to book for?");
-                    // movieChoiceInt = scanner.nextInt();
-                    // movieChoice = movieArray[movieChoiceInt - 1];
-                    // // let customer select from the available cinemas
-                    // movieChoice.printAllShowtimes();
-                    // System.out.printf("Please choose the cineplex: ");
-                    // cineplexChoice = scanner.next();
-                    // System.out.printf("Please choose the cinema: ");
-                    // cinemaChoice = scanner.next();
-                    // cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
-                    // cinema = cineplex.findCinema(cinemaChoice);
-                    // // let customer choose showtime
-                    // System.out.printf("Please choose a showing date (eg. 13/11/2022): ");
-                    // dateChoice = scanner.next();
-                    // System.out.printf("Please choose the showtime: ");
-                    // showtimeChoice = scanner.next();
-                    // movieChoice.printSeats(cinema.getCinemaID(), dateChoice, showtimeChoice);
-
-                    // System.out.println("Select the seat you want (eg. A1): ");
-                    // seatID = scanner.next();
-                    // boolean avail = movieChoice.checkSeat(cinemaChoice, showtimeChoice, seatID);
-                    // while (!avail) {
-                    // System.out.println("Seat is already taken!");
-                    // System.out.println("Please choose another seat: ");
-                    // seatID = scanner.next();
-                    // avail = movieChoice.checkSeat(cinemaChoice, showtimeChoice, seatID);
-                    // }
-                    // movieChoice.assignSeat(cinemaChoice, showtimeChoice, seatID, this.name);
-
-                    // // do bookings
-                    // System.out.println("Please enter your age");
-                    // String age = scanner.next();
-                    // Transaction newTrans = new Transaction(showtimeChoice, age, cinema,
-                    // dateChoice, movieChoice,
-                    // accountID, seatID);
-                    // System.out.println("Price of ticket : " + newTrans.getTicketPrice());
-                    // transactions.add(newTrans);
-                    // System.out.println("Booking Successful! :)");
-
-                    // // Continue booking progress
-                    // System.out.println("\nBooking completed...");
                     break;
 
                 case 5:
@@ -450,7 +441,8 @@ public class Customer extends Account {
                     for (int i = 0; i < 5; i++) {
                         if (movieArrayEmpty[i] == null)
                             break;
-                        System.out.printf("%2d. %s: %d tickets sold\n", i + 1, movieArrayEmpty[i].getTitle(), movieArrayEmpty[i].getSalesCount());
+                        System.out.printf("%2d. %s: %d tickets sold\n", i + 1, movieArrayEmpty[i].getTitle(),
+                                movieArrayEmpty[i].getSalesCount());
                     }
                     System.out.println("========================================================\n");
                     movieDB.sortByAlphabet();
@@ -525,19 +517,6 @@ public class Customer extends Account {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
-                    // System.out.println("Which movie would you like to add a review for?");
-                    // MovieDB.printMovieList();
-                    // System.out.printf("Enter your movie choice: ");
-                    // movieChoiceInt = scanner.nextInt();
-                    // movieChoice = movieArray[movieChoiceInt - 1];
-                    // System.out.println("How many stars out of 5 would you give this movie?");
-                    // System.out.printf("Enter your rating: ");
-                    // int stars = scanner.nextInt();
-                    // System.out.println("What is your review for this movie?");
-                    // System.out.printf("Enter your review: ");
-                    // String review = scanner.nextLine();
-                    // movieChoice.addReviews(this.accountID, review, stars);
                     break;
 
                 case 9:

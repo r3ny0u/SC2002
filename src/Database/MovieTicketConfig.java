@@ -150,18 +150,5 @@ public class MovieTicketConfig {
 
     public static void main(String[] args) {
         printConfigDetails();
-
-        // Changing some values
-        float newPHPrice = 69.420f;
-
-        updatePHPrice(newPHPrice);
-
-        printConfigDetails();
-
-        newPHPrice = 35f;
-
-        updatePHPrice(newPHPrice);
-
-        printConfigDetails();
     }
 }

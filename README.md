@@ -13,10 +13,20 @@ Also make sure no overwrite code when merging \(￣︶￣*\))
 ## For Reference of Prices and Stuffs
 
 - **Movie Ticket:**
-  - Type of movie: 2D and 3D (5% more)
-  - Class of cinema: Normal and Platinum
-  - Age of movie-goer: Adult (normal), senior citizen (>= 65, 20% off), child (<= 12, 10% off)
-  - Day of week: Weekdays (1-5, $20), Weekends (6-7, $30), PH (0, $35)
+  - Base Price
+    - Weekday Pricing        @ + SGD 20.00
+    - Weekend Pricing        @ + SGD 30.00
+    - PH Pricing             @ + SGD 35.00
+  - Movie Type
+    - 2D Movie               @ + SGD 0.00
+    - 3D Movie               @ + SGD 5.00
+  - Cinema Type
+    - Normal Cinema          @ + SGD 0.00
+    - Platinum Cinema        @ + SGD 3.00
+  - Age
+    - Adult                  @ + SGD 0.00
+    - Senior                 @ - SGD 5.00
+    - Child                  @ - SGD 8.00
 
 ## Compulsory Test Cases
 

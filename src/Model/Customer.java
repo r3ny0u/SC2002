@@ -286,13 +286,35 @@ public class Customer extends Account {
 
                     // Show movie details corresponding to the movie choice
                     System.out.print("Please choose a movie to book: ");
+                    /*
                     movieChoiceInt = scanner.nextInt();
 
-                    if (movieChoiceInt == movieArray.length + 1)
+                    if (movieChoiceInt == movieArray.length + 1){
+                        System.out.print("Error, invalid choice!! ");
+                        System.out.println("Press <Enter> to Exit View");
+                        scanner.nextLine();
                         break;
+                    }*/
+                    do{
+                        while (!scanner.hasNextInt()){
+                            System.out.print("Error, invalid choice!! Try again: ");
+                            scanner.next();
+                        }
+                        movieChoiceInt = scanner.nextInt();
+                        if (movieChoiceInt > movieArray.length + 1 || movieChoiceInt<=0){
+                            System.out.print("Error, invalid choice!! Try again: ");
+                        }
+                    }while(movieChoiceInt > movieArray.length + 1 || movieChoiceInt<=0);
 
-                    if (movieChoiceInt <= 0 || movieChoiceInt > movieArray.length + 1)
-                        continue;
+                    if (movieChoiceInt == movieArray.length + 1){
+                        scanner.nextLine();
+                        System.out.println("Press <Enter> to Exit View");
+                        scanner.nextLine();
+                        break;
+                    }
+
+                    //if (movieChoiceInt <= 0 || movieChoiceInt > movieArray.length + 1)
+                        //continue;
 
                     movieChoice = movieArray[movieChoiceInt - 1];
                     scanner.nextLine();

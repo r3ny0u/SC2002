@@ -217,6 +217,7 @@ public class DatabaseReader {
         // IDK
         ArrayList<String> strings = readtxt(showtimesDatabasePath);
         int numOfShowtimes = strings.size();
+        String cinemaID;
         Map<Map<String, ArrayList<String>>, Map<String, Map<Showtime, Seat[]>>> result = new HashMap<Map<String, ArrayList<String>>, Map<String, Map<Showtime, Seat[]>>>();
 
         // Cineplexes -> Cinemas
@@ -225,10 +226,13 @@ public class DatabaseReader {
 
         for (int i = 0; i < numOfShowtimes; i++) {
             String[] temp = strings.get(i).split(",");
-            cinemas.add(temp[2]);
+            if(!cinemas.contains(temp[2])) {
+                cinemas.add(temp[2]);
+            }
             if (temp[0].toLowerCase().compareTo(movieTitle.toLowerCase()) == 0) {
                 if (cineplexesAndCinemas.containsKey(temp[1])) {
-                    cineplexesAndCinemas.get(temp[1]).add(temp[2]);
+                    if (!cineplexesAndCinemas.get(temp[1]).contains(temp[2]))
+                        cineplexesAndCinemas.get(temp[1]).add(temp[2]);
                 } else {
                     ArrayList<String> bla = new ArrayList<String>();
                     bla.add(temp[2]);
@@ -243,6 +247,7 @@ public class DatabaseReader {
         for (int i = 0; i < numOfShowtimes; i++) {
             Seat[] seats = new Seat[100];
             String[] temp = strings.get(i).split(",");
+            cinemaID = temp[2];
             Map<Showtime, Seat[]> showtimesAndSeat = new HashMap<>();
             if (temp[0].toLowerCase().compareTo(movieTitle.toLowerCase()) == 0) {
                 Showtime showtime = new Showtime(temp[3], temp[4], temp[5]);
@@ -255,10 +260,11 @@ public class DatabaseReader {
                 }
                 showtimesAndSeat.put(showtime, seats);
 
-                if (cinemasAndShowtimes.containsKey(cinemas.get(i))) {
-                    cinemasAndShowtimes.get(cinemas.get(i)).put(showtime, seats);
+                if (cinemasAndShowtimes.containsKey(cinemaID)) {
+                    cinemasAndShowtimes.get(cinemaID).put(showtime, seats);
+                    continue;
                 }
-                cinemasAndShowtimes.put(cinemas.get(i), showtimesAndSeat);
+                cinemasAndShowtimes.put(cinemaID, showtimesAndSeat);
             }
         }
 

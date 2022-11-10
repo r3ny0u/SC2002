@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -133,23 +134,43 @@ public class Movie {
     }
 
     public void printAllShowtimes() {
-        String oldDate = "";
+
+        String oldDate = "date", oldCinemaID = "ID";
+
         for (String cineplexID : showingPlaces.keySet()) {
             System.out.println(
-                    "========================================================\n\nCineplex   : " + cineplexID);
+                    "--------------------\n\nCineplex: " + cineplexID);
 
             for (String cinemaID : showingPlaces.get(cineplexID)) {
-                System.out.println("Cinema     : " + cinemaID);
+                if (cinemaID.equals(oldCinemaID) == false) {
+                    oldCinemaID = cinemaID;
+                    System.out.println("\nCinema: " + cinemaID);
+                }
+                ArrayList<Showtime> showtimeAL = new ArrayList<>(seats.get(cinemaID).keySet());
 
-                for (Showtime st : seats.get(cinemaID).keySet()) {
-                    if (oldDate != st.date) {
+                showtimeAL.sort(new Comparator<Showtime>() {
+
+                    @Override
+                    public int compare(Showtime s1, Showtime s2) {
+                        return (s1.date + s1.time).compareTo(s2.date + s2.time);
+                    }
+
+                });
+
+                for (Showtime st : showtimeAL) {
+                    if (st.date.equals(oldDate) == false) {
                         oldDate = st.date;
-                        System.out.print(oldDate + " : " + st.time + " ");
+                        System.out.println();
+                        System.out.print("        " + oldDate + " - " + st.time + " ");
                     } else {
                         System.out.print(st.time + " ");
                     }
                 }
                 System.out.println();
+                // }
+
+                // sort showtimes according to date and time in ascending order
+
             }
             System.out.println();
         }

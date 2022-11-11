@@ -508,7 +508,7 @@ public class Movie {
         for (Showtime st : showtimeAL) {
             if (st.date.equals(oldDate) == false) {
                 oldDate = st.date;
-                System.out.print("\t" + count + ": " + oldDate + " - " + st.time + " ");
+                System.out.print("\n\t" + count + ": " + oldDate + " - " + st.time + " ");
                 count++;
             } else {
                 System.out.print(st.time + " ");

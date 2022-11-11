@@ -455,7 +455,7 @@ public class Movie {
         int count = 1;
         Scanner scanner = new Scanner(System.in);
         for (Showtime st : showtimeAL) {
-            if (st.date == dateChoice) {
+            if (st.date.compareTo(dateChoice)==0) {
                 System.out.println("\t" + count + ": " + st.time);
                 count++;
             }

@@ -4,6 +4,7 @@ import java.io.Console;
 
 import Model.*;
 import Database.*;
+import Misc.Password;
 
 public class MOBLIMAApp {
     public static void main(String args[]) {

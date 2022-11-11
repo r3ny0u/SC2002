@@ -1,4 +1,4 @@
-package Model;
+package Misc;
 
 // Acknowledgment: http://www.cse.chalmers.se/edu/year/2015/course/TDA602/Eraserlab/pwdmasking.html
 

@@ -175,6 +175,10 @@ public class Customer extends Account {
 
                         // Show movie details corresponding to the movie choice
                         System.out.print("Please choose a movie (enter a number): ");
+                        while (!scanner.hasNextInt()) {
+                            System.out.print("Error, Invalid choice!! Try again: ");
+                            scanner.next();
+                        }
                         movieChoiceInt = scanner.nextInt();
 
                         if (movieChoiceInt == numOfMovie + 1)

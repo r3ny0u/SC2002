@@ -123,7 +123,7 @@ public class Admin extends Account {
                             break;
                         case 5:
                             casts.clear();
-                            System.out.printf("New casts: (enter exit to complete entry)");
+                            System.out.printf("New casts: (enter 'exit' to complete entry)");
                             while (true) {
                                 cast = scanner.nextLine();
                                 if (cast.toLowerCase().compareTo("exit") == 0)
@@ -469,14 +469,14 @@ public class Admin extends Account {
             }
         }
         if (showtime == null) {
-            System.out.println("Show time does not exist");
+            System.out.println("Showtime does not exist");
             System.out.println("Press <Enter> to Exit View");
             scanner.nextLine();
             return;
         }
 
         // Make sure admin wants to delete
-        System.out.println("Are you sure? (type yes to proceed)");
+        System.out.println("Are you sure? (type 'yes' to proceed)");
         if (scanner.nextLine().toLowerCase().compareTo("yes") == 0) {
             DatabaseWriter.removeShowtimes(movieTitle, cineplexID, cinemaID, date, "not important", time);
 
@@ -579,7 +579,7 @@ public class Admin extends Account {
             }
         }
         if (showtime == null) {
-            System.out.println("Show time does not exist");
+            System.out.println("Showtime does not exist");
             System.out.println("Press <Enter> to Exit View");
             scanner.nextLine();
             return;
@@ -651,7 +651,7 @@ public class Admin extends Account {
                 }
             }
             if (showtime != null) {
-                System.out.println("Show time already exist");
+                System.out.println("Showtime already exists");
                 System.out.println("Press <Enter> to Exit View");
                 scanner.nextLine();
                 continue;
@@ -683,10 +683,11 @@ public class Admin extends Account {
         MovieDB.printMovieList();
         System.out.println("========================================================\n");
 
-        System.out.println("================= Removing showtimes ===================");
+        System.out.println("================= Creating showtimes ===================");
         System.out.print("Movie No.   : ");
 
         movieChoiceInt = scanner.nextInt();
+        scanner.nextLine();
 
         if (movieChoiceInt == movieArray.length + 1) {
             System.out.println("Movie not found");
@@ -704,9 +705,9 @@ public class Admin extends Account {
 
         movieChoice = movieArray[movieChoiceInt - 1];
         movieTitle = movieChoice.getTitle();
-        String movie = scanner.nextLine();
+        // String movie = scanner.nextLine();
 
-        if (MovieDB.getMovieFromTitle(movie) == null) {
+        if (MovieDB.getMovieFromTitle(movieTitle) == null) {
             System.out.println("Movie not found");
             System.out.println("Press <Enter> to Exit View");
             scanner.nextLine();
@@ -744,7 +745,7 @@ public class Admin extends Account {
 
         // Check whether show time exists already
         Showtime showtime = null;
-        for (Map<String, Map<Showtime, Seat[]>> bla : DatabaseReader.readShowtime(movie).values()) {
+        for (Map<String, Map<Showtime, Seat[]>> bla : DatabaseReader.readShowtime(movieTitle).values()) {
             if (bla.keySet().size() == 0)
                 break;
             if (!bla.keySet().contains(cinemaID))
@@ -770,7 +771,7 @@ public class Admin extends Account {
         for (int i = 0; i < newSeats.length; i++) {
             newSeats[i] = new Seat(String.format("%c%d", 65 + i / 10, i % 10 + 1), false);
         }
-        DatabaseWriter.createShowtime(movie, cineplexID, cinemaID, date, day, time, newSeats);
+        DatabaseWriter.createShowtime(movieTitle, cineplexID, cinemaID, date, day, time, newSeats);
 
         System.out.println("New showtime created!");
         System.out.println("Press <Enter> to Exit View");

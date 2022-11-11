@@ -9,6 +9,7 @@ import DatabaseBoundary.*;
 
 public class MovieDB {
     private Movie[] movies;
+    private int movieCount = 0;
 
     public MovieDB() {
         this.movies = DatabaseReader.readMovieDatabase();
@@ -34,9 +35,13 @@ public class MovieDB {
         MovieDB movieDB = new MovieDB();
         movieDB.sortByAlphabet();
         Movie[] movies = movieDB.getMovies();
+        int j = 1;
         for (int i = 0; i < movies.length; i++) {
-            System.out.printf("%2d. %-30s: %s\n", i + 1, movies[i].getTitle(), movies[i].getStatus().toUpperCase());
-
+            // if (movies[i].getStatus().toLowerCase().compareTo("end of showing") == 0) {
+            //     j--;
+            //     continue;
+            // }
+            System.out.printf("%2d. %-30s: %s\n", i + j, movies[i].getTitle(), movies[i].getStatus().toUpperCase());
         }
     }
 
@@ -88,17 +93,5 @@ public class MovieDB {
             }
 
         });
-    }
-
-    public static void main(String[] args) {
-        // test
-
-        MovieDB movieDB = new MovieDB();
-        movieDB.sortByRating();
-        Movie[] movies = movieDB.getMovies();
-
-        for (Movie movie : movies) {
-            System.out.println(movie.getRating() + " " + movie.getTitle());
-        }
     }
 }

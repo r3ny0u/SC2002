@@ -1,14 +1,19 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Map.Entry;
 
 import Database.AdminDB;
 import Database.CinemaDB;
 import Database.CineplexDB;
 import Database.MovieDB;
 import Database.MovieTicketConfig;
+import Database.TransactionDB;
 import DatabaseBoundary.DatabaseReader;
 import DatabaseBoundary.DatabaseWriter;
 
@@ -213,6 +218,7 @@ public class Admin extends Account {
                     break;
 
                 case 8:
+                // set visibility ranking
                     System.out.print("Make ticket sales ranking visible? (Y/N): ");
                     String choice1 = scanner.next();
                     System.out.print("\nMake ratings ranking visible? (Y/N): ");
@@ -283,7 +289,84 @@ public class Admin extends Account {
                     scanner.nextLine();
                     break;
 
-                case 12:
+                  case 12:
+                    // Show top 5 movies based on ticket sales
+                    movieArray = movies.getMovies();
+                    TransactionDB transactions = new TransactionDB();
+                    Transaction[] txnArr = transactions.getTransactions();
+
+                    Map<String, Integer> movMap = new HashMap<String, Integer>();
+
+                    // initialise map
+                    for (Movie mov : movieArray) {
+                        if (mov == null)
+                            continue;
+                        movMap.put(mov.getTitle(), 0);
+                    }
+
+                    // update sales count
+                    for (Transaction txn : txnArr) {
+                        movMap.put(txn.getMovie().getTitle(), movMap.get(txn.getMovie().getTitle()) + 1);
+                    }
+
+                    LinkedHashMap<String, Integer> sortedMovMap = new LinkedHashMap<>();
+                    ArrayList<Integer> list = new ArrayList<>();
+
+                    // sort map in descending order of key
+                    for (Map.Entry<String, Integer> entry : movMap.entrySet()) {
+                        list.add(entry.getValue());
+                    }
+                    Collections.sort(list, Collections.reverseOrder());
+                    for (int num : list) {
+                        for (Entry<String, Integer> entry : movMap.entrySet()) {
+                            if (entry.getValue().equals(num)) {
+                                sortedMovMap.put(entry.getKey(), num);
+                            }
+                        }
+                    }
+
+                    // print top 5 movies by sales
+                    int k = 1;
+                    System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
+                    System.out.flush();
+                    System.out.println("\n=============== Movie Titles by Sales ================");
+                    for (String str : sortedMovMap.keySet()) {
+                        System.out.printf("%2d. %s: %d tickets sold\n", k++, str,
+                                sortedMovMap.get(str));
+                        if (k > 5)
+                            break;
+                    }
+                    System.out.println("========================================================\n");
+
+                    System.out.println("Press <Enter> to Exit View");
+                    scanner.nextLine();
+                    scanner.nextLine();
+                    break;
+
+                case 13:
+                    // Show top 5 movies based on ratings
+                    movies = new MovieDB();
+                    movies.sortByRating();
+                    Movie[] moviesArr = movies.getMovies();
+                    Movie[] movieArrayEmpty = moviesArr.clone();
+
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+                    System.out.println("\n============== Movie Titles by Ratings ===============");
+                    for (int i = 0; i < 5; i++) {
+                        if (movieArrayEmpty[i] == null)
+                            break;
+                        System.out.printf("%2d. (%.1f / 5.0 Stars) %s\n", i + 1, movieArrayEmpty[i].getRating(),
+                                movieArrayEmpty[i].getTitle());
+                    }
+                    System.out.println("========================================================\n");
+
+                    System.out.println("Press <Enter> to Exit View");
+                    scanner.nextLine();
+                    scanner.nextLine();
+                    break;
+
+                case 14:
                     // Exit
                     System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
                     System.out.flush();
@@ -294,7 +377,8 @@ public class Admin extends Account {
                     System.out.println("Invalid Choice!");
             }
 
-        } while (choice != 12);
+        } while (choice != 14);
+     
 
         return;
     }
@@ -835,7 +919,10 @@ public class Admin extends Account {
         System.out.println(" 9. View Movie Ticket Prices and System Settings");
         System.out.println(" 10. List Movies");
         System.out.println("11. List cineplex ID and cinema ID");
-        System.out.println("12. Quit");
+        System.out.println("12. List the Top 5 ranking by ticket sales");
+        System.out.println("13. List the Top 5 ranking by overall reviewers' ratings");
+        System.out.println("14. Quit");
+  
         System.out.println("=====================================================");
         System.out.print("Enter choice: ");
     }

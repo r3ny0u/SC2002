@@ -152,7 +152,7 @@ public class MovieTicket {
     }
 
     /**
-     * Pritn the ticket price
+     * Print the ticket price
      */
     public void printTicketPrice() {
         System.out.printf("Ticket Price is %.2f", getTicketPrice());

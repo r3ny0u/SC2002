@@ -3,10 +3,8 @@ import java.util.concurrent.TimeUnit;
 
 import Model.*;
 import Database.*;
-import DatabaseBoundary.*;
 
 public class MOBLIMAApp {
-    private int day;
 
     public static void main(String args[]) {
         Scanner scanner = new Scanner(System.in);

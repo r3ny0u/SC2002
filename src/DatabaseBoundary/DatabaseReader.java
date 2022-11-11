@@ -147,29 +147,6 @@ public class DatabaseReader {
      * @return An array of Cineplex
      * @see Model.Cineplex
      */
-    public static Cineplex[] readCineplexDatabase() {
-        ArrayList<String> strings = readtxt(cineplexDatabasePath);
-
-        // Cineplex text file has only two information per account
-        // CineplexID, cinemas
-        int numOfCineplex = strings.size() / 2;
-        Cineplex[] cineplexes = new Cineplex[numOfCineplex];
-        Cineplex temp;
-
-        for (int i = 0; i < cineplexes.length; i++) {
-            ArrayList<String> cinemaIDs = new ArrayList<String>(Arrays.asList(strings.get(i * 2 + 1).split(",")));
-            ArrayList<Cinema> cinemas = new ArrayList<Cinema>();
-            for (String cinemaID : cinemaIDs) {
-                Cinema cinema = CinemaDB.getCinemaFromID(cinemaID);
-                if (cinema != null)
-                    cinemas.add(cinema);
-            }
-
-            temp = new Cineplex(strings.get(i * 2 + 0), cinemas);
-            cineplexes[i] = temp;
-        }
-        return cineplexes;
-    }
 
     /**
      * Reads the rating database
@@ -226,7 +203,7 @@ public class DatabaseReader {
      * @return An array of Cinema
      * @see Model.Cinema
      */
-    public static Cinema[] readCinemaDatabase2() {
+    public static Cinema[] readCinemaDatabase() {
         ArrayList<String> strings = readtxt(cinemaDatabasePath);
 
         int numOfCinemas = strings.size() / 2;

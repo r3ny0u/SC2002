@@ -10,7 +10,7 @@ public class CinemaDB {
     private Cinema[] cinemas;
 
     public CinemaDB() {
-        this.cinemas = DatabaseReader.readCinemaDatabase2();
+        this.cinemas = DatabaseReader.readCinemaDatabase();
     }
 
     /**

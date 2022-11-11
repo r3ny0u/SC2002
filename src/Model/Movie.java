@@ -12,6 +12,8 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import java.util.Scanner;
+
 public class Movie {
     protected String title;
     protected String status;
@@ -338,5 +340,45 @@ public class Movie {
 
     public void setMovieRating(String movieRating) {
         this.movieRating = movieRating;
+    }
+
+    public String getCineplex(){
+        System.out.println("Cineplexes");
+        int count = 1;
+        int cineplexChoice;
+        for (String cineplexID : showingPlaces.keySet()){
+            System.out.println("\t" + count + ": " + cineplexID);
+            count++;
+        }
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Please choose a cineplex: ");
+        cineplexChoice = scanner.nextInt();
+        count = 0;
+        for (String cineplexID : showingPlaces.keySet()){
+            count++;
+            if (count == cineplexChoice){
+                return cineplexID;
+            }
+        }
+        return "ooooooooooooooooooooooooooooooooooooof";
+    }
+    public String getCinemaChoice(String cineplexID){
+        Scanner scanner = new Scanner(System.in);
+        int count = 1;
+        System.out.println("Cinemas");
+        for (String cinemaID : showingPlaces.get(cineplexID)) {
+            System.out.println("\t" + count + ": " + cinemaID);
+            count++;
+        }
+        System.out.print("Please choose a cinema: ");
+        int choice = scanner.nextInt();
+        count=0;
+        for (String cinemaID : showingPlaces.get(cineplexID)){
+            count++;
+            if (count==choice)
+                return cinemaID;
+        }
+        String idk = "This is the final message from Ren You. Gluck have fun ok bye.";
+        return idk;
     }
 }

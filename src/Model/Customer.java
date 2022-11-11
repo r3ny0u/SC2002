@@ -361,8 +361,11 @@ public class Customer extends Account {
 
                         movieChoice.printAllShowtimes();
 
-                        System.out.printf("Please choose a cineplex : ");
-                        cineplexChoice = scanner.nextLine();
+                        /*System.out.printf("Please choose a cineplex ");
+                        System.out.println();
+                        movieChoice.printCineplex();
+                        cineplexChoice = scanner.nextLine();*/
+                        cineplexChoice = movieChoice.getCineplex();
 
                         cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
 
@@ -372,9 +375,8 @@ public class Customer extends Account {
                             scanner.nextLine();
                             break;
                         }
-
-                        System.out.printf("Please choose a cinema   : ");
-                        cinemaChoice = scanner.nextLine();
+                        System.out.println();
+                        cinemaChoice = movieChoice.getCinemaChoice(cineplexChoice);
                         cinema = cineplex.findCinema(cinemaChoice);
 
                         if (cinema == null) {

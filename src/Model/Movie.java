@@ -383,7 +383,7 @@ public class Movie {
     }
 
     public String printDateAndTime(String cinemaID){
-        System.out.println("Showtimes");
+        System.out.println("Showdates");
         ArrayList<Showtime> showtimeAL = new ArrayList<>(seats.get(cinemaID).keySet());
         String oldDate = "date", oldCinemaID = "ID";
         showtimeAL.sort(new Comparator<Showtime>() {

@@ -1,0 +1,5 @@
+1. Make sure all documentation is recorded
+2. Remove all unused functions, perhaps some can rename a bit?
+
+To do the Javadoc thingy:
+    "C:\Program Files\Java\jdk-18.0.2.1\bin\javadoc.exe"  -d ./html -author -private -noqualifier all -version <Package Name>

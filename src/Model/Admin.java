@@ -57,7 +57,6 @@ public class Admin extends Account {
 
                 case 2:
                     // Show movie titles, let admin choose movie to edit details
-                    // shit so messy, just close your eyes when working on this
                     movies = new MovieDB();
                     movies.sortByAlphabet();
                     movieArray = movies.getMovies();
@@ -382,7 +381,6 @@ public class Admin extends Account {
         } while (userChoice != 11);
     }
 
-    // TODO: remove showtimes by choosing integer
     private void removeShowtimes() {
         // Print menu to user
         Scanner scanner = new Scanner(System.in);
@@ -493,8 +491,6 @@ public class Admin extends Account {
         }
     }
 
-    // TODO: remove showtimes by choosing integer, choose which info to edit, then
-    // after edit, then update txt file
     private void updateShowtimes() {
         // Print menu to user
         Scanner scanner = new Scanner(System.in);
@@ -708,7 +704,6 @@ public class Admin extends Account {
 
         movieChoice = movieArray[movieChoiceInt - 1];
         movieTitle = movieChoice.getTitle();
-        // String movie = scanner.nextLine();
 
         if (MovieDB.getMovieFromTitle(movieTitle) == null) {
             System.out.println("Movie not found");

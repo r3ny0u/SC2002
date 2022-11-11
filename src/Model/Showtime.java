@@ -13,5 +13,4 @@ public class Showtime {
         this.day = day;
         this.time = time;
     }
-
 }

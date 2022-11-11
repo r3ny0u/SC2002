@@ -33,9 +33,6 @@ public class Cinema {
     public void printCinemaDetails() {
         System.out.println(cinemaID);
         System.out.println(cinemaType);
-        // for (int i = 0; i < movies.size(); i++) {
-        // System.out.println(movies.get(i).getTitle());
-        // }
         System.out.print("\n");
     }
 

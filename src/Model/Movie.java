@@ -342,31 +342,32 @@ public class Movie {
         this.movieRating = movieRating;
     }
 
-    public String getCineplex(){
+    public String getCineplex() {
         System.out.println("Cineplexes");
         int count = 1;
         int cineplexChoice;
-        for (String cineplexID : showingPlaces.keySet()){
+        for (String cineplexID : showingPlaces.keySet()) {
             System.out.println("\t" + count + ": " + cineplexID);
             count++;
         }
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Please choose a cineplex: ");
-        while(!scanner.hasNextInt()){
+        System.out.print("Please choose a cineplex (enter a number): ");
+        while (!scanner.hasNextInt()) {
             System.out.print("Error, Invalid choice!! Try again: ");
             scanner.next();
         }
         cineplexChoice = scanner.nextInt();
         count = 0;
-        for (String cineplexID : showingPlaces.keySet()){
+        for (String cineplexID : showingPlaces.keySet()) {
             count++;
-            if (count == cineplexChoice){
+            if (count == cineplexChoice) {
                 return cineplexID;
             }
         }
         return "ooooooooooooooooooooooooooooooooooooof";
     }
-    public String getCinemaChoice(String cineplexID){
+
+    public String getCinemaChoice(String cineplexID) {
         Scanner scanner = new Scanner(System.in);
         int count = 1;
         System.out.println("Cinemas");
@@ -374,26 +375,26 @@ public class Movie {
             System.out.println("\t" + count + ": " + cinemaID);
             count++;
         }
-        System.out.print("Please choose a cinema: ");
-        while(!scanner.hasNextInt()){
+        System.out.print("Please choose a cinema (enter a number): ");
+        while (!scanner.hasNextInt()) {
             System.out.print("Error, Invalid choice!! Try again: ");
             scanner.next();
         }
         int choice = scanner.nextInt();
-        count=0;
-        for (String cinemaID : showingPlaces.get(cineplexID)){
+        count = 0;
+        for (String cinemaID : showingPlaces.get(cineplexID)) {
             count++;
-            if (count==choice)
+            if (count == choice)
                 return cinemaID;
         }
         String idk = "This is the final message from Ren You. Gluck have fun ok bye.";
-        if (choice == 12345){
+        if (choice == 12345) {
             System.out.println(idk);
         }
         return idk;
     }
 
-    public String printDateAndTime(String cinemaID){
+    public String printDateAndTime(String cinemaID) {
         System.out.println("Showdates");
         ArrayList<Showtime> showtimeAL = new ArrayList<>(seats.get(cinemaID).keySet());
         String oldDate = "date", oldCinemaID = "ID";
@@ -405,7 +406,7 @@ public class Movie {
             }
 
         });
-        
+
         int count = 1;
         for (Showtime st : showtimeAL) {
             if (st.date.equals(oldDate) == false) {
@@ -417,10 +418,11 @@ public class Movie {
             }
         }
 
-        oldDate = "date"; oldCinemaID = "ID";
+        oldDate = "date";
+        oldCinemaID = "ID";
         Scanner scanner = new Scanner(System.in);
-        System.out.print("\nPlease choose a showing date: ");
-        while(!scanner.hasNextInt()){
+        System.out.print("\nPlease choose a showing date (enter a number): ");
+        while (!scanner.hasNextInt()) {
             System.out.print("Error, Invalid choice!! Try again: ");
             scanner.next();
         }
@@ -437,7 +439,7 @@ public class Movie {
         return null;
     }
 
-    public String printTimesFromDate(String dateChoice, String cinemaID){
+    public String printTimesFromDate(String dateChoice, String cinemaID) {
         ArrayList<Showtime> showtimeAL = new ArrayList<>(seats.get(cinemaID).keySet());
         System.out.println("Showtimes: ");
         String oldDate = "date", oldCinemaID = "ID";
@@ -449,18 +451,18 @@ public class Movie {
             }
 
         });
-        
+
         int count = 1;
         Scanner scanner = new Scanner(System.in);
         for (Showtime st : showtimeAL) {
-            if (st.date==dateChoice){
+            if (st.date == dateChoice) {
                 System.out.println("\t" + count + ": " + st.time);
                 count++;
             }
         }
 
-        System.out.print("Please choose the showtime: ");
-        while(!scanner.hasNextInt()){
+        System.out.print("Please choose the showtime (enter a number): ");
+        while (!scanner.hasNextInt()) {
             System.out.print("Error, Invalid choice!! Try again: ");
             scanner.next();
         }
@@ -468,10 +470,10 @@ public class Movie {
 
         count = 0;
         for (Showtime st : showtimeAL) {
-            if (st.date==dateChoice){
+            if (st.date == dateChoice) {
                 count++;
             }
-            if (count == choice){
+            if (count == choice) {
                 return st.time;
             }
         }

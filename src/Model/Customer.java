@@ -180,7 +180,7 @@ public class Customer extends Account {
                         System.out.println("========================================================\n");
 
                         // Show movie details corresponding to the movie choice
-                        System.out.print("Please choose a movie: ");
+                        System.out.print("Please choose a movie (enter a number): ");
                         movieChoiceInt = scanner.nextInt();
 
                         if (movieChoiceInt == numOfMovie + 1)
@@ -212,7 +212,7 @@ public class Customer extends Account {
                     System.out.println("========================================================\n");
 
                     // Show movie details corresponding to the movie choice
-                    System.out.print("Please choose a movie to book: ");
+                    System.out.print("Please choose a movie to book (enter a number): ");
                     movieChoiceInt = scanner.nextInt();
 
                     if (movieChoiceInt == numOfMovie + 1)
@@ -300,7 +300,7 @@ public class Customer extends Account {
                     System.out.println("========================================================\n");
 
                     // Show movie details corresponding to the movie choice
-                    System.out.print("Please choose a movie to book: ");
+                    System.out.print("Please choose a movie to book (enter a number): ");
                     do {
                         while (!scanner.hasNextInt()) {
                             System.out.print("Error, invalid choice!! Try again: ");
@@ -390,7 +390,7 @@ public class Customer extends Account {
                         System.out.println();
                         dateChoice = movieChoice.printDateAndTime(cinemaChoice);
                         if (dateChoice == null) {
-                            System.out.println("Show time does not exist");
+                            System.out.println("Showtime does not exist");
                             System.out.println("Press <Enter> to Exit View");
                             scanner.nextLine();
                             break;
@@ -419,7 +419,7 @@ public class Customer extends Account {
                             }
                         }
                         if (showtime == null) {
-                            System.out.println("Show time does not exist");
+                            System.out.println("Showtime does not exist");
                             System.out.println("Press <Enter> to Exit View");
                             scanner.nextLine();
                             break;
@@ -575,7 +575,7 @@ public class Customer extends Account {
                     System.out.println("========================================================\n");
 
                     // Show movie details corresponding to the movie choice
-                    System.out.print("Please choose a movie to add review: ");
+                    System.out.print("Please choose a movie to add review (enter a number): ");
                     movieChoiceInt = scanner.nextInt();
 
                     if (movieChoiceInt == numOfMovie + 1)

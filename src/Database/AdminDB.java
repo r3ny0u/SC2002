@@ -24,7 +24,8 @@ public class AdminDB {
 
     public static Admin getAdminFromUsername(String username, String password) {
         for (Admin admin : new AdminDB().getAdmins()) {
-            if (admin.getUsername().toLowerCase().compareTo(username.toLowerCase()) == 0 && admin.getPassword().compareTo(password) == 0) {
+            if (admin.getUsername().toLowerCase().compareTo(username.toLowerCase()) == 0
+                    && admin.getPassword().compareTo(password) == 0) {
                 return admin;
             }
         }

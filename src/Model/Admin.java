@@ -783,6 +783,12 @@ public class Admin extends Account {
         MovieDB.addNewMovie();
     }
 
+    public void printAdminDetails() {
+        System.out.println("Username: " + username);
+        System.out.println("Password: " + password);
+        System.out.println("AccountID: " + accountID);
+    }
+
     private void printAdminOptions() {
         System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
         System.out.flush();

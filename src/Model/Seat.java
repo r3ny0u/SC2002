@@ -1,5 +1,8 @@
 package Model;
 
+/**
+ * A class for seat in cinemas
+ */
 public class Seat {
     public String seatID;
     public boolean assigned;
@@ -9,13 +12,16 @@ public class Seat {
         this.seatID = seatID;
     }
 
-
     public Seat(String seatID, boolean assigned) {
         this.seatID = seatID;
         this.assigned = assigned;
     }
-    
 
+    /**
+     * Assigns the seat's customer ID
+     * @param customerID A String representing the customer ID
+     * @return true if assignment is successful
+     */
     public boolean assign(String customerID) {
         if (assigned == true) {
             return false;
@@ -26,10 +32,11 @@ public class Seat {
         }
     }
 
+    /**
+     * Check whether seat is available
+     * @return
+     */
     public boolean checkAvail() {
-        if (assigned)
-            return false;
-        else
-            return true;
+        return !assigned;
     }
 }

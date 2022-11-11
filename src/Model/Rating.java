@@ -1,16 +1,15 @@
 package Model;
 
+/**
+ * A class for Rating
+ */
 public class Rating {
-
-    // d: followed class diagram
-
     private String movie;
     private float rating;
     private String review;
     private String ratingID;
     private String username;
 
-    // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
     public Rating(String movie, float rating, String review, String ratingID, String username) {
         this.movie = movie;
         this.rating = rating;
@@ -27,14 +26,26 @@ public class Rating {
         this.rating = rating;
     }
 
+    /**
+     * Get the movie title
+     * @return A String representing the movie title
+     */
     public String getMovie() {
         return this.movie;
     }
 
+    /**
+     * Sets the movie title
+     * @param movie A String representing the movie title
+     */
     public void setMovie(String movie) {
         this.movie = movie;
     }
 
+    /**
+     * Gets the rating
+     * @return Sets the rating
+     */
     public float getRating() {
         return this.rating;
     }

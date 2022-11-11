@@ -13,7 +13,6 @@ import DatabaseBoundary.DatabaseReader;
 import DatabaseBoundary.DatabaseWriter;
 
 public class Admin extends Account {
-    // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
     public Admin(String username, String password, String accountID) {
         this.username = username;
         this.password = password;

@@ -1,22 +1,19 @@
 package Model;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Random;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
 
+/**
+ * A class for transactions
+ */
 public class Transaction {
-
-    // d: just following the class diagram, pls edit if necessary ;-;
-
     private String transactionID;
-    private String time; // ??
-    private String age; // shouldnt age be int?
+    private String time;
+    private String age;
     private String cinemaType;
     private String movieType;
     private String dayOfWeek;
@@ -27,7 +24,6 @@ public class Transaction {
     private float ticketPrice;
     private boolean isPH = false;
 
-    // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
     public Transaction(String transactionID, String time, String age, String cinemaType, String movieType,
             String dayOfWeek, Movie movie, String customerID) {
         this.transactionID = transactionID;
@@ -73,6 +69,9 @@ public class Transaction {
         }
     }
 
+    /**
+     * Prints out the transaction details
+     */
     public void printTransactionDetails() {
         System.out.println("Transaction ID: " + transactionID);
         System.out.println("Time: " + time);
@@ -84,6 +83,11 @@ public class Transaction {
         System.out.println("Customer ID: " + customerID);
     }
 
+    /**
+     * Gets the ticket price based on the type of the movie tickets
+     * 
+     * @return A float representing the price of the movie ticket
+     */
     public float getTicketPrice() {
         MovieTicket movieTicket = new MovieTicket();
 
@@ -120,62 +124,137 @@ public class Transaction {
         return ticketPrice;
     }
 
+    /**
+     * Gets the transaction ID
+     * 
+     * @return A String representing the transaction ID
+     */
     public String getTransactionId() {
         return this.transactionID;
     }
 
+    /**
+     * Gets the time
+     * 
+     * @return A String representing the time
+     */
     public String getTime() {
         return this.time;
     }
 
+    /**
+     * Sets the time
+     * 
+     * @param time A String representing the time
+     */
     public void setTime(String time) {
         this.time = time;
     }
 
+    /**
+     * Gets the age
+     * 
+     * @return A String representing the age
+     */
     public String getAge() {
         return this.age;
     }
 
+    /**
+     * Sets the age
+     * 
+     * @param age A String representing the age
+     */
     public void setAge(String age) {
         this.age = age;
     }
 
+    /**
+     * Gets the cinema type
+     * 
+     * @return A String representing the cinema type
+     */
     public String getCinemaType() {
         return this.cinemaType;
     }
 
+    /**
+     * Sets the cinema type
+     * 
+     * @param cinemaType A String representing the cinema type
+     */
     public void setCinemaType(String cinemaType) {
         this.cinemaType = cinemaType;
     }
 
+    /**
+     * Gets the movie type
+     * 
+     * @return A String representing the movie type
+     */
     public String getMovieType() {
         return this.movieType;
     }
 
+    /**
+     * Sets the movie type
+     * 
+     * @param movieType A String representing the movie type
+     */
     public void setMovieType(String movieType) {
         this.movieType = movieType;
     }
 
+    /**
+     * Gets the day of week
+     * 
+     * @return A Strign representing the day of week
+     */
     public String getDayOfWeek() {
         return this.dayOfWeek;
     }
 
+    /**
+     * Sets the day of week
+     * 
+     * @param day A String representing the day of week
+     */
     public void setDayOfWeek(String day) {
         this.dayOfWeek = day;
     }
 
+    /**
+     * Gets the movie object
+     * 
+     * @return A Movie object of the transaction
+     */
     public Movie getMovie() {
         return this.movie;
     }
 
+    /**
+     * Sets the movie object
+     * 
+     * @param movie A Movie object for the transaction
+     */
     public void setMovie(Movie movie) {
         this.movie = movie;
     }
 
+    /**
+     * Gets the customer ID
+     * 
+     * @return A String representing the customer ID
+     */
     public String getCustomerID() {
         return this.customerID;
     }
 
+    /**
+     * Sets the customer ID
+     * 
+     * @param custID A String representing the customer ID
+     */
     public void setCustomerID(String custID) {
         this.customerID = custID;
     }

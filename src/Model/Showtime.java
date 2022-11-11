@@ -1,5 +1,8 @@
 package Model;
 
+/**
+ * A Class for showtime
+ */
 public class Showtime {
     protected String date;
     protected String day;

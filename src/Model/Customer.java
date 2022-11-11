@@ -425,7 +425,7 @@ public class Customer extends Account {
                         showtime = new Showtime(dateChoice, "day", showtimeChoice);
 
                         boolean assigned = movieChoice.checkSeat(cinemaChoice, dateChoice, showtimeChoice, seatID);
-                        boolean isSeatValid = ('A' < seatID.charAt(0) && seatID.charAt(0) < 'K')
+                        boolean isSeatValid = ('A' <= seatID.charAt(0) && seatID.charAt(0) <= 'J')
                                 && (1 <= Integer.parseInt(seatID.substring(1))
                                         && Integer.parseInt(seatID.substring(1)) <= 10);
 
@@ -462,11 +462,14 @@ public class Customer extends Account {
                         System.out.println("\nBooking successful :) ...");
 
                         // Sleep for 1.5s then return to customer menu page
-                        try {
+                        /*try {
                             TimeUnit.MILLISECONDS.sleep(1500);
                         } catch (Exception e) {
                             e.printStackTrace();
-                        }
+                        }*/
+                        scanner.nextLine();
+                        System.out.println("Press <Enter> to Exit View");
+                        scanner.nextLine();
                         break;
                     }
 

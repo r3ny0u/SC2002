@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"DatabaseBoundary","l":"DatabaseConstants"},{"p":"DatabaseBoundary","l":"DatabaseReader"},{"p":"DatabaseBoundary","l":"DatabaseWriter"},{"p":"DatabaseBoundary","l":"ReadWriteTxt"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"DatabaseBoundary","l":"DatabaseConstants"},{"p":"DatabaseBoundary","l":"DatabaseReader"},{"p":"DatabaseBoundary","l":"DatabaseWriter"}];updateSearchResults();

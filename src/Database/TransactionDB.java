@@ -11,7 +11,7 @@ public class TransactionDB {
 
     /**
      * Gets the transaction array
-     * @return
+     * @return An array of Transaction objects
      */
     public Transaction[] getTransactions() {
         return this.transactions;

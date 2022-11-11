@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+// Acknowledgment: http://www.cse.chalmers.se/edu/year/2015/course/TDA602/Eraserlab/pwdmasking.html
+
 public class Password {
 
     /**

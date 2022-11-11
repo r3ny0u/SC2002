@@ -1,6 +1,6 @@
 package Model;
 
-import java.io.*;
+// Acknowledgment: http://www.cse.chalmers.se/edu/year/2015/course/TDA602/Eraserlab/pwdmasking.html
 
 class EraserThread implements Runnable {
     private boolean stop;

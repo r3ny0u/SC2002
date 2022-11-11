@@ -47,21 +47,6 @@ public class MOBLIMAApp {
                     break;
                 }
 
-                // Console console = System.console();
-                // if (console == null) {
-                // System.out.println("Couldn't get Console instance");
-                // System.exit(0);
-                // }
-
-                // char[] passwordArray = console.readPassword("Password: ");
-                // for (int i = 0; i < passwordArray.length; i++) {
-                // System.out.print("*");
-                // }
-
-                // // System.out.print("Password: ");
-                // // password = scanner.nextLine();
-                // password = new String(passwordArray);
-
                 password = Password.readPassword("Enter password: ");
 
                 if (Admin.checkPassword(username, password)) {

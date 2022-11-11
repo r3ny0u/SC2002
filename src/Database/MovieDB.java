@@ -57,7 +57,6 @@ public class MovieDB {
         }
     }
 
-
     public static void printAllMovieList() {
         // Sorry dayna got conflict >_<
         MovieDB movieDB = new MovieDB();
@@ -67,7 +66,7 @@ public class MovieDB {
             System.out.printf("%2d. %-30s: %s\n", i + 1, movies[i].getTitle(), movies[i].getStatus().toUpperCase());
         }
     }
-    
+
     /**
      * Gets the movie by its title
      * 
@@ -110,7 +109,7 @@ public class MovieDB {
     }
 
     /**
-     * Sorts this.movies in descending order by alphabetical order
+     * Sorts this.movies in alphabetical order
      */
     public void sortByAlphabet() {
         Arrays.sort(this.movies, new Comparator<Movie>() {

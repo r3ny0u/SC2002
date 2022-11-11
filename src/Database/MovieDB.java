@@ -49,16 +49,32 @@ public class MovieDB {
         Movie[] movies = movieDB.getMovies();
         int j = 1;
         for (int i = 0; i < movies.length; i++) {
+            if (movies[i].getStatus().toLowerCase().compareTo("end of showing") == 0) {
+                j--;
+                continue;
+            }
             System.out.printf("%2d. %-30s: %s\n", i + j, movies[i].getTitle(), movies[i].getStatus().toUpperCase());
         }
     }
 
+
+    public static void printAllMovieList() {
+        // Sorry dayna got conflict >_<
+        MovieDB movieDB = new MovieDB();
+        movieDB.sortByAlphabet();
+        Movie[] movies = movieDB.getMovies();
+        for (int i = 0; i < movies.length; i++) {
+            System.out.printf("%2d. %-30s: %s\n", i + 1, movies[i].getTitle(), movies[i].getStatus().toUpperCase());
+        }
+    }
+    
     /**
      * Gets the movie by its title
      * 
      * @param title A String representing the title of the movie
      * @return A Movie object with the title
      */
+
     public static Movie getMovieFromTitle(String title) {
         for (Movie movie : new MovieDB().getMovies()) {
             if (movie.getTitle().strip().toLowerCase().compareTo(title.strip().toLowerCase()) == 0) {

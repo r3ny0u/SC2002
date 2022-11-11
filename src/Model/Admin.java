@@ -66,7 +66,7 @@ public class Admin extends Account {
                     System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
                     System.out.flush();
                     System.out.println("\n=================== Movie Titles =====================");
-                    MovieDB.printMovieList();
+                    MovieDB.printAllMovieList();
                     System.out.printf("%2d. Quit\n", movieArray.length + 1);
                     System.out.println("========================================================\n");
 
@@ -151,7 +151,7 @@ public class Admin extends Account {
                     System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
                     System.out.flush();
                     System.out.println("\n=================== Movie Titles =====================");
-                    MovieDB.printMovieList();
+                    MovieDB.printAllMovieList();
                     System.out.printf("%2d. Quit\n", movieArray.length + 1);
                     System.out.println("========================================================\n");
 
@@ -229,7 +229,7 @@ public class Admin extends Account {
                         System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
                         System.out.flush();
                         System.out.println("\n=================== Movie Titles =====================");
-                        MovieDB.printMovieList();
+                        MovieDB.printAllMovieList();
                         System.out.printf("%2d. Quit\n", movieArray.length + 1);
                         System.out.println("========================================================\n");
 
@@ -397,7 +397,7 @@ public class Admin extends Account {
         System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
         System.out.flush();
         System.out.println("\n=================== Movie Titles =====================");
-        MovieDB.printMovieList();
+        MovieDB.printAllMovieList();
         System.out.println("========================================================\n");
 
         System.out.println("================= Removing showtimes ===================");
@@ -507,7 +507,7 @@ public class Admin extends Account {
         System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
         System.out.flush();
         System.out.println("\n=================== Movie Titles =====================");
-        MovieDB.printMovieList();
+        MovieDB.printAllMovieList();
         System.out.println("========================================================\n");
 
         System.out.println("================= Updating showtimes ===================");
@@ -680,7 +680,7 @@ public class Admin extends Account {
         System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
         System.out.flush();
         System.out.println("\n=================== Movie Titles =====================");
-        MovieDB.printMovieList();
+        MovieDB.printAllMovieList();
         System.out.println("========================================================\n");
 
         System.out.println("================= Creating showtimes ===================");

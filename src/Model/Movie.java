@@ -14,6 +14,9 @@ import java.time.format.DateTimeFormatter;
 
 import java.util.Scanner;
 
+/**
+ * A class for movie
+ */
 public class Movie {
     protected String title;
     protected String status;
@@ -27,9 +30,8 @@ public class Movie {
     protected Map<String, ArrayList<String>> showingPlaces = new HashMap<String, ArrayList<String>>(); // Cineplex ->
                                                                                                        // Cinema
     protected Map<String, Map<Showtime, Seat[]>> seats; // cinemaID->showtimes->seats
-    protected String movieRating;
+    protected String movieAgeRating;
 
-    // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
     public Movie(String title, String status, String synopsis, String director, ArrayList<String> casts) {
         this.title = title;
         this.status = status;
@@ -38,25 +40,18 @@ public class Movie {
         this.casts = casts;
         this.loadRatingsAndReviews();
         this.loadShowtimes();
-        this.movieRating = title.substring(title.lastIndexOf(" ") + 1, title.length());
+        this.movieAgeRating = title.substring(title.lastIndexOf(" ") + 1, title.length());
     }
 
-    public Movie(String title, String status, String synopsis, String director, ArrayList<String> casts,
-            ArrayList<String> cinemaNames) {
-        this.title = title;
-        this.status = status;
-        this.synopsis = synopsis;
-        this.director = director;
-        this.casts = casts;
-        this.overallRating = 0.0;
-        this.reviews = new ArrayList<Rating>();
-        this.ratingCount = 0;
-        this.salesCount = 0;
-        this.loadRatingsAndReviews();
-        this.loadShowtimes();
-
-    }
-
+    /**
+     * Gets the seat of the movie for the showtime and cinema provided
+     * 
+     * @param cinemaID A String representing the cinema ID
+     * @param date     A String representing the date
+     * @param day      A String representing the day
+     * @param time     A String representing the time
+     * @return An array of Seat objects
+     */
     public Seat[] getSeats(String cinemaID, String date, String day, String time) {
         Showtime showtime = null;
         for (Showtime show : seats.get(cinemaID).keySet()) {
@@ -69,18 +64,36 @@ public class Movie {
         return seats.get(cinemaID).get(showtime);
     }
 
+    /**
+     * Gets the status of the movie
+     * 
+     * @return A String representing the movie status
+     */
     public String getStatus() {
         return this.status;
     }
 
+    /**
+     * Gets the title of the movie
+     * 
+     * @return A String representing the movie title
+     */
     public String getTitle() {
         return this.title;
     }
 
+    /**
+     * Gets the sale count of the movie
+     * 
+     * @return An integer representing the sales count
+     */
     public int getSalesCount() {
         return this.salesCount;
     }
 
+    /**
+     * Prints the details of the movie
+     */
     public void printMovieDetails() {
         this.loadRatingsAndReviews();
         System.out.println("\n================== Movie Details =======================");
@@ -103,6 +116,14 @@ public class Movie {
         System.out.println("========================================================\n");
     }
 
+    @Deprecated
+    /**
+     * @deprecated
+     *             Adds a new showtime to the movie
+     * @param cinemaID  A String representing the cinema ID
+     * @param date      A String representing the date
+     * @param showtimes An ArrayList representing the showtimes
+     */
     public void addShowtimes(String cinemaID, String date, ArrayList<String> showtimes) {
         int i = 0, j = 0, n = 0;
         Seat[] s = new Seat[100];
@@ -137,6 +158,9 @@ public class Movie {
         }
     }
 
+    /**
+     * Prints all the showtimes available for the movie
+     */
     public void printAllShowtimes() {
 
         String oldDate = "date", oldCinemaID = "ID";
@@ -171,16 +195,19 @@ public class Movie {
                     }
                 }
                 System.out.println();
-                // }
-
-                // sort showtimes according to date and time in ascending order
-
             }
             System.out.println();
         }
         System.out.println("========================================================");
     }
 
+    /**
+     * Print the seats available
+     * 
+     * @param cinemaID A String representing the cinema ID
+     * @param date     A String representing the date
+     * @param showtime A String representing the day
+     */
     public void printSeats(String cinemaID, String date, String showtime) {
         int i, j;
         int[][] seatMatrix = new int[10][10];
@@ -221,6 +248,16 @@ public class Movie {
         System.out.println("Legend\n|x| = taken\n|O| = available\n");
     }
 
+    /**
+     * Assign a new seat
+     * 
+     * @param cinemaID   A String representing the cinema ID
+     * @param date       A String representing the date
+     * @param time       A String representing the time
+     * @param seatID     A String representing the seat ID
+     * @param customerID A String representing the customer ID
+     * @return An array of Seat objects
+     */
     public Seat[] assignSeat(String cinemaID, String date, String time, String seatID, String customerID) {
         Showtime showtime = null;
         for (Showtime show : seats.get(cinemaID).keySet()) {
@@ -241,6 +278,15 @@ public class Movie {
         return s;
     }
 
+    /**
+     * Checks whether the seat is alrady taken
+     * 
+     * @param cinemaID A String representing the cinema ID
+     * @param date     A String representing the date
+     * @param time     A String representing the time
+     * @param seatID   A String representing the seat ID
+     * @return true if seat choice is not occupied
+     */
     public boolean checkSeat(String cinemaID, String date, String time, String seatID) {
         Showtime showtime = null;
         this.loadShowtimes();
@@ -260,6 +306,7 @@ public class Movie {
         return s[(row * 10) + col - 1].assigned;
     }
 
+    @Deprecated
     public void addReviews(String customerID, String review, float rating) {
         Rating newRating = new Model.Rating(customerID, review, rating);
         reviews.add(newRating);
@@ -268,6 +315,11 @@ public class Movie {
                 (review.length() + 1);
     }
 
+    /**
+     * Gets the rating of the movie
+     * 
+     * @return A double representing the rating of the movie
+     */
     public double getRating() {
         if (ratingCount >= 1)
             return overallRating;
@@ -275,6 +327,7 @@ public class Movie {
             return 0.0f;
     }
 
+    @Deprecated
     public void addShowingPlaces(String cineplexID, String cinemaID) {
         if (showingPlaces == null) {
             showingPlaces = new HashMap<>();
@@ -292,6 +345,7 @@ public class Movie {
         }
     }
 
+    @Deprecated
     public void printShowingPlaces() {
         for (String key : showingPlaces.keySet()) {
             System.out.println(
@@ -304,6 +358,9 @@ public class Movie {
         System.out.println("\n=====================================================================");
     }
 
+    /**
+     * Loads the ratings and reviews for this movie
+     */
     public void loadRatingsAndReviews() {
         // Get all ratings, then match rating movie title to this.title, if the same
         // then we know that the rating belongs to this movie, and then we add the
@@ -323,6 +380,9 @@ public class Movie {
         this.overallRating = this.ratingCount == 0 ? 0 : ratingSum / ratingCount;
     }
 
+    /**
+     * Loads the showtimes for this movie
+     */
     public void loadShowtimes() {
         Map<Map<String, ArrayList<String>>, Map<String, Map<Showtime, Seat[]>>> bla = DatabaseReader
                 .readShowtime(title);
@@ -334,15 +394,30 @@ public class Movie {
         }
     }
 
-    public String getMovieRating() {
-        return movieRating;
+    /**
+     * Gets the movie age rating
+     * 
+     * @return A String representing the movie age rating
+     */
+    public String getMovieAgeRating() {
+        return movieAgeRating;
     }
 
-    public void setMovieRating(String movieRating) {
-        this.movieRating = movieRating;
+    /**
+     * Sets the movie age rating
+     * 
+     * @param movieAgeRating A String representing the movie age rating
+     */
+    public void setMovieRating(String movieAgeRating) {
+        this.movieAgeRating = movieAgeRating;
     }
 
-    public String getCineplex() {
+    /**
+     * Ask user to choose the cineplex for this moive
+     * 
+     * @return A String representing the cineplex ID
+     */
+    public String chooseCineplex() {
         System.out.println("Cineplexes");
         int count = 1;
         int cineplexChoice;
@@ -367,7 +442,13 @@ public class Movie {
         return "ooooooooooooooooooooooooooooooooooooof";
     }
 
-    public String getCinemaChoice(String cineplexID) {
+    /**
+     * Ask user to choose the cinema for this movie
+     * 
+     * @param cineplexID A String representing which cineplex the cinema is from
+     * @return A String representing the cinema ID
+     */
+    public String chooseCinema(String cineplexID) {
         Scanner scanner = new Scanner(System.in);
         int count = 1;
         System.out.println("Cinemas");
@@ -394,7 +475,13 @@ public class Movie {
         return idk;
     }
 
-    public String printDateAndTime(String cinemaID) {
+    /**
+     * Ask user to choose the date for this movie
+     * 
+     * @param cinemaID A String representing the cinema the movie is in
+     * @return A String representing the date
+     */
+    public String chooseDate(String cinemaID) {
         System.out.println("Showdates");
         ArrayList<Showtime> showtimeAL = new ArrayList<>(seats.get(cinemaID).keySet());
         String oldDate = "date", oldCinemaID = "ID";
@@ -420,14 +507,18 @@ public class Movie {
 
         oldDate = "date";
         oldCinemaID = "ID";
+
         Scanner scanner = new Scanner(System.in);
         System.out.print("\nPlease choose a showing date (enter a number): ");
+
         while (!scanner.hasNextInt()) {
             System.out.print("Error, Invalid choice!! Try again: ");
             scanner.next();
         }
+
         int choice = scanner.nextInt();
         count = 0;
+
         for (Showtime st : showtimeAL) {
             if (st.date.equals(oldDate) == false) {
                 oldDate = st.date;
@@ -439,7 +530,14 @@ public class Movie {
         return null;
     }
 
-    public String printTimesFromDate(String dateChoice, String cinemaID) {
+    /**
+     * Ask user to choose the time for the this movie
+     * 
+     * @param dateChoice A String representing the date for the movie
+     * @param cinemaID   A String representing the cinema the movie is in
+     * @return A String representing the time
+     */
+    public String chooseTime(String dateChoice, String cinemaID) {
         ArrayList<Showtime> showtimeAL = new ArrayList<>(seats.get(cinemaID).keySet());
         System.out.println("Showtimes: ");
         String oldDate = "date", oldCinemaID = "ID";
@@ -455,7 +553,7 @@ public class Movie {
         int count = 1;
         Scanner scanner = new Scanner(System.in);
         for (Showtime st : showtimeAL) {
-            if (st.date.compareTo(dateChoice)==0) {
+            if (st.date.compareTo(dateChoice) == 0) {
                 System.out.println("\t" + count + ": " + st.time);
                 count++;
             }
@@ -470,7 +568,7 @@ public class Movie {
 
         count = 0;
         for (Showtime st : showtimeAL) {
-            if (st.date.compareTo(dateChoice)==0) {
+            if (st.date.compareTo(dateChoice) == 0) {
                 count++;
             }
             if (count == choice) {
@@ -479,5 +577,4 @@ public class Movie {
         }
         return "oooooooooooooooooof";
     }
-
 }

@@ -12,6 +12,9 @@ import Database.MovieTicketConfig;
 import DatabaseBoundary.DatabaseReader;
 import DatabaseBoundary.DatabaseWriter;
 
+/**
+ * A class for Admin account
+ */
 public class Admin extends Account {
     public Admin(String username, String password, String accountID) {
         this.username = username;
@@ -20,7 +23,7 @@ public class Admin extends Account {
     }
 
     /**
-     * Check if admin with current username and password exists in database.
+     * Check if admin with current username and password exists in database
      * 
      * @return true if admin exists
      */
@@ -28,6 +31,9 @@ public class Admin extends Account {
         return AdminDB.getAdminFromUsername(username, password) != null;
     }
 
+    /**
+     * The main menu for Admin
+     */
     public void adminMenu() {
         if (!checkPassword(username, password))
             return;
@@ -36,7 +42,7 @@ public class Admin extends Account {
         int choice;
 
         do {
-            printAdminOptions();
+            printAdminMenuOptions();
 
             choice = scanner.nextInt();
 
@@ -282,6 +288,9 @@ public class Admin extends Account {
         return;
     }
 
+    /**
+     * Allows Admin to configure movie ticket configuration
+     */
     private void configSys() {
         // Configure ticket price and other things
         Scanner scanner = new Scanner(System.in);
@@ -381,6 +390,9 @@ public class Admin extends Account {
         } while (userChoice != 11);
     }
 
+    /**
+     * Allows Admin to remove showtimes
+     */
     private void removeShowtimes() {
         // Print menu to user
         Scanner scanner = new Scanner(System.in);
@@ -422,7 +434,7 @@ public class Admin extends Account {
 
         movieChoice.printAllShowtimes();
 
-        String cineplexID = movieChoice.getCineplex();
+        String cineplexID = movieChoice.chooseCineplex();
 
         if (CineplexDB.getCineplexFromID(cineplexID) == null) {
             System.out.println("Cineplex not found");
@@ -433,7 +445,7 @@ public class Admin extends Account {
 
         System.out.println();
         System.out.println();
-        String cinemaID = movieChoice.getCinemaChoice(cineplexID);
+        String cinemaID = movieChoice.chooseCinema(cineplexID);
 
         if (CinemaDB.getCinemaFromID(cinemaID) == null) {
             System.out.println("Cinema not found");
@@ -444,11 +456,11 @@ public class Admin extends Account {
 
         System.out.println();
         System.out.println();
-        String date = movieChoice.printDateAndTime(cinemaID);
+        String date = movieChoice.chooseDate(cinemaID);
 
         System.out.println();
         System.out.println();
-        String time = movieChoice.printTimesFromDate(date, cinemaID);
+        String time = movieChoice.chooseTime(date, cinemaID);
 
         // Check whether show time exists already
         Showtime showtime = null;
@@ -491,6 +503,9 @@ public class Admin extends Account {
         }
     }
 
+    /**
+     * Allows Admin to update showtime
+     */
     private void updateShowtimes() {
         // Print menu to user
         Scanner scanner = new Scanner(System.in);
@@ -532,7 +547,7 @@ public class Admin extends Account {
 
         movieChoice.printAllShowtimes();
 
-        String cineplexID = movieChoice.getCineplex();
+        String cineplexID = movieChoice.chooseCineplex();
 
         if (CineplexDB.getCineplexFromID(cineplexID) == null) {
             System.out.println("Cineplex not found");
@@ -543,7 +558,7 @@ public class Admin extends Account {
 
         System.out.println();
         System.out.println();
-        String cinemaID = movieChoice.getCinemaChoice(cineplexID);
+        String cinemaID = movieChoice.chooseCinema(cineplexID);
 
         if (CinemaDB.getCinemaFromID(cinemaID) == null) {
             System.out.println("Cinema not found");
@@ -554,11 +569,11 @@ public class Admin extends Account {
 
         System.out.println();
         System.out.println();
-        String date = movieChoice.printDateAndTime(cinemaID);
+        String date = movieChoice.chooseDate(cinemaID);
 
         System.out.println();
         System.out.println();
-        String time = movieChoice.printTimesFromDate(date, cinemaID);
+        String time = movieChoice.chooseTime(date, cinemaID);
 
         // Check whether show time exists already
         Showtime showtime = null;
@@ -666,6 +681,9 @@ public class Admin extends Account {
         }
     }
 
+    /**
+     * Allows Admin to create showtimes
+     */
     private void createShowtimes() {
         // Print menu to user
         Scanner scanner = new Scanner(System.in);
@@ -776,18 +794,18 @@ public class Admin extends Account {
         scanner.nextLine();
     }
 
+    /**
+     * Allows Admin to create movie listing
+     */
     private void createMovieListing() {
         // Add new movie
         MovieDB.addNewMovie();
     }
 
-    public void printAdminDetails() {
-        System.out.println("Username: " + username);
-        System.out.println("Password: " + password);
-        System.out.println("AccountID: " + accountID);
-    }
-
-    private void printAdminOptions() {
+    /**
+     * Prints the admin menu options
+     */
+    private void printAdminMenuOptions() {
         System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
         System.out.flush();
 

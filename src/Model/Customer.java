@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 
-// import javax.sound.midi.Soundbank;
-
 import Database.CineplexDB;
 import Database.CustomerDB;
 import Database.MovieDB;
@@ -19,16 +17,14 @@ import Database.ShowtimeDB;
 import Database.TransactionDB;
 import DatabaseBoundary.DatabaseReader;
 
+/**
+ * A class for Customer
+ */
 public class Customer extends Account {
-    private String name;
     private String email;
     private String mobile;
     private ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 
-    public Customer() {
-    }
-
-    // DO NOT MODIFY THIS CONSTRUCTOR, MAKE ANOTHER IF YOU NEED ANOTHER CONSTRUCTOR
     public Customer(String username, String password, String accountID, String email, String mobile) {
         this.username = username;
         this.password = password;
@@ -38,14 +34,9 @@ public class Customer extends Account {
         this.loadCustomerTransaction();
     }
 
-    public Customer(String customerID, String name, String email, String mobile, ArrayList<Transaction> transactions) {
-        this.accountID = customerID;
-        this.name = name;
-        this.email = email;
-        this.mobile = mobile;
-        this.transactions = transactions;
-    }
-
+    /**
+     * Loads the customer's transaction history
+     */
     public void loadCustomerTransaction() {
         this.transactions.clear();
         TransactionDB transactionDB = new TransactionDB();
@@ -56,6 +47,9 @@ public class Customer extends Account {
         }
     }
 
+    /**
+     * Prints out the customer's transaction history
+     */
     public void printCustomerTransactionHistory() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
@@ -77,7 +71,7 @@ public class Customer extends Account {
     }
 
     /**
-     * Check if customer with current username and password exists in database.
+     * Check if customer with current username and password exists in database
      * 
      * @return true if customer exists
      */
@@ -85,14 +79,13 @@ public class Customer extends Account {
         return CustomerDB.getCustomerFromUsername(username, password) != null;
     }
 
-    public void printCustomerDetails() {
-        System.out.println("Username: " + this.username);
-        System.out.println("Password: " + this.password);
-        System.out.println("AccountID: " + this.accountID);
-        System.out.println("Email: " + this.email);
-        System.out.println("Mobile: " + this.mobile);
-    }
-
+    /**
+     * Checks the age of the customer to match with the movie age rating
+     * 
+     * @param age    A String representing the age of the customer
+     * @param rating A String representing the movie age rating
+     * @return true if customer is able to watch the movie of the age rating
+     */
     public boolean checkAge(String age, String rating) {
         if (rating.toLowerCase().compareTo("g") == 0 || rating.toLowerCase().compareTo("pg") == 0) {
             return true;
@@ -104,8 +97,9 @@ public class Customer extends Account {
         }
     }
 
-    // I change the name to customerMenu ah to be consistent with the adminMenu
-    // Also I changed it to a do while loop
+    /**
+     * Main menu for customer
+     */
     public void customerMenu() {
         Scanner scanner = new Scanner(System.in);
         int choice = 69420;
@@ -143,7 +137,7 @@ public class Customer extends Account {
 
             System.out.println("\u001B[36mHello ~~ " + username + " ~~ :)\n\u001B[0m");
 
-            printMenu();
+            printCustomerMenuOptions();
             System.out.print("Enter your choice: ");
             while (!scanner.hasNextInt()) {
                 System.out.println("Error, please enter a number!!");
@@ -154,7 +148,7 @@ public class Customer extends Account {
             switch (choice) {
                 case 1:
                     // Show movie listings from MovieDB by alphabetical order
-                    // Movies with NOT SHOWING status would not be shown
+                    // Movies with END OF SHOWING status would not be shown
                     System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
                     System.out.flush();
                     System.out.println("\n=================== Movie Titles =====================");
@@ -235,7 +229,7 @@ public class Customer extends Account {
                         // Print all showtimes for customer to see, then let customer choose cineplex,
                         // cinema, date and time
                         movieChoice.printAllShowtimes();
-                        cineplexChoice = movieChoice.getCineplex();
+                        cineplexChoice = movieChoice.chooseCineplex();
 
                         cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
 
@@ -247,7 +241,7 @@ public class Customer extends Account {
                         }
                         System.out.println();
                         System.out.println();
-                        cinemaChoice = movieChoice.getCinemaChoice(cineplexChoice);
+                        cinemaChoice = movieChoice.chooseCinema(cineplexChoice);
                         cinema = cineplex.findCinema(cinemaChoice);
 
                         if (cinema == null) {
@@ -260,14 +254,14 @@ public class Customer extends Account {
                         // User to input date and showtime, to get seats
                         System.out.println();
                         System.out.println();
-                        dateChoice = movieChoice.printDateAndTime(cinemaChoice);
+                        dateChoice = movieChoice.chooseDate(cinemaChoice);
                         if (dateChoice == null) {
                             System.out.println("Show time does not exist");
                             System.out.println("Press <Enter> to Exit View");
                             scanner.nextLine();
                             break;
                         }
-                        showtimeChoice = movieChoice.printTimesFromDate(dateChoice, cinemaChoice);
+                        showtimeChoice = movieChoice.chooseTime(dateChoice, cinemaChoice);
 
                         System.out.println("======================== Seats ==========================\n");
                         movieChoice.printSeats(cinema.getCinemaID(), dateChoice, showtimeChoice);
@@ -284,8 +278,6 @@ public class Customer extends Account {
                     }
 
                 case 4:
-                    // TODO: Check for date and time is valid, if got error see can put into while
-                    // TODO: loop or not
                     // Make a booking: Print out movie list, let customer choose movie, cineplex,
                     // and cinema (gotten from the moive object itself), then the showing time, and
                     // seats, before choose each of the things, print out the available options for
@@ -320,9 +312,6 @@ public class Customer extends Account {
                         break;
                     }
 
-                    // if (movieChoiceInt <= 0 || movieChoiceInt > numOfMovie + 1)
-                    // continue;
-
                     movieChoice = movieArray[movieChoiceInt - 1];
                     scanner.nextLine();
 
@@ -349,8 +338,8 @@ public class Customer extends Account {
                         System.out.printf("Please enter your age: ");
                         String age = scanner.nextLine();
 
-                        if (!checkAge(age, movieChoice.getMovieRating())) {
-                            System.out.printf("Sorry, this movie is %s.\n", movieChoice.getMovieRating());
+                        if (!checkAge(age, movieChoice.getMovieAgeRating())) {
+                            System.out.printf("Sorry, this movie is %s.\n", movieChoice.getMovieAgeRating());
                             System.out.println("Press <Enter> to Exit View");
                             scanner.nextLine();
                             break;
@@ -358,13 +347,7 @@ public class Customer extends Account {
 
                         movieChoice.printAllShowtimes();
 
-                        /*
-                         * System.out.printf("Please choose a cineplex ");
-                         * System.out.println();
-                         * movieChoice.printCineplex();
-                         * cineplexChoice = scanner.nextLine();
-                         */
-                        cineplexChoice = movieChoice.getCineplex();
+                        cineplexChoice = movieChoice.chooseCineplex();
 
                         cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
 
@@ -374,9 +357,10 @@ public class Customer extends Account {
                             scanner.nextLine();
                             break;
                         }
+
                         System.out.println();
                         System.out.println();
-                        cinemaChoice = movieChoice.getCinemaChoice(cineplexChoice);
+                        cinemaChoice = movieChoice.chooseCinema(cineplexChoice);
                         cinema = cineplex.findCinema(cinemaChoice);
 
                         if (cinema == null) {
@@ -385,10 +369,12 @@ public class Customer extends Account {
                             scanner.nextLine();
                             break;
                         }
+
                         // User to input date and showtime, to get seats
                         System.out.println();
                         System.out.println();
-                        dateChoice = movieChoice.printDateAndTime(cinemaChoice);
+                        dateChoice = movieChoice.chooseDate(cinemaChoice);
+
                         if (dateChoice == null) {
                             System.out.println("Showtime does not exist");
                             System.out.println("Press <Enter> to Exit View");
@@ -398,7 +384,7 @@ public class Customer extends Account {
 
                         System.out.println();
                         System.out.println();
-                        showtimeChoice = movieChoice.printTimesFromDate(dateChoice, cinemaChoice);
+                        showtimeChoice = movieChoice.chooseTime(dateChoice, cinemaChoice);
 
                         // Check if showtime exists
                         Showtime showtime = null;
@@ -418,6 +404,7 @@ public class Customer extends Account {
                                 }
                             }
                         }
+
                         if (showtime == null) {
                             System.out.println("Showtime does not exist");
                             System.out.println("Press <Enter> to Exit View");
@@ -431,26 +418,27 @@ public class Customer extends Account {
                         System.out.printf("Select the seat you want (eg. A1): ");
                         seatID = scanner.next();
 
-                        // Second choice idk what's it for
                         showtime = new Showtime(dateChoice, "day", showtimeChoice);
 
                         boolean assigned = movieChoice.checkSeat(cinemaChoice, dateChoice, showtimeChoice, seatID);
-                        while (assigned) {
-                            System.out.print("Seat is already taken!");
-                            // System.out.print("\033[1K\033[1K"); // Erase line content
-                            // System.out.print(String.format("\033[1A")); // Move up 1
+                        boolean isSeatValid = ('A' < seatID.charAt(0) && seatID.charAt(0) < 'K')
+                                && (1 <= Integer.parseInt(seatID.substring(1))
+                                        && Integer.parseInt(seatID.substring(1)) <= 10);
+
+                        while (assigned && !isSeatValid) {
+                            System.out.print("Seat choice is not valid!");
+                            System.out.print("\033[1K\033[1K"); // Erase line content
+                            System.out.print(String.format("\033[1A")); // Move up 1
                             System.out.print("Please choose another seat (eg. A1): ");
                             seatID = scanner.next();
                             assigned = movieChoice.checkSeat(cinemaChoice, dateChoice, showtimeChoice, seatID);
+                            isSeatValid = ('A' <= seatID.charAt(0) && seatID.charAt(0) <= 'J')
+                                    && (1 <= Integer.parseInt(seatID.substring(1))
+                                            && Integer.parseInt(seatID.substring(1)) <= 10);
                         }
 
                         Seat[] newSeats = movieChoice.assignSeat(cinemaChoice, dateChoice, showtimeChoice, seatID,
                                 this.accountID);
-
-                        // // User to input age
-                        // System.out.printf("Please enter your age: ");
-                        // scanner.nextLine();
-                        // String age = scanner.nextLine();
 
                         // Booking process done, creating transaction
                         Transaction newTrans = new Transaction(showtimeChoice, age, cinema, dateChoice, movieChoice,
@@ -622,7 +610,10 @@ public class Customer extends Account {
         } while (choice != 9);
     }
 
-    public static void printMenu() {
+    /**
+     * Prints the main menu options
+     */
+    public static void printCustomerMenuOptions() {
         System.out.println("What would you like to do today?");
         System.out.println("====================================================");
         System.out.println(" 1. View movie listings");

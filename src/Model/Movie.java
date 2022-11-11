@@ -352,6 +352,10 @@ public class Movie {
         }
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please choose a cineplex: ");
+        while(!scanner.hasNextInt()){
+            System.out.print("Error, Invalid choice!! Try again: ");
+            scanner.next();
+        }
         cineplexChoice = scanner.nextInt();
         count = 0;
         for (String cineplexID : showingPlaces.keySet()){
@@ -371,6 +375,10 @@ public class Movie {
             count++;
         }
         System.out.print("Please choose a cinema: ");
+        while(!scanner.hasNextInt()){
+            System.out.print("Error, Invalid choice!! Try again: ");
+            scanner.next();
+        }
         int choice = scanner.nextInt();
         count=0;
         for (String cinemaID : showingPlaces.get(cineplexID)){
@@ -412,6 +420,10 @@ public class Movie {
         oldDate = "date"; oldCinemaID = "ID";
         Scanner scanner = new Scanner(System.in);
         System.out.print("\nPlease choose a showing date: ");
+        while(!scanner.hasNextInt()){
+            System.out.print("Error, Invalid choice!! Try again: ");
+            scanner.next();
+        }
         int choice = scanner.nextInt();
         count = 0;
         for (Showtime st : showtimeAL) {
@@ -448,6 +460,10 @@ public class Movie {
         }
 
         System.out.print("Please choose the showtime: ");
+        while(!scanner.hasNextInt()){
+            System.out.print("Error, Invalid choice!! Try again: ");
+            scanner.next();
+        }
         int choice = scanner.nextInt();
 
         count = 0;

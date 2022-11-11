@@ -1,11 +1,13 @@
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import java.util.Base64;
+import java.util.Base64.Encoder;
 
 import Model.*;
 import Database.*;
+import Misc.Password;
 
 public class MOBLIMAApp {
-
     public static void main(String args[]) {
         Scanner scanner = new Scanner(System.in);
 
@@ -22,10 +24,12 @@ public class MOBLIMAApp {
             // ============================== LOGIN MENU ===============================
             // Login Menu for both Admin and Customer
             String username = "INeedADefaultValueOtherwiseGotCompilationError",
-                    password = "INeedADefaultValueOtherwiseGotCompilationError";
+                    password = "INeedADefaultValueOtherwiseGotCompilationError",
+                    encodedPassword = "";
             boolean isAdmin = false;
             boolean isLoggedIn = false;
             boolean isCreateNewAccount = false;
+            
 
             while (true) {
                 System.out.print("Username: ");
@@ -47,14 +51,16 @@ public class MOBLIMAApp {
                     break;
                 }
 
-                System.out.print("Password: ");
-                password = scanner.nextLine();
+                password = Password.readPassword("Enter password: ");
 
-                if (Admin.checkPassword(username, password)) {
+                Encoder encoder = Base64.getEncoder();
+                encodedPassword = encoder.encodeToString(password.getBytes());
+                
+                if (Admin.checkPassword(username, encodedPassword)) {
                     isAdmin = true;
                     isLoggedIn = true;
                     break;
-                } else if (Customer.checkPassword(username, password)) {
+                } else if (Customer.checkPassword(username, encodedPassword)) {
                     isAdmin = false;
                     isLoggedIn = true;
                     break;
@@ -89,12 +95,12 @@ public class MOBLIMAApp {
             // else, do customer stuff, e.g. check movie listing thing
 
             if (isAdmin && isLoggedIn) {
-                Admin admin = AdminDB.getAdminFromUsername(username, password);
+                Admin admin = AdminDB.getAdminFromUsername(username, encodedPassword);
 
                 admin.adminMenu();
 
             } else if (!isAdmin && isLoggedIn) {
-                Customer customer = CustomerDB.getCustomerFromUsername(username, password);
+                Customer customer = CustomerDB.getCustomerFromUsername(username, encodedPassword);
 
                 customer.customerMenu();
 

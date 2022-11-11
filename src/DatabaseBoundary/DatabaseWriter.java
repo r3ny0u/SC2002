@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
+import java.util.Base64;
+import java.util.Base64.Encoder;
+
 import Database.AdminDB;
 import Database.CinemaDB;
 import Database.CineplexDB;
@@ -257,8 +260,11 @@ public class DatabaseWriter {
                 return;
             }
 
+            Encoder encoder = Base64.getEncoder();
+            String encodedPassword = encoder.encodeToString(password.getBytes());
+
             bufferedWriter.write(username + "\n");
-            bufferedWriter.write(password + "\n");
+            bufferedWriter.write(encodedPassword + "\n");
             bufferedWriter.write(UUID.randomUUID().toString().replace("-", "") + "\n");
 
             bufferedWriter.close();

@@ -288,6 +288,10 @@ public class Movie {
      * @return true if seat choice is not occupied
      */
     public boolean checkSeat(String cinemaID, String date, String time, String seatID) {
+        if (!(('A' < seatID.charAt(0) && seatID.charAt(0) < 'K')
+                && (1 <= Integer.parseInt(seatID.substring(1))
+                        && Integer.parseInt(seatID.substring(1)) <= 10)))
+            return false;
         Showtime showtime = null;
         this.loadShowtimes();
         for (Showtime show : seats.get(cinemaID).keySet()) {

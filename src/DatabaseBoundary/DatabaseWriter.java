@@ -3,7 +3,6 @@ package DatabaseBoundary;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -15,7 +14,6 @@ import Database.MovieDB;
 import Model.Cinema;
 import Model.Movie;
 import Model.Seat;
-import Model.Showtime;
 import Model.Transaction;
 
 /**

@@ -70,3 +70,27 @@ Platinum
 Saturday
 Deleted M18
 251d8e371f1c404285870cae7fa13ddf
+022202211112134
+2022/11/15 : 1000
+123
+Normal
+2D
+Tuesday
+Ajoomma PG
+8398ae9aa6e94a789642a5b0ef037372
+011202211112138
+2022/11/11 : 1530
+123
+Platinum
+2D
+Friday
+Ajoomma PG
+8398ae9aa6e94a789642a5b0ef037372
+020202211112143
+2022/11/12 : 1500
+1
+Platinum
+2D
+Saturday
+3D DC League Of Super-Pets G
+251d8e371f1c404285870cae7fa13ddf

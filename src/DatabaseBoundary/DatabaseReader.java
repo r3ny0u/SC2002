@@ -1,7 +1,12 @@
 package DatabaseBoundary;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -30,24 +35,41 @@ public class DatabaseReader {
      * @return An array list of strings
      */
     public static ArrayList<String> readtxt(String txtPath) {
-        try {
-            // Read array list of strings from txt file
-            String s;
-            ArrayList<String> strings = new ArrayList<String>();
-            FileReader reader = new FileReader(txtPath);
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            while ((s = bufferedReader.readLine()) != null) {
-                strings.add(s);
+        while (true) {
+            try {
+                // Read array list of strings from txt file
+                String s;
+                ArrayList<String> strings = new ArrayList<String>();
+                FileReader reader = new FileReader(txtPath);
+                BufferedReader bufferedReader = new BufferedReader(reader);
+                while ((s = bufferedReader.readLine()) != null) {
+                    strings.add(s);
+                }
+
+                bufferedReader.close();
+
+                return strings;
+
+            } catch (FileNotFoundException e) {
+                try {
+                    File bla = new File(txtPath);
+                    bla.getParentFile().mkdirs();
+                    bla.createNewFile();
+                    FileWriter writer = new FileWriter(bla);
+                    BufferedWriter bufferedWriter = new BufferedWriter(writer);
+                    bufferedWriter.write("");
+                    bufferedWriter.close();
+                } catch (Exception e2) {
+                    e2.printStackTrace();
+                    return new ArrayList<String>();
+                }
             }
 
-            bufferedReader.close();
-
-            return strings;
-
-        } catch (Exception e) {
-            // If somehow got error, return empty array list
-            e.printStackTrace();
-            return new ArrayList<String>();
+            catch (Exception e) {
+                // If somehow got error, return empty array list
+                e.printStackTrace();
+                return new ArrayList<String>();
+            }
         }
     }
 
@@ -241,7 +263,7 @@ public class DatabaseReader {
 
         for (int i = 0; i < numOfShowtimes; i++) {
             String[] temp = strings.get(i).split(",");
-            if(!cinemas.contains(temp[2])) {
+            if (!cinemas.contains(temp[2])) {
                 cinemas.add(temp[2]);
             }
             if (temp[0].toLowerCase().compareTo(movieTitle.toLowerCase()) == 0) {

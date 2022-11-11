@@ -425,11 +425,11 @@ public class Customer extends Account {
                                 && (1 <= Integer.parseInt(seatID.substring(1))
                                         && Integer.parseInt(seatID.substring(1)) <= 10);
 
-                        while (assigned && !isSeatValid) {
-                            System.out.print("Seat choice is not valid!");
-                            System.out.print("\033[1K\033[1K"); // Erase line content
+                        while (assigned || !isSeatValid) {
+                            System.out.print("Seat choice is already assigned or is not valid!");
                             System.out.print(String.format("\033[1A")); // Move up 1
-                            System.out.print("Please choose another seat (eg. A1): ");
+                            System.out.print("\033[1K\033[1K"); // Erase line content
+                            System.out.print("\rPlease choose another seat (eg. A1): ");
                             seatID = scanner.next();
                             assigned = movieChoice.checkSeat(cinemaChoice, dateChoice, showtimeChoice, seatID);
                             isSeatValid = ('A' <= seatID.charAt(0) && seatID.charAt(0) <= 'J')

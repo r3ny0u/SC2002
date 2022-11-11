@@ -9,6 +9,7 @@ public class Rating {
     private String review;
     private String ratingID;
     private String username;
+    private String customerID;
 
     public Rating(String movie, float rating, String review, String ratingID, String username) {
         this.movie = movie;
@@ -17,8 +18,6 @@ public class Rating {
         this.ratingID = ratingID;
         this.username = username;
     }
-
-    private String customerID;
 
     public Rating(String customerID, String review, float rating) {
         this.customerID = customerID;

@@ -14,8 +14,4 @@ public class Showtime {
         this.time = time;
     }
 
-    public void printShowtime() {
-
-    }
-
 }

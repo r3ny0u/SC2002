@@ -1,8 +1,6 @@
 package Model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Cinema {
     private ArrayList<Movie> movies;
@@ -36,7 +34,7 @@ public class Cinema {
         System.out.println(cinemaID);
         System.out.println(cinemaType);
         // for (int i = 0; i < movies.size(); i++) {
-        //     System.out.println(movies.get(i).getTitle());
+        // System.out.println(movies.get(i).getTitle());
         // }
         System.out.print("\n");
     }

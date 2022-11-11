@@ -1,11 +1,11 @@
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import java.io.Console;
 
 import Model.*;
 import Database.*;
 
 public class MOBLIMAApp {
-
     public static void main(String args[]) {
         Scanner scanner = new Scanner(System.in);
 
@@ -47,8 +47,18 @@ public class MOBLIMAApp {
                     break;
                 }
 
-                System.out.print("Password: ");
-                password = scanner.nextLine();
+                Console console = System.console();
+                if (console == null) {
+                    System.out.println("Couldn't get Console instance");
+                    System.exit(0);
+                }
+
+                char[] passwordArray = console.readPassword("Password: ");
+                System.out.println();
+
+                // System.out.print("Password: ");
+                // password = scanner.nextLine();
+                password = new String(passwordArray);
 
                 if (Admin.checkPassword(username, password)) {
                     isAdmin = true;
@@ -60,7 +70,7 @@ public class MOBLIMAApp {
                     break;
                 } else {
                     System.out.print("Invalid username, or password. Please try again >_<\n");
-                    System.out.print(String.format("\033[2A")); // Move up 2
+                    System.out.print(String.format("\033[3A")); // Move up 2
                     System.out.print("\033[2K"); // Erase line content
                     System.out.print(String.format("\033[1A")); // Move up 1
                     System.out.print("\033[2K"); // Erase line content

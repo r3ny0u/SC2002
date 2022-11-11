@@ -113,9 +113,9 @@ public class MOBLIMAApp {
 }
 
 // Customer username and password:
-// asdf
-// ;lkj
+// jason
+// Jason1!
 // Admin username and password
-// bobatea
-// boba
+// admin
+// password123
 // For more usernames and password, check out CustomerDB.txt and AdminDB.txt

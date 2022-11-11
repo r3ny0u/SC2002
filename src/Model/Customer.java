@@ -301,16 +301,6 @@ public class Customer extends Account {
 
                     // Show movie details corresponding to the movie choice
                     System.out.print("Please choose a movie to book: ");
-                    /*
-                     * movieChoiceInt = scanner.nextInt();
-                     * 
-                     * if (movieChoiceInt == movieArray.length + 1){
-                     * System.out.print("Error, invalid choice!! ");
-                     * System.out.println("Press <Enter> to Exit View");
-                     * scanner.nextLine();
-                     * break;
-                     * }
-                     */
                     do {
                         while (!scanner.hasNextInt()) {
                             System.out.print("Error, invalid choice!! Try again: ");
@@ -510,7 +500,8 @@ public class Customer extends Account {
 
                     // initialise map
                     for (Movie mov : movieArray) {
-                        if (mov == null) continue;
+                        if (mov == null)
+                            continue;
                         movMap.put(mov.getTitle(), 0);
                     }
 

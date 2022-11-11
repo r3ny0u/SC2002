@@ -381,4 +381,82 @@ public class Movie {
         String idk = "This is the final message from Ren You. Gluck have fun ok bye.";
         return idk;
     }
+
+    public String printDateAndTime(String cinemaID){
+        System.out.println("Showtimes");
+        ArrayList<Showtime> showtimeAL = new ArrayList<>(seats.get(cinemaID).keySet());
+        String oldDate = "date", oldCinemaID = "ID";
+        showtimeAL.sort(new Comparator<Showtime>() {
+
+            @Override
+            public int compare(Showtime s1, Showtime s2) {
+                return (s1.date + s1.time).compareTo(s2.date + s2.time);
+            }
+
+        });
+        
+        int count = 1;
+        for (Showtime st : showtimeAL) {
+            if (st.date.equals(oldDate) == false) {
+                oldDate = st.date;
+                System.out.print("\t" + count + ": " + oldDate + " - " + st.time + " ");
+                count++;
+            } else {
+                System.out.print(st.time + " ");
+            }
+        }
+
+        oldDate = "date"; oldCinemaID = "ID";
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("\nPlease choose a showing date: ");
+        int choice = scanner.nextInt();
+        count = 0;
+        for (Showtime st : showtimeAL) {
+            if (st.date.equals(oldDate) == false) {
+                oldDate = st.date;
+                count++;
+            }
+            if (count == choice)
+                return oldDate;
+        }
+        return null;
+    }
+
+    public String printTimesFromDate(String dateChoice, String cinemaID){
+        ArrayList<Showtime> showtimeAL = new ArrayList<>(seats.get(cinemaID).keySet());
+        System.out.println("Showtimes: ");
+        String oldDate = "date", oldCinemaID = "ID";
+        showtimeAL.sort(new Comparator<Showtime>() {
+
+            @Override
+            public int compare(Showtime s1, Showtime s2) {
+                return (s1.date + s1.time).compareTo(s2.date + s2.time);
+            }
+
+        });
+        
+        int count = 1;
+        Scanner scanner = new Scanner(System.in);
+        for (Showtime st : showtimeAL) {
+            if (st.date==dateChoice){
+                System.out.println("\t" + count + ": " + st.time);
+                count++;
+            }
+        }
+
+        System.out.print("Please choose the showtime: ");
+        int choice = scanner.nextInt();
+
+        count = 0;
+        for (Showtime st : showtimeAL) {
+            if (st.date==dateChoice){
+                count++;
+            }
+            if (count == choice){
+                return st.time;
+            }
+        }
+        return "oooooooooooooooooof";
+    }
+
 }

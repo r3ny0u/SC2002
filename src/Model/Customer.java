@@ -376,6 +376,7 @@ public class Customer extends Account {
                             break;
                         }
                         System.out.println();
+                        System.out.println();
                         cinemaChoice = movieChoice.getCinemaChoice(cineplexChoice);
                         cinema = cineplex.findCinema(cinemaChoice);
 
@@ -385,13 +386,20 @@ public class Customer extends Account {
                             scanner.nextLine();
                             break;
                         }
-
                         // User to input date and showtime, to get seats
-                        System.out.printf("\nPlease choose a showing date (eg. 2022/11/13) : ");
-                        dateChoice = scanner.nextLine();
-
-                        System.out.printf("Please choose the showtime                    : ");
-                        showtimeChoice = scanner.nextLine();
+                        System.out.println();
+                        System.out.println();
+                        dateChoice = movieChoice.printDateAndTime(cinemaChoice);
+                        if (dateChoice==null){
+                            System.out.println("Show time does not exist");
+                            System.out.println("Press <Enter> to Exit View");
+                            scanner.nextLine();
+                            break;
+                        }
+                        
+                        System.out.println();
+                        System.out.println();
+                        showtimeChoice = movieChoice.printTimesFromDate(dateChoice,cinemaChoice);
 
                         // Check if showtime exists
                         Showtime showtime = null;

@@ -470,7 +470,7 @@ public class Movie {
 
         count = 0;
         for (Showtime st : showtimeAL) {
-            if (st.date == dateChoice) {
+            if (st.date.compareTo(dateChoice)==0) {
                 count++;
             }
             if (count == choice) {

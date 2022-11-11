@@ -9,7 +9,6 @@ import DatabaseBoundary.*;
 
 public class MovieDB {
     private Movie[] movies;
-    private int movieCount = 0;
 
     public MovieDB() {
         this.movies = DatabaseReader.readMovieDatabase();
@@ -38,8 +37,8 @@ public class MovieDB {
         int j = 1;
         for (int i = 0; i < movies.length; i++) {
             // if (movies[i].getStatus().toLowerCase().compareTo("end of showing") == 0) {
-            //     j--;
-            //     continue;
+            // j--;
+            // continue;
             // }
             System.out.printf("%2d. %-30s: %s\n", i + j, movies[i].getTitle(), movies[i].getStatus().toUpperCase());
         }

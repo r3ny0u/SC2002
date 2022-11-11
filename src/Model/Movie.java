@@ -379,6 +379,9 @@ public class Movie {
                 return cinemaID;
         }
         String idk = "This is the final message from Ren You. Gluck have fun ok bye.";
+        if (choice == 12345){
+            System.out.println(idk);
+        }
         return idk;
     }
 

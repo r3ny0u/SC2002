@@ -12,4 +12,5 @@ public class DatabaseConstants {
     public static String RATING_DATABASE_PATH = "src\\Database\\RatingDB.txt";
     public static String TRANSACTION_DATABASE_PATH = "src\\Database\\TransactionDB.txt";
     public static String SHOWTIMES_DATABASE_PATH = "src\\Database\\Showtimes.txt";
+    public static String RANKING_VISIBILITY_DATABASE_PATH = "src\\Database\\RankingVisibility.txt";
 }

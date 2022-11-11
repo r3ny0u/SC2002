@@ -4,7 +4,7 @@ WXB202211111639
 Platinum
 2D
 Sunday
-Black Adam PG
+Black Adam [PG]
 8398ae9aa6e94a789642a5b0ef037372
 WXB202211111716
 2022/11/20 : 1400
@@ -12,7 +12,7 @@ WXB202211111716
 Platinum
 2D
 Sunday
-Black Adam PG
+Black Adam [PG]
 8398ae9aa6e94a789642a5b0ef037372
 WXA202211111738
 2022/11/20 : 1330
@@ -20,7 +20,7 @@ WXA202211111738
 Normal
 2D
 Sunday
-Marvel Studios' Black Panther: Wakanda Forever PG13
+Marvel Studios' Black Panther: Wakanda Forever [PG13]
 251d8e371f1c404285870cae7fa13ddf
 WXB202211111740
 2022/11/20 : 1400
@@ -28,7 +28,7 @@ WXB202211111740
 Platinum
 2D
 Sunday
-Black Adam PG
+Black Adam [PG]
 251d8e371f1c404285870cae7fa13ddf
 WXB202211111740
 2022/11/20 : 1400
@@ -36,7 +36,7 @@ WXB202211111740
 Platinum
 2D
 Sunday
-Black Adam PG
+Black Adam [PG]
 251d8e371f1c404285870cae7fa13ddf
 YXD202211111742
 2022/12/29 : 2300
@@ -44,7 +44,7 @@ YXD202211111742
 Normal
 2D
 Thursday
-Smile R21
+Smile [R21]
 251d8e371f1c404285870cae7fa13ddf
 WXB202211111743
 2022/11/20 : 1400
@@ -52,7 +52,7 @@ WXB202211111743
 Platinum
 2D
 Sunday
-Black Adam PG
+Black Adam [PG]
 251d8e371f1c404285870cae7fa13ddf
 ZXD202211111744
 2022/11/12 : 1000
@@ -60,7 +60,7 @@ ZXD202211111744
 Platinum
 2D
 Saturday
-Deleted M18
+Deleted [M18]
 251d8e371f1c404285870cae7fa13ddf
 ZXD202211111744
 2022/11/12 : 1000
@@ -68,7 +68,7 @@ ZXD202211111744
 Platinum
 2D
 Saturday
-Deleted M18
+Deleted [M18]
 251d8e371f1c404285870cae7fa13ddf
 ZXB202211112134
 2022/11/15 : 1000
@@ -76,7 +76,7 @@ ZXB202211112134
 Normal
 2D
 Tuesday
-Ajoomma PG
+Ajoomma [PG]
 8398ae9aa6e94a789642a5b0ef037372
 ZXA202211112138
 2022/11/11 : 1530
@@ -84,7 +84,7 @@ ZXA202211112138
 Platinum
 2D
 Friday
-Ajoomma PG
+Ajoomma [PG]
 8398ae9aa6e94a789642a5b0ef037372
 YXB202211112143
 2022/11/12 : 1500
@@ -92,5 +92,5 @@ YXB202211112143
 Platinum
 2D
 Saturday
-3D DC League Of Super-Pets G
+3D DC League Of Super-Pets [G]
 251d8e371f1c404285870cae7fa13ddf

@@ -41,7 +41,7 @@ public class Movie {
         this.casts = casts;
         this.loadRatingsAndReviews();
         this.loadShowtimes();
-        this.movieAgeRating = title.substring(title.lastIndexOf(" ") + 1, title.length());
+        this.movieAgeRating = title.substring(title.lastIndexOf(" ") + 2, title.length() - 1);
     }
 
     /**
@@ -103,7 +103,11 @@ public class Movie {
         System.out.println("Synopsis  : " + synopsis);
         System.out.println("Director  : " + director);
         System.out.println("Cast      : " + String.join(", ", casts));
-        System.out.printf("Ratings   : %.2f / 5.0 STARS\n", this.overallRating);
+        if (ratingCount == 0) {
+            System.out.printf("Rating    : NA / 5.0 STARS\n");
+        } else {
+            System.out.printf("Rating    : %.1f / 5.0 STARS\n", this.overallRating);
+        }
 
         if (this.reviews.size() != 0) {
             System.out.println("\nReviews   : ");

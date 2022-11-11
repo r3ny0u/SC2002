@@ -424,8 +424,7 @@ public class Admin extends Account {
 
         movieChoice.printAllShowtimes();
 
-        System.out.print("Cineplex ID : ");
-        String cineplexID = scanner.nextLine();
+        String cineplexID = movieChoice.getCineplex();
 
         if (CineplexDB.getCineplexFromID(cineplexID) == null) {
             System.out.println("Cineplex not found");
@@ -434,8 +433,9 @@ public class Admin extends Account {
             return;
         }
 
-        System.out.print("Cinema ID   : ");
-        String cinemaID = scanner.nextLine();
+        System.out.println();
+        System.out.println();
+        String cinemaID = movieChoice.getCinemaChoice(cineplexID);
 
         if (CinemaDB.getCinemaFromID(cinemaID) == null) {
             System.out.println("Cinema not found");
@@ -444,11 +444,13 @@ public class Admin extends Account {
             return;
         }
 
-        System.out.print("Date        : ");
-        String date = scanner.nextLine();
+        System.out.println();
+        System.out.println();
+        String date = movieChoice.printDateAndTime(cinemaID);
 
-        System.out.print("Time        : ");
-        String time = scanner.nextLine();
+        System.out.println();
+        System.out.println();
+        String time = movieChoice.printTimesFromDate(date, cinemaID);
 
         // Check whether show time exists already
         Showtime showtime = null;
@@ -534,8 +536,7 @@ public class Admin extends Account {
 
         movieChoice.printAllShowtimes();
 
-        System.out.print("Cineplex ID : ");
-        String cineplexID = scanner.nextLine();
+        String cineplexID = movieChoice.getCineplex();
 
         if (CineplexDB.getCineplexFromID(cineplexID) == null) {
             System.out.println("Cineplex not found");
@@ -544,8 +545,9 @@ public class Admin extends Account {
             return;
         }
 
-        System.out.print("Cinema ID   : ");
-        String cinemaID = scanner.nextLine();
+        System.out.println();
+        System.out.println();
+        String cinemaID = movieChoice.getCinemaChoice(cineplexID);
 
         if (CinemaDB.getCinemaFromID(cinemaID) == null) {
             System.out.println("Cinema not found");
@@ -554,11 +556,13 @@ public class Admin extends Account {
             return;
         }
 
-        System.out.print("Date        : ");
-        String date = scanner.nextLine();
+        System.out.println();
+        System.out.println();
+        String date = movieChoice.printDateAndTime(cinemaID);
 
-        System.out.print("Time        : ");
-        String time = scanner.nextLine();
+        System.out.println();
+        System.out.println();
+        String time = movieChoice.printTimesFromDate(date, cinemaID);
 
         // Check whether show time exists already
         Showtime showtime = null;

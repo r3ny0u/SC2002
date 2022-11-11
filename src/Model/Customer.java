@@ -120,6 +120,22 @@ public class Customer extends Account {
             MovieDB movieDB = new MovieDB();
             movieDB.sortByAlphabet();
             Movie[] movieArray = movieDB.getMovies();
+            int numOfMovie = movieArray.length;
+            
+            for (int i=0; i<numOfMovie; i++) {
+                if (movieArray[i].getStatus().toLowerCase().compareTo("end of showing") == 0) {
+                    for (int j=i; j<movieArray.length-1; j++) {
+                        movieArray[j] = movieArray[j+1];
+                    }
+                    i--;
+                    numOfMovie--;   
+                } 
+            }
+
+            for (int i=movieArray.length-1; i>=numOfMovie; i--) {
+                movieArray[i] = null;
+            }
+
             Movie[] movieArrayEmpty;
 
             System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
@@ -129,6 +145,10 @@ public class Customer extends Account {
 
             printMenu();
             System.out.print("Enter your choice: ");
+            while(!scanner.hasNextInt()){
+                System.out.println("Error, please enter a number!!");
+                scanner.next();
+            }
             choice = scanner.nextInt();
 
             switch (choice) {
@@ -156,17 +176,17 @@ public class Customer extends Account {
                         System.out.flush();
                         System.out.println("\n=================== Movie Titles =====================");
                         MovieDB.printMovieList();
-                        System.out.printf("%2d. Quit\n", movieArray.length + 1);
+                        System.out.printf("%2d. Quit\n", numOfMovie + 1);
                         System.out.println("========================================================\n");
 
                         // Show movie details corresponding to the movie choice
                         System.out.print("Please choose a movie: ");
                         movieChoiceInt = scanner.nextInt();
 
-                        if (movieChoiceInt == movieArray.length + 1)
+                        if (movieChoiceInt == numOfMovie + 1)
                             break;
 
-                        if (movieChoiceInt <= 0 || movieChoiceInt > movieArray.length + 1)
+                        if (movieChoiceInt <= 0 || movieChoiceInt > numOfMovie + 1)
                             continue;
 
                         movieChoice = movieArray[movieChoiceInt - 1];
@@ -178,7 +198,7 @@ public class Customer extends Account {
                         System.out.println("Press <Enter> to Exit View");
                         scanner.nextLine();
                         scanner.nextLine();
-                    } while (choice != movieArray.length + 1);
+                    } while (choice != numOfMovie + 1);
 
                     break;
 
@@ -188,17 +208,17 @@ public class Customer extends Account {
                     System.out.flush();
                     System.out.println("\n=================== Movie Titles =====================");
                     MovieDB.printMovieList();
-                    System.out.printf("%2d. Quit\n", movieArray.length + 1);
+                    System.out.printf("%2d. Quit\n", numOfMovie + 1);
                     System.out.println("========================================================\n");
 
                     // Show movie details corresponding to the movie choice
                     System.out.print("Please choose a movie to book: ");
                     movieChoiceInt = scanner.nextInt();
 
-                    if (movieChoiceInt == movieArray.length + 1)
+                    if (movieChoiceInt == numOfMovie + 1)
                         break;
 
-                    if (movieChoiceInt <= 0 || movieChoiceInt > movieArray.length + 1)
+                    if (movieChoiceInt <= 0 || movieChoiceInt > numOfMovie + 1)
                         continue;
 
                     movieChoice = movieArray[movieChoiceInt - 1];
@@ -290,7 +310,7 @@ public class Customer extends Account {
                     System.out.flush();
                     System.out.println("\n=================== Movie Titles =====================");
                     MovieDB.printMovieList();
-                    System.out.printf("%2d. Quit\n", movieArray.length + 1);
+                    System.out.printf("%2d. Quit\n", numOfMovie + 1);
                     System.out.println("========================================================\n");
 
                     // Show movie details corresponding to the movie choice
@@ -311,20 +331,21 @@ public class Customer extends Account {
                             scanner.next();
                         }
                         movieChoiceInt = scanner.nextInt();
-                        if (movieChoiceInt > movieArray.length + 1 || movieChoiceInt <= 0) {
+
+                        if (movieChoiceInt > numOfMovie + 1 || movieChoiceInt<=0){
                             System.out.print("Error, invalid choice!! Try again: ");
                         }
-                    } while (movieChoiceInt > movieArray.length + 1 || movieChoiceInt <= 0);
+                    }while(movieChoiceInt > numOfMovie + 1 || movieChoiceInt<=0);
 
-                    if (movieChoiceInt == movieArray.length + 1) {
+                    if (movieChoiceInt == numOfMovie + 1){
                         scanner.nextLine();
                         System.out.println("Press <Enter> to Exit View");
                         scanner.nextLine();
                         break;
                     }
 
-                    // if (movieChoiceInt <= 0 || movieChoiceInt > movieArray.length + 1)
-                    // continue;
+                    //if (movieChoiceInt <= 0 || movieChoiceInt > numOfMovie + 1)
+                        //continue;
 
                     movieChoice = movieArray[movieChoiceInt - 1];
                     scanner.nextLine();
@@ -361,8 +382,11 @@ public class Customer extends Account {
 
                         movieChoice.printAllShowtimes();
 
-                        System.out.printf("Please choose a cineplex : ");
-                        cineplexChoice = scanner.nextLine();
+                        /*System.out.printf("Please choose a cineplex ");
+                        System.out.println();
+                        movieChoice.printCineplex();
+                        cineplexChoice = scanner.nextLine();*/
+                        cineplexChoice = movieChoice.getCineplex();
 
                         cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
 
@@ -372,9 +396,9 @@ public class Customer extends Account {
                             scanner.nextLine();
                             break;
                         }
-
-                        System.out.printf("Please choose a cinema   : ");
-                        cinemaChoice = scanner.nextLine();
+                        System.out.println();
+                        System.out.println();
+                        cinemaChoice = movieChoice.getCinemaChoice(cineplexChoice);
                         cinema = cineplex.findCinema(cinemaChoice);
 
                         if (cinema == null) {
@@ -383,13 +407,20 @@ public class Customer extends Account {
                             scanner.nextLine();
                             break;
                         }
-
                         // User to input date and showtime, to get seats
-                        System.out.printf("\nPlease choose a showing date (eg. 2022/11/13) : ");
-                        dateChoice = scanner.nextLine();
-
-                        System.out.printf("Please choose the showtime                    : ");
-                        showtimeChoice = scanner.nextLine();
+                        System.out.println();
+                        System.out.println();
+                        dateChoice = movieChoice.printDateAndTime(cinemaChoice);
+                        if (dateChoice==null){
+                            System.out.println("Show time does not exist");
+                            System.out.println("Press <Enter> to Exit View");
+                            scanner.nextLine();
+                            break;
+                        }
+                        
+                        System.out.println();
+                        System.out.println();
+                        showtimeChoice = movieChoice.printTimesFromDate(dateChoice,cinemaChoice);
 
                         // Check if showtime exists
                         Showtime showtime = null;
@@ -559,17 +590,17 @@ public class Customer extends Account {
                     System.out.flush();
                     System.out.println("\n=================== Movie Titles =====================");
                     MovieDB.printMovieList();
-                    System.out.printf("%2d. Quit\n", movieArray.length + 1);
+                    System.out.printf("%2d. Quit\n", numOfMovie + 1);
                     System.out.println("========================================================\n");
 
                     // Show movie details corresponding to the movie choice
                     System.out.print("Please choose a movie to add review: ");
                     movieChoiceInt = scanner.nextInt();
 
-                    if (movieChoiceInt == movieArray.length + 1)
+                    if (movieChoiceInt == numOfMovie + 1)
                         break;
 
-                    if (movieChoiceInt <= 0 || movieChoiceInt > movieArray.length + 1)
+                    if (movieChoiceInt <= 0 || movieChoiceInt > numOfMovie + 1)
                         continue;
 
                     movieChoice = movieArray[movieChoiceInt - 1];

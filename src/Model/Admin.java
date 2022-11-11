@@ -213,6 +213,17 @@ public class Admin extends Account {
                     break;
 
                 case 8:
+                    System.out.print("Make ticket sales ranking visible? (Y/N): ");
+                    String choice1 = scanner.next();
+                    System.out.print("\nMake ratings ranking visible? (Y/N): ");
+                    String choice2 = scanner.next();
+                    DatabaseWriter.setRankingVisibility(choice1, choice2);
+                    System.out.println("Press <Enter> to Exit View");
+                    scanner.nextLine();
+                    scanner.nextLine();
+                    break;
+
+                case 9:
                     // Print sysem configurations
                     System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
                     System.out.flush();
@@ -225,7 +236,7 @@ public class Admin extends Account {
                     scanner.nextLine(); // Wait for user to press enter
                     break;
 
-                case 9:
+                case 10:
                     // Print movie listings, and let admin choose details, i copied this from
                     // customer side
                     do {
@@ -260,7 +271,7 @@ public class Admin extends Account {
 
                     break;
 
-                case 10:
+                case 11:
                     // Show cineplex and cinemas (easier to debug lol)
                     System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
                     System.out.flush();
@@ -272,7 +283,7 @@ public class Admin extends Account {
                     scanner.nextLine();
                     break;
 
-                case 11:
+                case 12:
                     // Exit
                     System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
                     System.out.flush();
@@ -283,7 +294,7 @@ public class Admin extends Account {
                     System.out.println("Invalid Choice!");
             }
 
-        } while (choice != 11);
+        } while (choice != 12);
 
         return;
     }
@@ -304,7 +315,7 @@ public class Admin extends Account {
             System.out.println("Which settings to update?");
             System.out.println("=====================================================");
             MovieTicketConfig.printConfigDetails();
-            System.out.println("11. Quit");
+            System.out.println("12. Quit");
             System.out.println("=====================================================");
             System.out.print("Enter choice: ");
 
@@ -820,10 +831,11 @@ public class Admin extends Account {
         System.out.println(" 5. Update cinema showtimes and the movies to be shown");
         System.out.println(" 6. Remove cinema showtimes and the movies to be shown");
         System.out.println(" 7. Configure Movie Ticket Prices and System Settings");
-        System.out.println(" 8. View Movie Ticket Prices and System Settings");
-        System.out.println(" 9. List Movies");
-        System.out.println("10. List cineplex ID and cinema ID");
-        System.out.println("11. Quit");
+        System.out.println(" 8. Configure Ranking Visibility");
+        System.out.println(" 9. View Movie Ticket Prices and System Settings");
+        System.out.println(" 10. List Movies");
+        System.out.println("11. List cineplex ID and cinema ID");
+        System.out.println("12. Quit");
         System.out.println("=====================================================");
         System.out.print("Enter choice: ");
     }

@@ -27,6 +27,7 @@ public class DatabaseReader {
     private static final String ratingDatabasePath = DatabaseConstants.RATING_DATABASE_PATH;
     private static final String transactionDatabasePath = DatabaseConstants.TRANSACTION_DATABASE_PATH;
     private static final String showtimesDatabasePath = DatabaseConstants.SHOWTIMES_DATABASE_PATH;
+    private static final String rankingVisibilityDatabasePath = DatabaseConstants.RANKING_VISIBILITY_DATABASE_PATH;
 
     /**
      * Returns all lines in a txt file.
@@ -71,6 +72,11 @@ public class DatabaseReader {
                 return new ArrayList<String>();
             }
         }
+    }
+
+    public static String readRankingVisibilityDatabase() {
+        ArrayList<String> strings = readtxt(rankingVisibilityDatabasePath);
+        return strings.get(0);
     }
 
     /**

@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
+import Database.CinemaDB;
 import Database.RatingDB;
 import DatabaseBoundary.DatabaseReader;
 
@@ -125,7 +126,7 @@ public class Movie {
      * @param showtimes An ArrayList representing the showtimes
      */
     public void addShowtimes(String cinemaID, String date, ArrayList<String> showtimes) {
-        int i = 0, j = 0, n = 0;
+        int i = 0, j = 0;
         Seat[] s = new Seat[100];
         for (j = 1; j <= 100; j++) {
             if (j % 10 == 0)
@@ -163,6 +164,8 @@ public class Movie {
      */
     public void printAllShowtimes() {
 
+        CinemaDB cinemaDB = new CinemaDB();
+
         String oldDate = "date", oldCinemaID = "ID";
 
         for (String cineplexID : showingPlaces.keySet()) {
@@ -172,7 +175,8 @@ public class Movie {
             for (String cinemaID : showingPlaces.get(cineplexID)) {
                 if (cinemaID.equals(oldCinemaID) == false) {
                     oldCinemaID = cinemaID;
-                    System.out.println("\nCinema: " + cinemaID);
+                    System.out.println(
+                            "\nCinema: " + cinemaID + " (" + cinemaDB.getCinemaFromID(cinemaID).getCinemaType() + ")");
                 }
                 ArrayList<Showtime> showtimeAL = new ArrayList<>(seats.get(cinemaID).keySet());
 
@@ -449,11 +453,13 @@ public class Movie {
      * @return A String representing the cinema ID
      */
     public String chooseCinema(String cineplexID) {
+        CinemaDB cinemaDB = new CinemaDB();
         Scanner scanner = new Scanner(System.in);
         int count = 1;
         System.out.println("Cinemas");
         for (String cinemaID : showingPlaces.get(cineplexID)) {
-            System.out.println("\t" + count + ": " + cinemaID);
+            System.out.println(
+                    "\t" + count + ": " + cinemaID + " (" + cinemaDB.getCinemaFromID(cinemaID).getCinemaType() + ")");
             count++;
         }
         System.out.print("Please choose a cinema (enter a number): ");

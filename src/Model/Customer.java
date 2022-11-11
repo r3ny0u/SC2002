@@ -2,16 +2,12 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
-import java.util.Comparator;
-
-import Database.CinemaDB;
 
 // import javax.sound.midi.Soundbank;
 
@@ -28,7 +24,6 @@ public class Customer extends Account {
     private String email;
     private String mobile;
     private ArrayList<Transaction> transactions = new ArrayList<Transaction>();
-    private MovieTicket[] movieTickets;
 
     public Customer() {
     }
@@ -43,14 +38,12 @@ public class Customer extends Account {
         this.loadCustomerTransaction();
     }
 
-    public Customer(String customerID, String name, String email, String mobile, ArrayList<Transaction> transactions,
-            MovieTicket[] movieTickets) {
+    public Customer(String customerID, String name, String email, String mobile, ArrayList<Transaction> transactions) {
         this.accountID = customerID;
         this.name = name;
         this.email = email;
         this.mobile = mobile;
         this.transactions = transactions;
-        this.movieTickets = movieTickets;
     }
 
     public void loadCustomerTransaction() {
@@ -103,9 +96,8 @@ public class Customer extends Account {
     public boolean checkAge(String age, String rating) {
         if (rating.toLowerCase().compareTo("g") == 0 || rating.toLowerCase().compareTo("pg") == 0) {
             return true;
-        }
-        else {
-            if (Integer.valueOf(age) < Integer.valueOf(rating.substring(rating.length()-2, rating.length()))) {
+        } else {
+            if (Integer.valueOf(age) < Integer.valueOf(rating.substring(rating.length() - 2, rating.length()))) {
                 return false;
             }
             return true;
@@ -304,34 +296,35 @@ public class Customer extends Account {
                     // Show movie details corresponding to the movie choice
                     System.out.print("Please choose a movie to book: ");
                     /*
-                    movieChoiceInt = scanner.nextInt();
-
-                    if (movieChoiceInt == movieArray.length + 1){
-                        System.out.print("Error, invalid choice!! ");
-                        System.out.println("Press <Enter> to Exit View");
-                        scanner.nextLine();
-                        break;
-                    }*/
-                    do{
-                        while (!scanner.hasNextInt()){
+                     * movieChoiceInt = scanner.nextInt();
+                     * 
+                     * if (movieChoiceInt == movieArray.length + 1){
+                     * System.out.print("Error, invalid choice!! ");
+                     * System.out.println("Press <Enter> to Exit View");
+                     * scanner.nextLine();
+                     * break;
+                     * }
+                     */
+                    do {
+                        while (!scanner.hasNextInt()) {
                             System.out.print("Error, invalid choice!! Try again: ");
                             scanner.next();
                         }
                         movieChoiceInt = scanner.nextInt();
-                        if (movieChoiceInt > movieArray.length + 1 || movieChoiceInt<=0){
+                        if (movieChoiceInt > movieArray.length + 1 || movieChoiceInt <= 0) {
                             System.out.print("Error, invalid choice!! Try again: ");
                         }
-                    }while(movieChoiceInt > movieArray.length + 1 || movieChoiceInt<=0);
+                    } while (movieChoiceInt > movieArray.length + 1 || movieChoiceInt <= 0);
 
-                    if (movieChoiceInt == movieArray.length + 1){
+                    if (movieChoiceInt == movieArray.length + 1) {
                         scanner.nextLine();
                         System.out.println("Press <Enter> to Exit View");
                         scanner.nextLine();
                         break;
                     }
 
-                    //if (movieChoiceInt <= 0 || movieChoiceInt > movieArray.length + 1)
-                        //continue;
+                    // if (movieChoiceInt <= 0 || movieChoiceInt > movieArray.length + 1)
+                    // continue;
 
                     movieChoice = movieArray[movieChoiceInt - 1];
                     scanner.nextLine();
@@ -359,7 +352,7 @@ public class Customer extends Account {
                         System.out.printf("Please enter your age: ");
                         String age = scanner.nextLine();
 
-                        if (!checkAge(age,movieChoice.getMovieRating())) {
+                        if (!checkAge(age, movieChoice.getMovieRating())) {
                             System.out.printf("Sorry, this movie is %s.\n", movieChoice.getMovieRating());
                             System.out.println("Press <Enter> to Exit View");
                             scanner.nextLine();

@@ -805,11 +805,4 @@ public class Admin extends Account {
         System.out.println("=====================================================");
         System.out.print("Enter choice: ");
     }
-
-    // TODO: Remove this method after debuggging
-    public void printAdminDetails() {
-        System.out.println("Username: " + username);
-        System.out.println("Password: " + password);
-        System.out.println("AccountID: " + accountID);
-    }
 }

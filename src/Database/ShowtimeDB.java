@@ -6,45 +6,70 @@ import Model.Showtime;
 import Model.Seat;
 import DatabaseBoundary.*;
 
+/**
+ * A class for interfacing Showtime database
+ */
 public class ShowtimeDB {
-
+    // Oh lawd forgive me for what i've done
     private Map<Map<String, ArrayList<String>>, Map<String, Map<Showtime, Seat[]>>> showtimes;
 
     public ShowtimeDB() {
 
     }
 
+    /**
+     * Gets the showtime hashmap
+     * 
+     * @return
+     */
     public Map<Map<String, ArrayList<String>>, Map<String, Map<Showtime, Seat[]>>> getShowtimes() {
         return this.showtimes;
     }
 
     /**
-     * Create a new showtime by prompting users
+     * Creates a new showtime to the database
+     * 
+     * @param movieTitle A String representing the movie title
+     * @param cineplexID A String representing the cineplex ID
+     * @param cinemaID   A String representing the cinema ID
+     * @param date       A String representing the date
+     * @param day        A String representing the day
+     * @param time       A String representing the time
      */
     public static void createShowtimes(String movieTitle, String cineplexID, String cinemaID, String date, String day,
-    String time) {
+            String time) {
         Seat[] seats = new Seat[100];
         DatabaseWriter.createShowtime(movieTitle, cineplexID, cinemaID, date, day, time, seats);
     }
 
     /**
-     * Edit current showtimes
+     * Updates the showtime of the database
+     * 
+     * @param movieTitle A String representing the movie title
+     * @param cineplexID A String representing the cineplex ID
+     * @param cinemaID   A String representing the cinema ID
+     * @param date       A String representing the date
+     * @param day        A String representing the day
+     * @param time       A String representing the time
+     * @param seats      An array of Seat objects
      */
-    public static void editShowtimes(String movieTitle, String cineplexID, String cinemaID, String date, String day,
-    String time, Seat[] seats) {
-        DatabaseWriter.updateShowtimeSeats(movieTitle, cineplexID, cinemaID, date, day, time, seats);
-    }
-
     public static void updateShowtimes(String movieTitle, String cineplexID, String cinemaID, String date, String day,
             String time, Seat[] seats) {
         DatabaseWriter.updateShowtimeSeats(movieTitle, cineplexID, cinemaID, date, day, time, seats);
     }
 
     /**
-     * Remove showtimes
+     * Removes the showtime of the database
+     * 
+     * @param movieTitle A String representing the movie title
+     * @param cineplexID A String representing the cineplex ID
+     * @param cinemaID   A String representing the cinema ID
+     * @param date       A String representing the date
+     * @param day        A String representing the day
+     * @param time       A String representing the time
      */
     public static void removeShowtimes(String movieTitle, String cineplexID, String cinemaID, String date, String day,
-    String time) {
+            String time) {
         DatabaseWriter.removeShowtimes(movieTitle, cineplexID, cinemaID, date, day, time);
     }
 }

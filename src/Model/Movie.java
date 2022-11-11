@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import Database.RatingDB;
 import DatabaseBoundary.DatabaseReader;
@@ -37,7 +36,7 @@ public class Movie {
         this.casts = casts;
         this.loadRatingsAndReviews();
         this.loadShowtimes();
-        this.movieRating = title.substring(title.lastIndexOf(" ")+1, title.length());
+        this.movieRating = title.substring(title.lastIndexOf(" ") + 1, title.length());
     }
 
     public Movie(String title, String status, String synopsis, String director, ArrayList<String> casts,
@@ -53,7 +52,7 @@ public class Movie {
         this.salesCount = 0;
         this.loadRatingsAndReviews();
         this.loadShowtimes();
-        
+
     }
 
     public Seat[] getSeats(String cinemaID, String date, String day, String time) {

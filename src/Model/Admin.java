@@ -783,6 +783,12 @@ public class Admin extends Account {
         MovieDB.addNewMovie();
     }
 
+    public void printAdminDetails() {
+        System.out.println("Username: " + username);
+        System.out.println("Password: " + password);
+        System.out.println("AccountID: " + accountID);
+    }
+
     private void printAdminOptions() {
         System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
         System.out.flush();
@@ -804,12 +810,5 @@ public class Admin extends Account {
         System.out.println("11. Quit");
         System.out.println("=====================================================");
         System.out.print("Enter choice: ");
-    }
-
-    // TODO: Remove this method after debuggging
-    public void printAdminDetails() {
-        System.out.println("Username: " + username);
-        System.out.println("Password: " + password);
-        System.out.println("AccountID: " + accountID);
     }
 }

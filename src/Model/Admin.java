@@ -211,18 +211,49 @@ public class Admin extends Account {
                     break;
 
                 case 7:
-                    // Configure system settings
+                    // Configure ticket markups
                     System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
                     System.out.flush();
                     configSys();
                     break;
 
                 case 8:
+                    // Set visibility ranking
+                    System.out.print("\nMake Ranking by ticket sales visible? (Y/N): ");
+                    String choice1 = scanner.next();
+                    System.out.print("\nMake Ranking by overall reviewers' ratings? (Y/N): ");
+                    String choice2 = scanner.next();
+                    DatabaseWriter.setRankingVisibility(choice1, choice2);
+                    System.out.println("=====================================================");
+                    System.out.println("Press <Enter> to Exit View");
+                    scanner.nextLine();
+                    scanner.nextLine();
+                    break;
+
+                case 9:
                     // Print sysem configurations
                     System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
                     System.out.flush();
                     System.out.println("=====================================================");
                     MovieTicketConfig.printConfigDetails();
+                    System.out.println("----------");
+                    String s = DatabaseReader.readRankingVisibilityDatabase();
+                    String c1, c2;
+                    if (s.equals("1")) {
+                        c1 = "Y";
+                        c2 = "Y";
+                    } else if (s.equals("2")) {
+                        c1 = "Y";
+                        c2 = "N";
+                    } else if (s.equals("3")) {
+                        c1 = "N";
+                        c2 = "Y";
+                    } else {
+                        c1 = "N";
+                        c2 = "N";
+                    }
+                    System.out.println("Ranking by ticket sales visible: " + c1);
+                    System.out.println("Ranking by overall reviewers' ratings: " + c2);
                     System.out.println("=====================================================");
                     System.out.println("Press <Enter> to Exit View");
 
@@ -230,7 +261,7 @@ public class Admin extends Account {
                     scanner.nextLine(); // Wait for user to press enter
                     break;
 
-                case 9:
+                case 10:
                     // Print movie listings, and let admin choose details, i copied this from
                     // customer side
                     do {
@@ -265,7 +296,7 @@ public class Admin extends Account {
 
                     break;
 
-                case 10:
+                case 11:
                     // Show cineplex and cinemas (easier to debug lol)
                     System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
                     System.out.flush();
@@ -277,7 +308,7 @@ public class Admin extends Account {
                     scanner.nextLine();
                     break;
 
-                case 11:
+                case 12:
                     // Show top 5 movies based on ticket sales
                     movieArray = movies.getMovies();
                     TransactionDB transactions = new TransactionDB();
@@ -331,7 +362,7 @@ public class Admin extends Account {
                     scanner.nextLine();
                     break;
 
-                case 12:
+                case 13:
                     // Show top 5 movies based on ratings
                     movies = new MovieDB();
                     movies.sortByRating();
@@ -354,7 +385,7 @@ public class Admin extends Account {
                     scanner.nextLine();
                     break;
 
-                case 13:
+                case 14:
                     // Exit
                     System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
                     System.out.flush();
@@ -365,7 +396,7 @@ public class Admin extends Account {
                     System.out.println("Invalid Choice!");
             }
 
-        } while (choice != 13);
+        } while (choice != 14);
 
         return;
     }
@@ -386,7 +417,7 @@ public class Admin extends Account {
             System.out.println("Which settings to update?");
             System.out.println("=====================================================");
             MovieTicketConfig.printConfigDetails();
-            System.out.println("11. Quit");
+            System.out.println("12. Quit");
             System.out.println("=====================================================");
             System.out.print("Enter choice: ");
 
@@ -901,13 +932,15 @@ public class Admin extends Account {
         System.out.println(" 4. Create cinema showtimes and the movies to be shown");
         System.out.println(" 5. Update cinema showtimes and the movies to be shown");
         System.out.println(" 6. Remove cinema showtimes and the movies to be shown");
-        System.out.println(" 7. Configure Movie Ticket Prices and System Settings");
-        System.out.println(" 8. View Movie Ticket Prices and System Settings");
-        System.out.println(" 9. List Movies");
-        System.out.println("10. List cineplex ID and cinema ID");
-        System.out.println("11. List the Top 5 ranking by ticket sales");
-        System.out.println("12. List the Top 5 ranking by overall reviewers' ratings");
-        System.out.println("13. Quit");
+        System.out.println(" 7. Configure Movie Ticket Prices");
+        System.out.println(" 8. Configure Ranking Visibility");
+        System.out.println(" 9. View Movie Ticket Prices and Ranking Visibility");
+        System.out.println("10. List Movies");
+        System.out.println("11. List cineplex ID and cinema ID");
+        System.out.println("12. List the Top 5 ranking by ticket sales");
+        System.out.println("13. List the Top 5 ranking by overall reviewers' ratings");
+        System.out.println("14. Quit");
+
         System.out.println("=====================================================");
         System.out.print("Enter choice: ");
     }

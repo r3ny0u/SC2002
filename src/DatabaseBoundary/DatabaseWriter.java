@@ -28,6 +28,36 @@ public class DatabaseWriter {
     private static final String ratingDatabasePath = DatabaseConstants.RATING_DATABASE_PATH;
     private static final String transactionDatabasePath = DatabaseConstants.TRANSACTION_DATABASE_PATH;
     private static final String showtimesDatabasePath = DatabaseConstants.SHOWTIMES_DATABASE_PATH;
+    private static final String rankingVisibilityDatabasePath = DatabaseConstants.RANKING_VISIBILITY_DATABASE_PATH;
+
+    public static void setRankingVisibility(String choice1, String choice2) {
+        try {
+
+            FileWriter writer = new FileWriter(rankingVisibilityDatabasePath);
+            writer.write("");
+            writer.close();
+
+            writer = new FileWriter(rankingVisibilityDatabasePath, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+            String visibility;
+
+            if (choice1.equals("Y") & choice2.equals("Y")) {
+                visibility = "1";
+            } else if (choice1.equals("Y") & choice2.equals("N")) {
+                visibility = "2";
+            } else if (choice1.equals("N") & choice2.equals("Y")) {
+                visibility = "3";
+            } else
+                visibility = "4";
+
+            bufferedWriter.write(visibility);
+            bufferedWriter.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Adds new Movie into movie database via user inputs

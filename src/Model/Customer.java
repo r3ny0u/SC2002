@@ -467,11 +467,14 @@ public class Customer extends Account {
                         System.out.println("\nBooking successful :) ...");
 
                         // Sleep for 1.5s then return to customer menu page
-                        try {
+                        /*try {
                             TimeUnit.MILLISECONDS.sleep(1500);
                         } catch (Exception e) {
                             e.printStackTrace();
-                        }
+                        }*/
+                        scanner.nextLine();
+                        System.out.println("Press <Enter> to Exit View");
+                        scanner.nextLine();
                         break;
                     }
 
@@ -489,6 +492,19 @@ public class Customer extends Account {
 
                 case 6:
                     // Show top 5 movies based on ticket sales
+                    if (DatabaseReader.readRankingVisibilityDatabase().equals("3")
+                            || DatabaseReader.readRankingVisibilityDatabase().equals("4")) {
+                        // System.out.print("\033[H\033[2J");
+                        // System.out.flush();
+                        System.out.println("Sorry, the ranking is currently not visible.");
+                        try {
+                            TimeUnit.MILLISECONDS.sleep(1500);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    }
+
                     movieArray = movieDB.getMovies();
                     TransactionDB transactions = new TransactionDB();
                     Transaction[] txnArr = transactions.getTransactions();
@@ -541,6 +557,20 @@ public class Customer extends Account {
 
                 case 7:
                     // Show top 5 movies based on ratings
+
+                    if (DatabaseReader.readRankingVisibilityDatabase().equals("2")
+                            || DatabaseReader.readRankingVisibilityDatabase().equals("4")) {
+                        // System.out.print("\033[H\033[2J");
+                        // System.out.flush();
+                        System.out.println("Sorry, the ranking is currently not visible.");
+                        try {
+                            TimeUnit.MILLISECONDS.sleep(1500);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    }
+
                     movieDB = new MovieDB();
                     movieDB.sortByRating();
                     Movie[] movies = movieDB.getMovies();

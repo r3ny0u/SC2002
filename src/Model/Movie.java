@@ -531,7 +531,7 @@ public class Movie {
         Scanner scanner = new Scanner(System.in);
         int count = 1;
         int cinemaChoice;
-        System.out.println("Cinemas");
+        System.out.println("Cinemas\n");
 
         ArrayList<String> cinemaAL = new ArrayList<>(showingPlaces.get(cineplexID));
         cinemaAL.sort(new Comparator<String>() {

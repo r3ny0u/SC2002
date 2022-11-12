@@ -459,7 +459,6 @@ public class Customer extends Account {
                         System.out.println();
                         System.out.println("----------");
                         System.out.println();
-                        System.out.println();
                         showtimeChoice = movieChoice.chooseTime(dateChoice, cinemaChoice);
                         if (showtimeChoice.compareTo("exit") == 0) {
                             System.out.println("========================================================");
@@ -511,7 +510,6 @@ public class Customer extends Account {
 
                         } while (!seatID.matches("[A-J][0-9]{1,2}") || (Integer.parseInt(seatID.substring(1)) < 1
                                 || Integer.parseInt(seatID.substring(1)) > 10));
-
 
                         showtime = new Showtime(dateChoice, "not important", showtimeChoice);
 

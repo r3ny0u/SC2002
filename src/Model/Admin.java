@@ -507,7 +507,7 @@ public class Admin extends Account {
                     break;
             }
 
-        } while (userChoice != 11);
+        } while (userChoice != 12);
     }
 
     /**

@@ -87,7 +87,7 @@ public class DatabaseWriter {
             System.out.println("\nDirector: ");
             director = sc.nextLine();
 
-            System.out.println("\nCasts (enter exit to complete entry): ");
+            System.out.println("\nCasts (enter 'exit' to complete entry): ");
 
             while (true) {
                 cast = sc.nextLine();

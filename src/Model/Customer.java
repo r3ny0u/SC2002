@@ -174,11 +174,11 @@ public class Customer extends Account {
                         System.out.println("========================================================\n");
 
                         // Show movie details corresponding to the movie choice
-                        
+
                         while (true) {
-                            System.out.print("Please choose a movie (enter a number): ");     
+                            System.out.print("Please choose a movie (enter a number): ");
                             if (!scanner.hasNextInt()) {
-                                
+
                                 System.out.print("Error, Invalid choice!! Try again\n");
                                 System.out.print(String.format("\033[2A"));
                                 System.out.print("\033[2K");
@@ -198,7 +198,7 @@ public class Customer extends Account {
                         }
 
                         if (movieChoiceInt == numOfMovie + 1)
-                                break;
+                            break;
 
                         movieChoice = movieArray[movieChoiceInt - 1];
 
@@ -206,6 +206,7 @@ public class Customer extends Account {
                         System.out.flush();
                         movieChoice.printMovieDetails();
 
+                        System.out.println("========================================================");
                         System.out.println("Press <Enter> to Exit View");
                         scanner.nextLine();
                         scanner.nextLine();
@@ -224,9 +225,9 @@ public class Customer extends Account {
 
                     // Show movie details corresponding to the movie choice
                     while (true) {
-                        System.out.print("Please choose a movie to view seating (enter a number): ");    
+                        System.out.print("Please choose a movie to view seating (enter a number): ");
                         if (!scanner.hasNextInt()) {
-                            
+
                             System.out.print("Error, Invalid choice!! Try again\n");
                             System.out.print(String.format("\033[2A"));
                             System.out.print("\033[2K");
@@ -246,7 +247,7 @@ public class Customer extends Account {
                     }
 
                     if (movieChoiceInt == numOfMovie + 1)
-                            break;
+                        break;
 
                     movieChoice = movieArray[movieChoiceInt - 1];
                     scanner.nextLine();
@@ -265,12 +266,13 @@ public class Customer extends Account {
 
                         System.out.println();
                         cineplexChoice = movieChoice.chooseCineplex();
-                        System.out.print("\033[2K");    
+                        System.out.print("\033[2K");
 
                         cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
 
                         if (cineplex == null) {
                             System.out.println("Cineplex does not exist...");
+                            System.out.println("========================================================");
                             System.out.println("Press <Enter> to Exit View");
                             scanner.nextLine();
                             break;
@@ -297,6 +299,7 @@ public class Customer extends Account {
                         System.out.print("\033[2K");
                         if (dateChoice == null) {
                             System.out.println("Show time does not exist");
+                            System.out.println("========================================================");
                             System.out.println("Press <Enter> to Exit View");
                             scanner.nextLine();
                             break;
@@ -310,12 +313,14 @@ public class Customer extends Account {
                         System.out.println("======================== Seats ==========================\n");
                         movieChoice.printSeats(cinema.getCinemaID(), dateChoice, showtimeChoice);
 
+                        System.out.println("========================================================");
                         System.out.println("Press <Enter> to Exit View");
                         scanner.nextLine();
                     }
 
                     else {
                         System.out.println("\nSorry, viewing of seats for this movie is not available.");
+                        System.out.println("========================================================");
                         System.out.println("Press <Enter> to Exit View");
                         scanner.nextLine();
                         break;
@@ -353,6 +358,7 @@ public class Customer extends Account {
 
                     if (movieChoiceInt == numOfMovie + 1) {
                         scanner.nextLine();
+                        System.out.println("========================================================");
                         System.out.println("Press <Enter> to Exit View");
                         scanner.nextLine();
                         break;
@@ -375,6 +381,7 @@ public class Customer extends Account {
 
                         if (movieChoice.showingPlaces.size() == 0) {
                             System.out.println("Sorry, the movie is not available for booking.");
+                            System.out.println("========================================================");
                             System.out.println("Press <Enter> to Exit View");
                             scanner.nextLine();
                             break;
@@ -386,6 +393,7 @@ public class Customer extends Account {
 
                         if (!checkAge(age, movieChoice.getMovieAgeRating())) {
                             System.out.printf("Sorry, this movie is %s.\n", movieChoice.getMovieAgeRating());
+                            System.out.println("========================================================");
                             System.out.println("Press <Enter> to Exit View");
                             scanner.nextLine();
                             break;
@@ -398,17 +406,18 @@ public class Customer extends Account {
                         System.out.println();
                         cineplexChoice = movieChoice.chooseCineplex();
                         System.out.print("\033[2K");
-                        if (cineplexChoice.compareTo("exit")==0){
+                        if (cineplexChoice.compareTo("exit") == 0) {
+                            System.out.println("========================================================");
                             System.out.println("Press <Enter> to Exit View");
                             scanner.nextLine();
                             break;
                         }
-                        
 
                         cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
 
                         if (cineplex == null) {
                             System.out.println("Cineplex does not exist...");
+                            System.out.println("========================================================");
                             System.out.println("Press <Enter> to Exit View");
                             scanner.nextLine();
                             break;
@@ -419,7 +428,8 @@ public class Customer extends Account {
                         System.out.println();
                         cinemaChoice = movieChoice.chooseCinema(cineplexChoice);
                         System.out.print("\033[2K");
-                        if (cinemaChoice.compareTo("exit")==0){
+                        if (cinemaChoice.compareTo("exit") == 0) {
+                            System.out.println("========================================================");
                             System.out.println("Press <Enter> to Exit View");
                             scanner.nextLine();
                             break;
@@ -439,7 +449,8 @@ public class Customer extends Account {
                         System.out.println();
                         dateChoice = movieChoice.chooseDate(cinemaChoice);
                         System.out.print("\033[2K");
-                        if (dateChoice.compareTo("exit")==0){
+                        if (dateChoice.compareTo("exit") == 0) {
+                            System.out.println("========================================================");
                             System.out.println("Press <Enter> to Exit View");
                             scanner.nextLine();
                             break;
@@ -450,7 +461,8 @@ public class Customer extends Account {
                         System.out.println();
                         System.out.println();
                         showtimeChoice = movieChoice.chooseTime(dateChoice, cinemaChoice);
-                        if (showtimeChoice.compareTo("exit")==0){
+                        if (showtimeChoice.compareTo("exit") == 0) {
+                            System.out.println("========================================================");
                             System.out.println("Press <Enter> to Exit View");
                             scanner.nextLine();
                             break;
@@ -477,6 +489,7 @@ public class Customer extends Account {
 
                         if (showtime == null) {
                             System.out.println("Showtime does not exist");
+                            System.out.println("========================================================");
                             System.out.println("Press <Enter> to Exit View");
                             scanner.nextLine();
                             break;
@@ -484,26 +497,11 @@ public class Customer extends Account {
 
                         movieChoice.printSeats(cinema.getCinemaID(), dateChoice, showtimeChoice);
 
-                        do {
-                            // User to choose seats they want (check for empty seats)
-                            System.out.printf("Select the seat you want (eg. A1): ");
-                            seatID = scanner.next();
-                            if (!seatID.matches("[A-J][1-9]{1,2}") || (Integer.parseInt(seatID.substring(1)) < 1
-                                    || Integer.parseInt(seatID.substring(1)) > 10)) {
-                                System.out.print("Error, invalid seat!! Try again\n");
-                                System.out.print(String.format("\033[2A"));
-                                System.out.print("\033[2K");
-                                continue;
-                            }
-
-                        } while (!seatID.matches("[A-J][0-9]{1,2}") || (Integer.parseInt(seatID.substring(1)) < 1
-                                || Integer.parseInt(seatID.substring(1)) > 10));
-
                         showtime = new Showtime(dateChoice, "not important", showtimeChoice);
 
-                        boolean assigned = movieChoice.checkSeat(cinemaChoice, dateChoice, showtimeChoice, seatID);
+                        boolean assigned = false;
 
-                        while (assigned) {
+                        do {
                             System.out.print("Seat choice is already assigned or is not valid!");
                             System.out.print(String.format("\033[1A")); // Move up 1
                             System.out.print("\033[1K\033[1K"); // Erase line content
@@ -521,7 +519,7 @@ public class Customer extends Account {
                                     || Integer.parseInt(seatID.substring(1)) > 10));
 
                             assigned = movieChoice.checkSeat(cinemaChoice, dateChoice, showtimeChoice, seatID);
-                        }
+                        } while (assigned);
 
                         Seat[] newSeats = movieChoice.assignSeat(cinemaChoice, dateChoice, showtimeChoice, seatID,
                                 this.accountID);
@@ -552,6 +550,7 @@ public class Customer extends Account {
                          * }
                          */
                         scanner.nextLine();
+                        System.out.println("========================================================");
                         System.out.println("Press <Enter> to Exit View");
                         scanner.nextLine();
                         break;
@@ -559,6 +558,7 @@ public class Customer extends Account {
 
                     else {
                         System.out.println("Sorry, the movie is not available for booking.");
+                        System.out.println("========================================================");
                         System.out.println("Press <Enter> to Exit View");
                         scanner.nextLine();
                         break;
@@ -627,8 +627,7 @@ public class Customer extends Account {
                         if (k > 5)
                             break;
                     }
-                    System.out.println("========================================================\n");
-
+                    System.out.println("========================================================");
                     System.out.println("Press <Enter> to Exit View");
                     scanner.nextLine();
                     scanner.nextLine();
@@ -671,8 +670,7 @@ public class Customer extends Account {
                                     moviesArr[i].getTitle());
                         }
                     }
-                    System.out.println("========================================================\n");
-
+                    System.out.println("========================================================");
                     System.out.println("Press <Enter> to Exit View");
                     scanner.nextLine();
                     scanner.nextLine();
@@ -689,9 +687,9 @@ public class Customer extends Account {
 
                     // Show movie details corresponding to the movie choice
                     while (true) {
-                        System.out.print("Please choose a movie to add review (enter a number): ");    
+                        System.out.print("Please choose a movie to add review (enter a number): ");
                         if (!scanner.hasNextInt()) {
-                            
+
                             System.out.print("Error, Invalid choice!! Try again\n");
                             System.out.print(String.format("\033[2A"));
                             System.out.print("\033[2K");

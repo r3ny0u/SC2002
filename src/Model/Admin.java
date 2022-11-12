@@ -180,7 +180,7 @@ public class Admin extends Account {
 
                     DatabaseWriter.removeMovieByTitle(movieChoice.title);
 
-                    System.out.println("========================================================\n");
+                    System.out.println("========================================================");
                     System.out.println("Press <Enter> to Exit View");
                     scanner.nextLine();
                     scanner.nextLine();
@@ -303,7 +303,7 @@ public class Admin extends Account {
                     System.out.flush();
                     System.out.println("\n==================== Cineplexes ======================");
                     CineplexDB.printCineplexDBDetails();
-                    System.out.println("========================================================\n");
+                    System.out.println("========================================================");
                     System.out.println("Press <Enter> to Exit View");
                     scanner.nextLine();
                     scanner.nextLine();
@@ -356,7 +356,7 @@ public class Admin extends Account {
                         if (k > 5)
                             break;
                     }
-                    System.out.println("========================================================\n");
+                    System.out.println("========================================================");
 
                     System.out.println("Press <Enter> to Exit View");
                     scanner.nextLine();
@@ -386,7 +386,7 @@ public class Admin extends Account {
                                     moviesArr[i].getTitle());
                         }
                     }
-                    System.out.println("========================================================\n");
+                    System.out.println("========================================================");
                     System.out.println("Press <Enter> to Exit View");
                     scanner.nextLine();
                     scanner.nextLine();
@@ -536,7 +536,7 @@ public class Admin extends Account {
 
         if (movieChoiceInt == movieArray.length + 1) {
             System.out.println("Movie not found");
-            System.out.println("========================================================\n");
+            System.out.println("========================================================");
             System.out.println("Press <Enter> to Exit View");
             scanner.nextLine();
             return;
@@ -544,7 +544,7 @@ public class Admin extends Account {
 
         if (movieChoiceInt <= 0 || movieChoiceInt > movieArray.length + 1) {
             System.out.println("Movie not found");
-            System.out.println("========================================================\n");
+            System.out.println("========================================================");
             System.out.println("Press <Enter> to Exit View");
             scanner.nextLine();
             return;
@@ -563,7 +563,7 @@ public class Admin extends Account {
 
         if (CineplexDB.getCineplexFromID(cineplexID) == null) {
             System.out.println("Cineplex not found");
-            System.out.println("========================================================\n");
+            System.out.println("========================================================");
             System.out.println("Press <Enter> to Exit View");
             scanner.nextLine();
             return;
@@ -576,7 +576,7 @@ public class Admin extends Account {
 
         if (CinemaDB.getCinemaFromID(cinemaID) == null) {
             System.out.println("Cinema not found");
-            System.out.println("========================================================\n");
+            System.out.println("========================================================");
             System.out.println("Press <Enter> to Exit View");
             scanner.nextLine();
             return;
@@ -611,7 +611,7 @@ public class Admin extends Account {
         }
         if (showtime == null) {
             System.out.println("Showtime does not exist");
-            System.out.println("========================================================\n");
+            System.out.println("========================================================");
             System.out.println("Press <Enter> to Exit View");
             scanner.nextLine();
             return;
@@ -623,13 +623,13 @@ public class Admin extends Account {
             DatabaseWriter.removeShowtimes(movieTitle, cineplexID, cinemaID, date, "not important", time);
 
             System.out.println("Showtime removed!");
-            System.out.println("========================================================\n");
+            System.out.println("========================================================");
             System.out.println("Press <Enter> to Exit View");
             scanner.nextLine();
             return;
         } else {
             System.out.println("Showtime remove operation cancelled!");
-            System.out.println("========================================================\n");
+            System.out.println("========================================================");
             System.out.println("Press <Enter> to Exit View");
             scanner.nextLine();
             return;
@@ -662,7 +662,7 @@ public class Admin extends Account {
 
         if (movieChoiceInt == movieArray.length + 1) {
             System.out.println("Movie not found");
-            System.out.println("========================================================\n");
+            System.out.println("========================================================");
             System.out.println("Press <Enter> to Exit View");
             scanner.nextLine();
             return;
@@ -670,7 +670,7 @@ public class Admin extends Account {
 
         if (movieChoiceInt <= 0 || movieChoiceInt > movieArray.length + 1) {
             System.out.println("Movie not found");
-            System.out.println("========================================================\n");
+            System.out.println("========================================================");
             System.out.println("Press <Enter> to Exit View");
             scanner.nextLine();
             return;
@@ -689,7 +689,7 @@ public class Admin extends Account {
 
         if (CineplexDB.getCineplexFromID(cineplexID) == null) {
             System.out.println("Cineplex not found");
-            System.out.println("========================================================\n");
+            System.out.println("========================================================");
             System.out.println("Press <Enter> to Exit View");
             scanner.nextLine();
             return;
@@ -702,7 +702,7 @@ public class Admin extends Account {
 
         if (CinemaDB.getCinemaFromID(cinemaID) == null) {
             System.out.println("Cinema not found");
-            System.out.println("========================================================\n");
+            System.out.println("========================================================");
             System.out.println("Press <Enter> to Exit View");
             scanner.nextLine();
             return;
@@ -737,7 +737,7 @@ public class Admin extends Account {
         }
         if (showtime == null) {
             System.out.println("Showtime does not exist");
-            System.out.println("========================================================\n");
+            System.out.println("========================================================");
             System.out.println("Press <Enter> to Exit View");
             scanner.nextLine();
             return;
@@ -748,7 +748,7 @@ public class Admin extends Account {
             System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
             System.out.flush();
 
-            System.out.println("Enter new info (enter exit as movie title to cancel): ");
+            System.out.println("Enter new info (enter 'exit' as movie title to cancel): ");
 
             System.out.printf("Movie Title @ %-15s: ", movieTitle);
             String newMovieTitle = scanner.nextLine();
@@ -773,7 +773,7 @@ public class Admin extends Account {
 
             if (MovieDB.getMovieFromTitle(newMovieTitle) == null) {
                 System.out.println("Movie not found");
-                System.out.println("========================================================\n");
+                System.out.println("========================================================");
                 System.out.println("Press <Enter> to Exit View");
                 scanner.nextLine();
                 continue;
@@ -781,7 +781,7 @@ public class Admin extends Account {
 
             if (CineplexDB.getCineplexFromID(newCineplexID) == null) {
                 System.out.println("Cineplex not found");
-                System.out.println("========================================================\n");
+                System.out.println("========================================================");
                 System.out.println("Press <Enter> to Exit View");
                 scanner.nextLine();
                 continue;
@@ -789,7 +789,7 @@ public class Admin extends Account {
 
             if (CinemaDB.getCinemaFromID(cinemaID) == null) {
                 System.out.println("Cinema not found");
-                System.out.println("========================================================\n");
+                System.out.println("========================================================");
                 System.out.println("Press <Enter> to Exit View");
                 scanner.nextLine();
                 continue;
@@ -823,7 +823,7 @@ public class Admin extends Account {
                     newCineplexID, newCinemaID, newDate, newDate, newTime);
 
             System.out.println("Showtime updated");
-            System.out.println("========================================================\n");
+            System.out.println("========================================================");
             System.out.println("Press <Enter> to Exit View");
             scanner.nextLine();
             break;
@@ -865,7 +865,7 @@ public class Admin extends Account {
 
         if (movieChoiceInt <= 0 || movieChoiceInt > movieArray.length + 1) {
             System.out.println("Movie not found");
-            System.out.println("========================================================\n");
+            System.out.println("========================================================");
             System.out.println("Press <Enter> to Exit View");
             scanner.nextLine();
             return;
@@ -876,7 +876,7 @@ public class Admin extends Account {
 
         if (MovieDB.getMovieFromTitle(movieTitle) == null) {
             System.out.println("Movie not found");
-            System.out.println("========================================================\n");
+            System.out.println("========================================================");
             System.out.println("Press <Enter> to Exit View");
             scanner.nextLine();
             return;
@@ -887,7 +887,7 @@ public class Admin extends Account {
 
         if (CineplexDB.getCineplexFromID(cineplexID) == null) {
             System.out.println("Cineplex not found");
-            System.out.println("========================================================\n");
+            System.out.println("========================================================");
             System.out.println("Press <Enter> to Exit View");
             scanner.nextLine();
             return;
@@ -898,7 +898,7 @@ public class Admin extends Account {
 
         if (CinemaDB.getCinemaFromID(cinemaID) == null) {
             System.out.println("Cinema not found");
-            System.out.println("========================================================\n");
+            System.out.println("========================================================");
             System.out.println("Press <Enter> to Exit View");
             scanner.nextLine();
             return;
@@ -932,7 +932,7 @@ public class Admin extends Account {
         }
         if (showtime != null) {
             System.out.println("Showtime already exists");
-            System.out.println("========================================================\n");
+            System.out.println("========================================================");
             System.out.println("Press <Enter> to Exit View");
             scanner.nextLine();
             return;
@@ -945,7 +945,7 @@ public class Admin extends Account {
         DatabaseWriter.createShowtime(movieTitle, cineplexID, cinemaID, date, day, time, newSeats);
 
         System.out.println("New showtime created!");
-        System.out.println("========================================================\n");
+        System.out.println("========================================================");
         System.out.println("Press <Enter> to Exit View");
         scanner.nextLine();
     }

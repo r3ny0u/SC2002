@@ -424,7 +424,7 @@ public class Admin extends Account {
             System.out.println("Which settings to update?");
             System.out.println("=====================================================");
             MovieTicketConfig.printConfigDetails();
-            System.out.println("12. Quit");
+            System.out.println("11. Quit");
             System.out.println("=====================================================");
             System.out.print("Enter choice: ");
 
@@ -507,7 +507,7 @@ public class Admin extends Account {
                     break;
             }
 
-        } while (userChoice != 12);
+        } while (userChoice != 11);
     }
 
     /**

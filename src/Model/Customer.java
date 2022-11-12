@@ -636,6 +636,7 @@ public class Customer extends Account {
                         }
                         if (!canReview) {
                             System.out.println("\nSorry you have to watch the movie before adding a review.");
+                            System.out.println("============================================================");
                             System.out.println("Press <Enter> to Exit View");
                             scanner.nextLine();
                             break;

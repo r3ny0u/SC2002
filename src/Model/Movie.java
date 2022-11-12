@@ -478,6 +478,7 @@ public class Movie {
             count++;
         }
         Scanner scanner = new Scanner(System.in);
+        System.out.println("\t" + count + ": Exit");
         
         while (true) {
             System.out.print("Please choose a cineplex (enter a number): ");    
@@ -491,8 +492,10 @@ public class Movie {
             }
 
             cineplexChoice = scanner.nextInt();
-
-            if (cineplexChoice < 1 || cineplexChoice > count-1) {
+            if (cineplexChoice==count){
+                return "exit";
+            }
+            if (cineplexChoice < 1 || cineplexChoice > count) {
                 System.out.print("Error, Invalid choice!! Try again\n");
                 System.out.print(String.format("\033[2A"));
                 System.out.print("\033[2K");
@@ -538,6 +541,7 @@ public class Movie {
                     "\t" + count + ": " + cinemaID + " (" + cinemaDB.getCinemaFromID(cinemaID).getCinemaType() + ")");
             count++;
         }
+        System.out.println("\t" + count + ": Exit");
 
         while (true) {
             System.out.print("Please choose a cinema (enter a number): ");    
@@ -551,8 +555,10 @@ public class Movie {
             }
 
             cinemaChoice = scanner.nextInt();
-
-            if (cinemaChoice < 1 || cinemaChoice > count-1) {
+            if (cinemaChoice==count){
+                return "exit";
+            }
+            if (cinemaChoice < 1 || cinemaChoice > count) {
                 System.out.print("Error, Invalid choice!! Try again\n");
                 System.out.print(String.format("\033[2A"));
                 System.out.print("\033[2K");
@@ -605,6 +611,7 @@ public class Movie {
                 System.out.print(st.time + " ");
             }
         }
+        System.out.println("\n\t" + count + ": Exit");
         System.out.println();
         oldDate = "date";
         oldCinemaID = "ID";
@@ -623,8 +630,10 @@ public class Movie {
 
 
             dateChoice = scanner.nextInt();
-
-            if (dateChoice < 1 || dateChoice > count-1) {
+            if (dateChoice==count){
+                return "exit";
+            }
+            if (dateChoice < 1 || dateChoice > count) {
                 System.out.print("Error, Invalid choice!! Try again\n");
                 System.out.print(String.format("\033[2A"));
                 System.out.print("\033[2K");
@@ -675,6 +684,7 @@ public class Movie {
                 count++;
             }
         }
+        System.out.println("\t" + count + ": Exit");
         System.out.println();
         while (true) {
             System.out.print("Please choose a showtime (enter a number): ");    
@@ -688,8 +698,10 @@ public class Movie {
             }
 
             timeChoice = scanner.nextInt();
-
-            if (timeChoice < 1 || timeChoice > count-1) {
+            if (timeChoice==count){
+                return "exit";
+            }
+            if (timeChoice < 1 || timeChoice > count) {
                 System.out.print("Error, Invalid choice!! Try again\n");
                 System.out.print(String.format("\033[2A"));
                 System.out.print("\033[2K");

@@ -398,6 +398,12 @@ public class Customer extends Account {
                         System.out.println();
                         cineplexChoice = movieChoice.chooseCineplex();
                         System.out.print("\033[2K");
+                        if (cineplexChoice.compareTo("exit")==0){
+                            System.out.println("Press <Enter> to Exit View");
+                            scanner.nextLine();
+                            break;
+                        }
+                        
 
                         cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
 
@@ -413,6 +419,11 @@ public class Customer extends Account {
                         System.out.println();
                         cinemaChoice = movieChoice.chooseCinema(cineplexChoice);
                         System.out.print("\033[2K");
+                        if (cinemaChoice.compareTo("exit")==0){
+                            System.out.println("Press <Enter> to Exit View");
+                            scanner.nextLine();
+                            break;
+                        }
                         cinema = cineplex.findCinema(cinemaChoice);
 
                         if (cinema == null) {
@@ -428,9 +439,7 @@ public class Customer extends Account {
                         System.out.println();
                         dateChoice = movieChoice.chooseDate(cinemaChoice);
                         System.out.print("\033[2K");
-
-                        if (dateChoice == null) {
-                            System.out.println("Showtime does not exist");
+                        if (dateChoice.compareTo("exit")==0){
                             System.out.println("Press <Enter> to Exit View");
                             scanner.nextLine();
                             break;
@@ -441,6 +450,11 @@ public class Customer extends Account {
                         System.out.println();
                         System.out.println();
                         showtimeChoice = movieChoice.chooseTime(dateChoice, cinemaChoice);
+                        if (showtimeChoice.compareTo("exit")==0){
+                            System.out.println("Press <Enter> to Exit View");
+                            scanner.nextLine();
+                            break;
+                        }
 
                         // Check if showtime exists
                         Showtime showtime = null;

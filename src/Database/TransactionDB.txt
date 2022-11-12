@@ -102,3 +102,35 @@ Normal
 Sunday
 Marvel Studios' Black Panther: Wakanda Forever [PG13]
 f08b5f04ce5840ba9d75f527eb013f28
+ZXA202211122210
+2022/11/11 : 1530
+9
+Platinum
+2D
+Friday
+Ajoomma [PG]
+728bfdf51d3a4b548a02cbf8a3009cd1
+ZXB202211122211
+2022/11/15 : 1500
+18
+Normal
+2D
+Tuesday
+Ajoomma [PG]
+728bfdf51d3a4b548a02cbf8a3009cd1
+YXA202211122212
+2022/11/13 : 1100
+69
+Normal
+2D
+Sunday
+Ajoomma [PG]
+728bfdf51d3a4b548a02cbf8a3009cd1
+ZXB202211122212
+2022/12/25 : 1000
+25
+Normal
+2D
+Sunday
+Ajoomma [PG]
+728bfdf51d3a4b548a02cbf8a3009cd1

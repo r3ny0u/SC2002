@@ -346,6 +346,9 @@ public class DatabaseWriter {
                 confirmPassword = sc.nextLine();
             } while (confirmPassword.compareTo(password) != 0);
 
+            Encoder encoder = Base64.getEncoder();
+            String encodedPassword = encoder.encodeToString(password.getBytes());
+
             if (AdminDB.isUsernameExist(username) || CustomerDB.isUsernameExist(username)) {
                 System.out.println("Oops... Username is used");
                 bufferedWriter.close();
@@ -359,7 +362,7 @@ public class DatabaseWriter {
             mobile = sc.nextLine();
 
             bufferedWriter.write(username + "\n");
-            bufferedWriter.write(password + "\n");
+            bufferedWriter.write(encodedPassword + "\n");
             bufferedWriter.write(UUID.randomUUID().toString().replace("-", "") + "\n");
             bufferedWriter.write(email + "\n");
             bufferedWriter.write(mobile + "\n");

@@ -233,6 +233,8 @@ public class Customer extends Account {
                         // Print all showtimes for customer to see, then let customer choose cineplex,
                         // cinema, date and time
                         movieChoice.printAllShowtimes();
+
+                        System.out.println();
                         cineplexChoice = movieChoice.chooseCineplex();
 
                         cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
@@ -244,6 +246,7 @@ public class Customer extends Account {
                             break;
                         }
                         System.out.println();
+                        System.out.println("----------");
                         System.out.println();
                         cinemaChoice = movieChoice.chooseCinema(cineplexChoice);
                         cinema = cineplex.findCinema(cinemaChoice);
@@ -257,6 +260,7 @@ public class Customer extends Account {
 
                         // User to input date and showtime, to get seats
                         System.out.println();
+                        System.out.println("----------");
                         System.out.println();
                         dateChoice = movieChoice.chooseDate(cinemaChoice);
                         if (dateChoice == null) {
@@ -265,6 +269,10 @@ public class Customer extends Account {
                             scanner.nextLine();
                             break;
                         }
+
+                        System.out.println();
+                        System.out.println("----------");
+                        System.out.println();
                         showtimeChoice = movieChoice.chooseTime(dateChoice, cinemaChoice);
 
                         System.out.println("======================== Seats ==========================\n");
@@ -349,8 +357,11 @@ public class Customer extends Account {
                             break;
                         }
 
+                        System.out.println();
+                        System.out.println("========================================================\n");
                         movieChoice.printAllShowtimes();
 
+                        System.out.println();
                         cineplexChoice = movieChoice.chooseCineplex();
 
                         cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
@@ -363,6 +374,7 @@ public class Customer extends Account {
                         }
 
                         System.out.println();
+                        System.out.println("----------");
                         System.out.println();
                         cinemaChoice = movieChoice.chooseCinema(cineplexChoice);
                         cinema = cineplex.findCinema(cinemaChoice);
@@ -376,6 +388,7 @@ public class Customer extends Account {
 
                         // User to input date and showtime, to get seats
                         System.out.println();
+                        System.out.println("----------");
                         System.out.println();
                         dateChoice = movieChoice.chooseDate(cinemaChoice);
 
@@ -387,6 +400,7 @@ public class Customer extends Account {
                         }
 
                         System.out.println();
+                        System.out.println("----------");
                         System.out.println();
                         showtimeChoice = movieChoice.chooseTime(dateChoice, cinemaChoice);
 
@@ -650,7 +664,7 @@ public class Customer extends Account {
                         // Add review to movie, after added, wait a while then return to menu
                         RatingDB.addNewRating(movieChoice.getTitle(), username);
                         System.out.println("\nReview added...");
-                        
+
                         try {
                             TimeUnit.MILLISECONDS.sleep(1500);
                         } catch (Exception e) {

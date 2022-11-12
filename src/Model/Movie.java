@@ -226,7 +226,9 @@ public class Movie {
                     if (st.date.equals(oldDate) == false) {
                         oldDate = st.date;
                         System.out.println();
-                        System.out.print("          " + oldDate + " (" + st.day + ")" + " - " + st.time + " ");
+                        System.out.print("          " + oldDate + " ("
+                                + new SimpleDateFormat("EEEE", Locale.UK).format((new Date(st.date))) + ")" + " - "
+                                + st.time + " ");
                     } else {
                         System.out.print(st.time + " ");
                     }
@@ -603,8 +605,9 @@ public class Movie {
         for (Showtime st : showtimeAL) {
             if (st.date.equals(oldDate) == false) {
                 oldDate = st.date;
-                String day = new SimpleDateFormat("EEEE", Locale.UK).format((new Date(st.date)));
-                System.out.print("\n\t" + count + ": " + oldDate + " (" + day + ")" + " - " + st.time + " ");
+                System.out.print("\n\t" + count + ": " + oldDate + " ("
+                        + new SimpleDateFormat("EEEE", Locale.UK).format((new Date(st.date))) + ")" + " - " + st.time
+                        + " ");
                 count++;
             } else {
                 System.out.print(st.time + " ");
@@ -615,11 +618,11 @@ public class Movie {
         oldDate = "date";
         oldCinemaID = "ID";
         Scanner scanner = new Scanner(System.in);
-        
+
         while (true) {
-            System.out.print("Please choose a showdate (enter a number): ");    
+            System.out.print("Please choose a showdate (enter a number): ");
             if (!scanner.hasNextInt()) {
-                
+
                 System.out.print("Error, Invalid choice!! Try again\n");
                 System.out.print(String.format("\033[2A"));
                 System.out.print("\033[2K");
@@ -627,9 +630,8 @@ public class Movie {
                 continue;
             }
 
-
             dateChoice = scanner.nextInt();
-            if (dateChoice==count){
+            if (dateChoice == count) {
                 return "exit";
             }
             if (dateChoice < 1 || dateChoice > count) {

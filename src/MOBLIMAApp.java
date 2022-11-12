@@ -32,7 +32,7 @@ public class MOBLIMAApp {
             
 
             while (true) {
-                System.out.print("Username: ");
+                System.out.print("Username : ");
                 username = scanner.nextLine();
 
                 // Check user exit program
@@ -51,7 +51,7 @@ public class MOBLIMAApp {
                     break;
                 }
 
-                password = Password.readPassword("Enter password: ");
+                password = Password.readPassword("Password : ");
 
                 Encoder encoder = Base64.getEncoder();
                 encodedPassword = encoder.encodeToString(password.getBytes());

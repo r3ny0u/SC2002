@@ -97,7 +97,7 @@ public class DatabaseWriter {
             }
 
             bufferedWriter.write(title + "\n");
-            bufferedWriter.write("NOT SHOWING\n");
+            bufferedWriter.write("COMING SOON\n");
             bufferedWriter.write(synopsis + "\n");
             bufferedWriter.write(director + "\n");
             bufferedWriter.write(String.join(",", casts) + "\n");

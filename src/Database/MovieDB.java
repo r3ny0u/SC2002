@@ -102,7 +102,7 @@ public class MovieDB {
 
             @Override
             public int compare(Movie o1, Movie o2) {
-                return (int) (o2.getRating() - o1.getRating());
+                return (int) (o2.getRating() >= o1.getRating() ? 1 : -1);
             }
 
         });

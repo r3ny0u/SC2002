@@ -486,7 +486,7 @@ public class Movie {
         System.out.println("\t" + count + ": Exit");
 
         while (true) {
-            System.out.print("Please choose a cineplex (enter a number): ");
+            System.out.print("\nPlease choose a cineplex (enter a number): ");
             if (!scanner.hasNextInt()) {
 
                 System.out.print("Error, Invalid choice!! Try again\n");
@@ -549,7 +549,7 @@ public class Movie {
         System.out.println("\t" + count + ": Exit");
 
         while (true) {
-            System.out.print("Please choose a cinema (enter a number): ");
+            System.out.print("\nPlease choose a cinema (enter a number): ");
             if (!scanner.hasNextInt()) {
 
                 System.out.print("Error, Invalid choice!! Try again\n");

@@ -361,7 +361,7 @@ public class Customer extends Account {
                     movieChoice = movieArray[movieChoiceInt - 1];
                     scanner.nextLine();
 
-                    // Print our movie detail for user to see before booking
+                    // Print out movie detail for user to see before booking
                     System.out.print("\033[H\033[2J");
                     System.out.flush();
                     movieChoice.printMovieDetails();
@@ -530,7 +530,7 @@ public class Customer extends Account {
                         Transaction newTrans = new Transaction(showtimeChoice, age, cinema, dateChoice, movieChoice,
                                 accountID, seatID);
 
-                        System.out.println("Price of ticket : " + newTrans.getTicketPrice());
+                        System.out.println("Price of ticket : $" + newTrans.getTicketPrice());
 
                         transactions.add(newTrans);
 

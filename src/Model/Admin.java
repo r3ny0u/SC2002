@@ -298,7 +298,7 @@ public class Admin extends Account {
                     break;
 
                 case 11:
-                    // Show cineplex and cinemas (easier to debug lol)
+                    // Show cineplex and cinemas (easier to debug)
                     System.out.print("\033[H\033[2J"); // Clear screen and flush output buffer
                     System.out.flush();
                     System.out.println("\n==================== Cineplexes ======================");

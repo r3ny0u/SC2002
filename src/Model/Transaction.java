@@ -91,14 +91,14 @@ public class Transaction {
     public float getTicketPrice() {
         MovieTicket movieTicket = new MovieTicket();
 
-        if (getCinemaType() == "Normal")
+        if (getCinemaType().toLowerCase().compareTo("normal") == 0)
             movieTicket.setCinemaClass(CinemaClass.NORMAL);
-        else if (getCinemaType() == "Platinum")
+        else if (getCinemaType().toLowerCase().compareTo("platinum") == 0)
             movieTicket.setCinemaClass(CinemaClass.PLATINUM);
 
-        if (getMovieType() == "3D")
+        if (getMovieType().toLowerCase().compareTo("3d") == 0)
             movieTicket.setMovieType(MovieType.MOVIE3D);
-        else if (getMovieType() == "2D")
+        else if (getMovieType().toLowerCase().compareTo("2d") == 0)
             movieTicket.setMovieType(MovieType.MOVIE2D);
 
         if (Integer.parseInt(getAge()) <= 12)

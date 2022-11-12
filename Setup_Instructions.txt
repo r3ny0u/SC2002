@@ -1,0 +1,7 @@
+How to Setup
+
+1. Extract the `SC2002.jar` file.
+2. Change directory to the folder that the extracted files and folders are located.
+3. Run `java MOBLIMAApp`.
+4. In the `src/Database/AdminDB.txt`, enter your admin username, password, and account ID for creating a new admin account. For a customer account, type in `new` in the user login menu.
+5. Have fun! Enjoy!

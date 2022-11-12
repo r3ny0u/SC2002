@@ -530,7 +530,7 @@ public class Customer extends Account {
                         Transaction newTrans = new Transaction(showtimeChoice, age, cinema, dateChoice, movieChoice,
                                 accountID, seatID);
 
-                        System.out.println("Price of ticket : $" + newTrans.getTicketPrice());
+                        System.out.println("\nPrice of ticket : $" + newTrans.getTicketPrice());
 
                         transactions.add(newTrans);
 

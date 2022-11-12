@@ -484,44 +484,44 @@ public class Customer extends Account {
 
                         movieChoice.printSeats(cinema.getCinemaID(), dateChoice, showtimeChoice);
 
+                        // do {
+                        //     // User to choose seats they want (check for empty seats)
+                        //     System.out.printf("Select the seat you want (eg. A1): ");
+                        //     seatID = scanner.next();
+                        //     if (!seatID.matches("[A-J][1-9]{1,2}") || (Integer.parseInt(seatID.substring(1)) < 1
+                        //             || Integer.parseInt(seatID.substring(1)) > 10)) {
+                        //         System.out.print("Error, invalid seat!! Try again\n");
+                        //         System.out.print(String.format("\033[2A"));
+                        //         System.out.print("\033[2K");
+                        //         continue;
+                        //     }
+
+                        // } while (!seatID.matches("[A-J][0-9]{1,2}") || (Integer.parseInt(seatID.substring(1)) < 1
+                        //         || Integer.parseInt(seatID.substring(1)) > 10));
+
+                        showtime = new Showtime(dateChoice, "not important", showtimeChoice);
+
+                        boolean assigned = false;
+
                         do {
-                            // User to choose seats they want (check for empty seats)
-                            System.out.printf("Select the seat you want (eg. A1): ");
-                            seatID = scanner.next();
-                            if (!seatID.matches("[A-J][0-9]{1,2}") || (Integer.parseInt(seatID.substring(1)) < 1
-                                    || Integer.parseInt(seatID.substring(1)) > 10)) {
-                                System.out.print("Error, invalid seat!! Try again\n");
-                                System.out.print(String.format("\033[2A"));
-                                System.out.print("\033[2K");
-                                continue;
-                            }
-
-                        } while (!seatID.matches("[A-J][0-9]{1,2}") || (Integer.parseInt(seatID.substring(1)) < 1
-                                || Integer.parseInt(seatID.substring(1)) > 10));
-
-                        showtime = new Showtime(dateChoice, "day", showtimeChoice);
-
-                        boolean assigned = movieChoice.checkSeat(cinemaChoice, dateChoice, showtimeChoice, seatID);
-
-                        while (assigned) {
                             System.out.print("Seat choice is already assigned or is not valid!");
                             System.out.print(String.format("\033[1A")); // Move up 1
                             System.out.print("\033[1K\033[1K"); // Erase line content
                             do {
                                 System.out.print("\rPlease choose another seat (eg. A1): ");
                                 seatID = scanner.next();
-                                if (!seatID.matches("[A-J][0-9]{1,2}") || (Integer.parseInt(seatID.substring(1)) < 1
+                                if (!seatID.matches("[A-J][1-9]{1,2}") || (Integer.parseInt(seatID.substring(1)) < 1
                                     || Integer.parseInt(seatID.substring(1)) > 10)) {
                                 System.out.print("Error, invalid seat!! Try again\n");
                                 System.out.print(String.format("\033[2A"));
                                 System.out.print("\033[2K");
                                 continue;
                             }
-                            } while (!seatID.matches("[A-J][0-9]{1,2}") || (Integer.parseInt(seatID.substring(1)) < 1
+                            } while (!seatID.matches("[A-J][1-9]{1,2}") || (Integer.parseInt(seatID.substring(1)) < 1
                                     || Integer.parseInt(seatID.substring(1)) > 10));
 
                             assigned = movieChoice.checkSeat(cinemaChoice, dateChoice, showtimeChoice, seatID);
-                        }
+                        } while (assigned);
 
                         Seat[] newSeats = movieChoice.assignSeat(cinemaChoice, dateChoice, showtimeChoice, seatID,
                                 this.accountID);

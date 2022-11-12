@@ -422,10 +422,11 @@ public class Customer extends Account {
                             // User to choose seats they want (check for empty seats)
                             System.out.printf("Select the seat you want (eg. A1): ");
                             seatID = scanner.next();
-                            if (!seatID.matches("[A-J][0-9]{1,2}") || (Integer.parseInt(seatID.substring(1))<1 || Integer.parseInt(seatID.substring(1))>10))
+                            if (!seatID.matches("[A-J][0-9]{1,2}") || (Integer.parseInt(seatID.substring(1)) < 1
+                                    || Integer.parseInt(seatID.substring(1)) > 10))
                                 System.out.print("Error, invalid seat!! Try again: ");
-                        } while(!seatID.matches("[A-J][0-9]{1,2}") || (Integer.parseInt(seatID.substring(1))<1 || Integer.parseInt(seatID.substring(1))>10));
-                        
+                        } while (!seatID.matches("[A-J][0-9]{1,2}") || (Integer.parseInt(seatID.substring(1)) < 1
+                                || Integer.parseInt(seatID.substring(1)) > 10));
 
                         showtime = new Showtime(dateChoice, "day", showtimeChoice);
 
@@ -437,11 +438,12 @@ public class Customer extends Account {
                             System.out.print("\033[1K\033[1K"); // Erase line content
                             do {
                                 System.out.print("\rPlease choose another seat (eg. A1): ");
-                                seatID = scanner.next();  
-                                if (!seatID.matches("[A-J][0-9]{1,2}") || (Integer.parseInt(seatID.substring(1))<1 || Integer.parseInt(seatID.substring(1))>10))
-                                System.out.print("Error, invalid seat!! Try again: ");
-                            } while(!seatID.matches("[A-J][0-9]{1,2}") || (Integer.parseInt(seatID.substring(1))<1 || Integer.parseInt(seatID.substring(1))>10));
-                            
+                                seatID = scanner.next();
+                                if (!seatID.matches("[A-J][0-9]{1,2}") || (Integer.parseInt(seatID.substring(1)) < 1
+                                        || Integer.parseInt(seatID.substring(1)) > 10))
+                                    System.out.print("Error, invalid seat!! Try again: ");
+                            } while (!seatID.matches("[A-J][0-9]{1,2}") || (Integer.parseInt(seatID.substring(1)) < 1
+                                    || Integer.parseInt(seatID.substring(1)) > 10));
 
                             assigned = movieChoice.checkSeat(cinemaChoice, dateChoice, showtimeChoice, seatID);
                         }
@@ -467,11 +469,13 @@ public class Customer extends Account {
                         System.out.println("\nBooking successful :) ...");
 
                         // Sleep for 1.5s then return to customer menu page
-                        /*try {
-                            TimeUnit.MILLISECONDS.sleep(1500);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }*/
+                        /*
+                         * try {
+                         * TimeUnit.MILLISECONDS.sleep(1500);
+                         * } catch (Exception e) {
+                         * e.printStackTrace();
+                         * }
+                         */
                         scanner.nextLine();
                         System.out.println("Press <Enter> to Exit View");
                         scanner.nextLine();
@@ -573,17 +577,24 @@ public class Customer extends Account {
 
                     movieDB = new MovieDB();
                     movieDB.sortByRating();
-                    Movie[] movies = movieDB.getMovies();
-                    movieArrayEmpty = movies.clone();
+                    Movie[] moviesArr = movieDB.getMovies();
 
                     System.out.print("\033[H\033[2J");
                     System.out.flush();
                     System.out.println("\n============== Movie Titles by Ratings ===============");
                     for (int i = 0; i < 5; i++) {
-                        if (movieArrayEmpty[i] == null)
+
+                        if (moviesArr[i] == null)
                             break;
-                        System.out.printf("%2d. (%.1f / 5.0 Stars) %s\n", i + 1, movieArrayEmpty[i].getRating(),
-                                movieArrayEmpty[i].getTitle());
+
+                        moviesArr[i].loadRatingsAndReviews();
+
+                        if (moviesArr[i].getRatingCount() == 0) {
+                            System.out.printf("%2d. (NA / 5.0 STARS) %s\n", i + 1, moviesArr[i].getTitle());
+                        } else {
+                            System.out.printf("%2d. (%.1f / 5.0 Stars) %s\n", i + 1, moviesArr[i].getRating(),
+                                    moviesArr[i].getTitle());
+                        }
                     }
                     System.out.println("========================================================\n");
 

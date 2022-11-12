@@ -364,19 +364,26 @@ public class Admin extends Account {
 
                 case 13:
                     // Show top 5 movies based on ratings
-                    movies = new MovieDB();
-                    movies.sortByRating();
-                    Movie[] moviesArr = movies.getMovies();
-                    Movie[] movieArrayEmpty = moviesArr.clone();
+                    MovieDB movieDB = new MovieDB();
+                    movieDB.sortByRating();
+                    Movie[] moviesArr = movieDB.getMovies();
 
                     System.out.print("\033[H\033[2J");
                     System.out.flush();
                     System.out.println("\n============== Movie Titles by Ratings ===============");
                     for (int i = 0; i < 5; i++) {
-                        if (movieArrayEmpty[i] == null)
+
+                        if (moviesArr[i] == null)
                             break;
-                        System.out.printf("%2d. (%.1f / 5.0 Stars) %s\n", i + 1, movieArrayEmpty[i].getRating(),
-                                movieArrayEmpty[i].getTitle());
+
+                        moviesArr[i].loadRatingsAndReviews();
+
+                        if (moviesArr[i].getRatingCount() == 0) {
+                            System.out.printf("%2d. (NA / 5.0 STARS) %s\n", i + 1, moviesArr[i].getTitle());
+                        } else {
+                            System.out.printf("%2d. (%.1f / 5.0 Stars) %s\n", i + 1, moviesArr[i].getRating(),
+                                    moviesArr[i].getTitle());
+                        }
                     }
                     System.out.println("========================================================\n");
 

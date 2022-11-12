@@ -93,6 +93,15 @@ public class Movie {
     }
 
     /**
+     * Gets the rating count of the movie
+     * 
+     * @return An integer representing the rating count
+     */
+    public int getRatingCount() {
+        return this.ratingCount;
+    }
+
+    /**
      * Prints the details of the movie
      */
     public void printMovieDetails() {

@@ -267,6 +267,12 @@ public class Customer extends Account {
                         System.out.println();
                         cineplexChoice = movieChoice.chooseCineplex();
                         System.out.print("\033[2K");
+                        if (cineplexChoice.compareTo("exit") == 0) {
+                            // System.out.println("========================================================");
+                            // System.out.println("Press <Enter> to Exit View");
+                            // scanner.nextLine();
+                            break;
+                        }
 
                         cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
 
@@ -282,6 +288,12 @@ public class Customer extends Account {
                         System.out.println();
                         cinemaChoice = movieChoice.chooseCinema(cineplexChoice);
                         System.out.print("\033[2K");
+                        if (cinemaChoice.compareTo("exit") == 0) {
+                            // System.out.println("========================================================");
+                            // System.out.println("Press <Enter> to Exit View");
+                            // scanner.nextLine();
+                            break;
+                        }
                         cinema = cineplex.findCinema(cinemaChoice);
 
                         if (cinema == null) {
@@ -297,18 +309,31 @@ public class Customer extends Account {
                         System.out.println();
                         dateChoice = movieChoice.chooseDate(cinemaChoice);
                         System.out.print("\033[2K");
-                        if (dateChoice == null) {
-                            System.out.println("Show time does not exist");
-                            System.out.println("========================================================");
-                            System.out.println("Press <Enter> to Exit View");
-                            scanner.nextLine();
+                        if (dateChoice.compareTo("exit") == 0) {
+                            // System.out.println("========================================================");
+                            // System.out.println("Press <Enter> to Exit View");
+                            // scanner.nextLine();
                             break;
                         }
+
+                        // if (dateChoice == null) {
+                        //     System.out.println("Show time does not exist");
+                        //     System.out.println("========================================================");
+                        //     System.out.println("Press <Enter> to Exit View");
+                        //     scanner.nextLine();
+                        //     break;
+                        // }
 
                         System.out.println();
                         System.out.println("----------");
                         System.out.println();
                         showtimeChoice = movieChoice.chooseTime(dateChoice, cinemaChoice);
+                        if (showtimeChoice.compareTo("exit") == 0) {
+                            // System.out.println("========================================================");
+                            // System.out.println("Press <Enter> to Exit View");
+                            // scanner.nextLine();
+                            break;
+                        }
 
                         System.out.println("======================== Seats ==========================\n");
                         movieChoice.printSeats(cinema.getCinemaID(), dateChoice, showtimeChoice);
@@ -407,9 +432,9 @@ public class Customer extends Account {
                         cineplexChoice = movieChoice.chooseCineplex();
                         System.out.print("\033[2K");
                         if (cineplexChoice.compareTo("exit") == 0) {
-                            System.out.println("========================================================");
-                            System.out.println("Press <Enter> to Exit View");
-                            scanner.nextLine();
+                            // System.out.println("========================================================");
+                            // System.out.println("Press <Enter> to Exit View");
+                            // scanner.nextLine();
                             break;
                         }
 
@@ -429,9 +454,9 @@ public class Customer extends Account {
                         cinemaChoice = movieChoice.chooseCinema(cineplexChoice);
                         System.out.print("\033[2K");
                         if (cinemaChoice.compareTo("exit") == 0) {
-                            System.out.println("========================================================");
-                            System.out.println("Press <Enter> to Exit View");
-                            scanner.nextLine();
+                            // System.out.println("========================================================");
+                            // System.out.println("Press <Enter> to Exit View");
+                            // scanner.nextLine();
                             break;
                         }
                         cinema = cineplex.findCinema(cinemaChoice);
@@ -450,9 +475,9 @@ public class Customer extends Account {
                         dateChoice = movieChoice.chooseDate(cinemaChoice);
                         System.out.print("\033[2K");
                         if (dateChoice.compareTo("exit") == 0) {
-                            System.out.println("========================================================");
-                            System.out.println("Press <Enter> to Exit View");
-                            scanner.nextLine();
+                            // System.out.println("========================================================");
+                            // System.out.println("Press <Enter> to Exit View");
+                            // scanner.nextLine();
                             break;
                         }
 
@@ -461,9 +486,9 @@ public class Customer extends Account {
                         System.out.println();
                         showtimeChoice = movieChoice.chooseTime(dateChoice, cinemaChoice);
                         if (showtimeChoice.compareTo("exit") == 0) {
-                            System.out.println("========================================================");
-                            System.out.println("Press <Enter> to Exit View");
-                            scanner.nextLine();
+                            // System.out.println("========================================================");
+                            // System.out.println("Press <Enter> to Exit View");
+                            // scanner.nextLine();
                             break;
                         }
 
@@ -534,6 +559,7 @@ public class Customer extends Account {
 
                             assigned = movieChoice.checkSeat(cinemaChoice, dateChoice, showtimeChoice, seatID);
                         }
+                        System.out.print("\033[2K");
 
                         Seat[] newSeats = movieChoice.assignSeat(cinemaChoice, dateChoice, showtimeChoice, seatID,
                                 this.accountID);

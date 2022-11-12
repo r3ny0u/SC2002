@@ -174,18 +174,31 @@ public class Customer extends Account {
                         System.out.println("========================================================\n");
 
                         // Show movie details corresponding to the movie choice
-                        System.out.print("Please choose a movie (enter a number): ");
-                        while (!scanner.hasNextInt()) {
-                            System.out.print("Error, Invalid choice!! Try again: ");
-                            scanner.next();
+                        
+                        while (true) {
+                            System.out.print("Please choose a movie (enter a number): ");     
+                            if (!scanner.hasNextInt()) {
+                                
+                                System.out.print("Error, Invalid choice!! Try again\n");
+                                System.out.print(String.format("\033[2A"));
+                                System.out.print("\033[2K");
+                                scanner.next();
+                                continue;
+                            }
+
+                            movieChoiceInt = scanner.nextInt();
+
+                            if (movieChoiceInt <= 0 || movieChoiceInt > numOfMovie + 1) {
+                                System.out.print("Error, Invalid choice!! Try again\n");
+                                System.out.print(String.format("\033[2A"));
+                                System.out.print("\033[2K");
+                                continue;
+                            }
+                            break;
                         }
-                        movieChoiceInt = scanner.nextInt();
 
                         if (movieChoiceInt == numOfMovie + 1)
-                            break;
-
-                        if (movieChoiceInt <= 0 || movieChoiceInt > numOfMovie + 1)
-                            continue;
+                                break;
 
                         movieChoice = movieArray[movieChoiceInt - 1];
 
@@ -210,14 +223,30 @@ public class Customer extends Account {
                     System.out.println("========================================================\n");
 
                     // Show movie details corresponding to the movie choice
-                    System.out.print("Please choose a movie to book (enter a number): ");
-                    movieChoiceInt = scanner.nextInt();
+                    while (true) {
+                        System.out.print("Please choose a movie to view seating (enter a number): ");    
+                        if (!scanner.hasNextInt()) {
+                            
+                            System.out.print("Error, Invalid choice!! Try again\n");
+                            System.out.print(String.format("\033[2A"));
+                            System.out.print("\033[2K");
+                            scanner.next();
+                            continue;
+                        }
+
+                        movieChoiceInt = scanner.nextInt();
+
+                        if (movieChoiceInt <= 0 || movieChoiceInt > numOfMovie + 1) {
+                            System.out.print("Error, Invalid choice!! Try again\n");
+                            System.out.print(String.format("\033[2A"));
+                            System.out.print("\033[2K");
+                            continue;
+                        }
+                        break;
+                    }
 
                     if (movieChoiceInt == numOfMovie + 1)
-                        break;
-
-                    if (movieChoiceInt <= 0 || movieChoiceInt > numOfMovie + 1)
-                        continue;
+                            break;
 
                     movieChoice = movieArray[movieChoiceInt - 1];
                     scanner.nextLine();
@@ -236,6 +265,7 @@ public class Customer extends Account {
 
                         System.out.println();
                         cineplexChoice = movieChoice.chooseCineplex();
+                        System.out.print("\033[2K");    
 
                         cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
 
@@ -249,6 +279,7 @@ public class Customer extends Account {
                         System.out.println("----------");
                         System.out.println();
                         cinemaChoice = movieChoice.chooseCinema(cineplexChoice);
+                        System.out.print("\033[2K");
                         cinema = cineplex.findCinema(cinemaChoice);
 
                         if (cinema == null) {
@@ -263,6 +294,7 @@ public class Customer extends Account {
                         System.out.println("----------");
                         System.out.println();
                         dateChoice = movieChoice.chooseDate(cinemaChoice);
+                        System.out.print("\033[2K");
                         if (dateChoice == null) {
                             System.out.println("Show time does not exist");
                             System.out.println("Press <Enter> to Exit View");
@@ -283,11 +315,13 @@ public class Customer extends Account {
                     }
 
                     else {
-                        System.out.println("Sorry, the movie is not available for booking.");
+                        System.out.println("\nSorry, viewing of seats for this movie is not available.");
                         System.out.println("Press <Enter> to Exit View");
                         scanner.nextLine();
                         break;
                     }
+
+                    break;
 
                 case 4:
                     // Make a booking: Print out movie list, let customer choose movie, cineplex,
@@ -363,6 +397,13 @@ public class Customer extends Account {
 
                         System.out.println();
                         cineplexChoice = movieChoice.chooseCineplex();
+                        System.out.print("\033[2K");
+                        if (cineplexChoice.compareTo("exit")==0){
+                            System.out.println("Press <Enter> to Exit View");
+                            scanner.nextLine();
+                            break;
+                        }
+                        
 
                         cineplex = CineplexDB.getCineplexFromID(cineplexChoice);
 
@@ -377,6 +418,12 @@ public class Customer extends Account {
                         System.out.println("----------");
                         System.out.println();
                         cinemaChoice = movieChoice.chooseCinema(cineplexChoice);
+                        System.out.print("\033[2K");
+                        if (cinemaChoice.compareTo("exit")==0){
+                            System.out.println("Press <Enter> to Exit View");
+                            scanner.nextLine();
+                            break;
+                        }
                         cinema = cineplex.findCinema(cinemaChoice);
 
                         if (cinema == null) {
@@ -391,9 +438,8 @@ public class Customer extends Account {
                         System.out.println("----------");
                         System.out.println();
                         dateChoice = movieChoice.chooseDate(cinemaChoice);
-
-                        if (dateChoice == null) {
-                            System.out.println("Showtime does not exist");
+                        System.out.print("\033[2K");
+                        if (dateChoice.compareTo("exit")==0){
                             System.out.println("Press <Enter> to Exit View");
                             scanner.nextLine();
                             break;
@@ -402,7 +448,13 @@ public class Customer extends Account {
                         System.out.println();
                         System.out.println("----------");
                         System.out.println();
+                        System.out.println();
                         showtimeChoice = movieChoice.chooseTime(dateChoice, cinemaChoice);
+                        if (showtimeChoice.compareTo("exit")==0){
+                            System.out.println("Press <Enter> to Exit View");
+                            scanner.nextLine();
+                            break;
+                        }
 
                         // Check if showtime exists
                         Showtime showtime = null;
@@ -437,8 +489,13 @@ public class Customer extends Account {
                             System.out.printf("Select the seat you want (eg. A1): ");
                             seatID = scanner.next();
                             if (!seatID.matches("[A-J][0-9]{1,2}") || (Integer.parseInt(seatID.substring(1)) < 1
-                                    || Integer.parseInt(seatID.substring(1)) > 10))
-                                System.out.print("Error, invalid seat!! Try again: ");
+                                    || Integer.parseInt(seatID.substring(1)) > 10)) {
+                                System.out.print("Error, invalid seat!! Try again\n");
+                                System.out.print(String.format("\033[2A"));
+                                System.out.print("\033[2K");
+                                continue;
+                            }
+
                         } while (!seatID.matches("[A-J][0-9]{1,2}") || (Integer.parseInt(seatID.substring(1)) < 1
                                 || Integer.parseInt(seatID.substring(1)) > 10));
 
@@ -454,8 +511,12 @@ public class Customer extends Account {
                                 System.out.print("\rPlease choose another seat (eg. A1): ");
                                 seatID = scanner.next();
                                 if (!seatID.matches("[A-J][0-9]{1,2}") || (Integer.parseInt(seatID.substring(1)) < 1
-                                        || Integer.parseInt(seatID.substring(1)) > 10))
-                                    System.out.print("Error, invalid seat!! Try again: ");
+                                    || Integer.parseInt(seatID.substring(1)) > 10)) {
+                                System.out.print("Error, invalid seat!! Try again\n");
+                                System.out.print(String.format("\033[2A"));
+                                System.out.print("\033[2K");
+                                continue;
+                            }
                             } while (!seatID.matches("[A-J][0-9]{1,2}") || (Integer.parseInt(seatID.substring(1)) < 1
                                     || Integer.parseInt(seatID.substring(1)) > 10));
 
@@ -627,17 +688,33 @@ public class Customer extends Account {
                     System.out.println("========================================================\n");
 
                     // Show movie details corresponding to the movie choice
-                    System.out.print("Please choose a movie to add review (enter a number): ");
-                    movieChoiceInt = scanner.nextInt();
-                    scanner.nextLine();
+                    while (true) {
+                        System.out.print("Please choose a movie to add review (enter a number): ");    
+                        if (!scanner.hasNextInt()) {
+                            
+                            System.out.print("Error, Invalid choice!! Try again\n");
+                            System.out.print(String.format("\033[2A"));
+                            System.out.print("\033[2K");
+                            scanner.next();
+                            continue;
+                        }
+
+                        movieChoiceInt = scanner.nextInt();
+
+                        if (movieChoiceInt <= 0 || movieChoiceInt > numOfMovie + 1) {
+                            System.out.print("Error, Invalid choice!! Try again\n");
+                            System.out.print(String.format("\033[2A"));
+                            System.out.print("\033[2K");
+                            continue;
+                        }
+                        break;
+                    }
 
                     if (movieChoiceInt == numOfMovie + 1)
                         break;
 
-                    if (movieChoiceInt <= 0 || movieChoiceInt > numOfMovie + 1)
-                        continue;
-
                     movieChoice = movieArray[movieChoiceInt - 1];
+                    scanner.nextLine();
 
                     if (movieChoice.getStatus().toLowerCase().compareTo("now showing") == 0
                             || movieChoice.getStatus().toLowerCase().compareTo("preview") == 0) {

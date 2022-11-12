@@ -2,13 +2,16 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import Database.CinemaDB;
 import Database.RatingDB;
 import DatabaseBoundary.DatabaseReader;
 
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -276,7 +279,7 @@ public class Movie {
                 else
                     System.out.print("|O| ");
 
-                if (j==4) {
+                if (j == 4) {
                     System.out.print("\t");
                 }
             }
@@ -479,11 +482,11 @@ public class Movie {
         }
         Scanner scanner = new Scanner(System.in);
         System.out.println("\t" + count + ": Exit");
-        
+
         while (true) {
-            System.out.print("Please choose a cineplex (enter a number): ");    
+            System.out.print("Please choose a cineplex (enter a number): ");
             if (!scanner.hasNextInt()) {
-                
+
                 System.out.print("Error, Invalid choice!! Try again\n");
                 System.out.print(String.format("\033[2A"));
                 System.out.print("\033[2K");
@@ -492,7 +495,7 @@ public class Movie {
             }
 
             cineplexChoice = scanner.nextInt();
-            if (cineplexChoice==count){
+            if (cineplexChoice == count) {
                 return "exit";
             }
             if (cineplexChoice < 1 || cineplexChoice > count) {
@@ -529,12 +532,12 @@ public class Movie {
         System.out.println("Cinemas");
 
         ArrayList<String> cinemaAL = new ArrayList<>(showingPlaces.get(cineplexID));
-            cinemaAL.sort(new Comparator<String>() {
-                @Override
-                public int compare(String ca1, String ca2) {
-                    return ca1.compareTo(ca2);
-                }
-            });
+        cinemaAL.sort(new Comparator<String>() {
+            @Override
+            public int compare(String ca1, String ca2) {
+                return ca1.compareTo(ca2);
+            }
+        });
 
         for (String cinemaID : cinemaAL) {
             System.out.println(
@@ -544,9 +547,9 @@ public class Movie {
         System.out.println("\t" + count + ": Exit");
 
         while (true) {
-            System.out.print("Please choose a cinema (enter a number): ");    
+            System.out.print("Please choose a cinema (enter a number): ");
             if (!scanner.hasNextInt()) {
-                
+
                 System.out.print("Error, Invalid choice!! Try again\n");
                 System.out.print(String.format("\033[2A"));
                 System.out.print("\033[2K");
@@ -555,7 +558,7 @@ public class Movie {
             }
 
             cinemaChoice = scanner.nextInt();
-            if (cinemaChoice==count){
+            if (cinemaChoice == count) {
                 return "exit";
             }
             if (cinemaChoice < 1 || cinemaChoice > count) {
@@ -600,7 +603,8 @@ public class Movie {
         for (Showtime st : showtimeAL) {
             if (st.date.equals(oldDate) == false) {
                 oldDate = st.date;
-                System.out.print("\n\t" + count + ": " + oldDate + " (" + st.day + ")" + " - " + st.time + " ");
+                String day = new SimpleDateFormat("EEEE", Locale.UK).format((new Date(st.date)));
+                System.out.print("\n\t" + count + ": " + oldDate + " (" + day + ")" + " - " + st.time + " ");
                 count++;
             } else {
                 System.out.print(st.time + " ");
@@ -682,9 +686,9 @@ public class Movie {
         System.out.println("\t" + count + ": Exit");
         System.out.println();
         while (true) {
-            System.out.print("Please choose a showtime (enter a number): ");    
+            System.out.print("Please choose a showtime (enter a number): ");
             if (!scanner.hasNextInt()) {
-                
+
                 System.out.print("Error, Invalid choice!! Try again\n");
                 System.out.print(String.format("\033[2A"));
                 System.out.print("\033[2K");
@@ -693,7 +697,7 @@ public class Movie {
             }
 
             timeChoice = scanner.nextInt();
-            if (timeChoice==count){
+            if (timeChoice == count) {
                 return "exit";
             }
             if (timeChoice < 1 || timeChoice > count) {

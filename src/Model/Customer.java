@@ -615,6 +615,7 @@ public class Customer extends Account {
                     // Show movie details corresponding to the movie choice
                     System.out.print("Please choose a movie to add review (enter a number): ");
                     movieChoiceInt = scanner.nextInt();
+                    scanner.nextLine();
 
                     if (movieChoiceInt == numOfMovie + 1)
                         break;
@@ -626,6 +627,19 @@ public class Customer extends Account {
 
                     if (movieChoice.getStatus().toLowerCase().compareTo("now showing") == 0
                             || movieChoice.getStatus().toLowerCase().compareTo("preview") == 0) {
+                        boolean canReview = false;
+                        for (Transaction trans : this.transactions) {
+                            if (trans.getMovie().getTitle().compareTo(movieChoice.getTitle()) == 0) {
+                                canReview = true;
+                                break;
+                            }
+                        }
+                        if (!canReview) {
+                            System.out.println("\nSorry you have to watch the movie before adding a review.");
+                            System.out.println("Press <Enter> to Exit View");
+                            scanner.nextLine();
+                            break;
+                        }
                         // Print our movie detail for user to see before adding review
                         System.out.print("\033[H\033[2J");
                         System.out.flush();
@@ -635,7 +649,7 @@ public class Customer extends Account {
                         // Add review to movie, after added, wait a while then return to menu
                         RatingDB.addNewRating(movieChoice.getTitle(), username);
                         System.out.println("\nReview added...");
-
+                        
                         try {
                             TimeUnit.MILLISECONDS.sleep(1500);
                         } catch (Exception e) {

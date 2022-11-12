@@ -191,7 +191,7 @@ public class Movie {
 
         for (String cineplexID : cineplexAL) {
             System.out.println(
-                    "--------------------\n\nCineplex: " + cineplexID);
+                    "Cineplex: " + cineplexID);
 
             ArrayList<String> cinemaAL = new ArrayList<>(showingPlaces.get(cineplexID));
             cinemaAL.sort(new Comparator<String>() {
@@ -205,7 +205,8 @@ public class Movie {
                 if (cinemaID.equals(oldCinemaID) == false) {
                     oldCinemaID = cinemaID;
                     System.out.println(
-                            "\nCinema: " + cinemaID + " (" + cinemaDB.getCinemaFromID(cinemaID).getCinemaType() + ")");
+                            "\nCinema  : " + cinemaID + " (" + cinemaDB.getCinemaFromID(cinemaID).getCinemaType()
+                                    + ")");
                 }
                 ArrayList<Showtime> showtimeAL = new ArrayList<>(seats.get(cinemaID).keySet());
 
@@ -222,7 +223,7 @@ public class Movie {
                     if (st.date.equals(oldDate) == false) {
                         oldDate = st.date;
                         System.out.println();
-                        System.out.print("        " + oldDate + " - " + st.time + " ");
+                        System.out.print("          " + oldDate + " - " + st.time + " ");
                     } else {
                         System.out.print(st.time + " ");
                     }
@@ -460,7 +461,7 @@ public class Movie {
      * @return A String representing the cineplex ID
      */
     public String chooseCineplex() {
-        System.out.println("Cineplexes");
+        System.out.println("Cineplexes\n");
         int count = 1;
         int cineplexChoice;
 
@@ -477,7 +478,7 @@ public class Movie {
             count++;
         }
         Scanner scanner = new Scanner(System.in);
-
+        
         while (true) {
             System.out.print("Please choose a cineplex (enter a number): ");    
             if (!scanner.hasNextInt()) {
@@ -620,6 +621,7 @@ public class Movie {
                 continue;
             }
 
+
             dateChoice = scanner.nextInt();
 
             if (dateChoice < 1 || dateChoice > count-1) {
@@ -653,7 +655,7 @@ public class Movie {
      */
     public String chooseTime(String dateChoice, String cinemaID) {
         ArrayList<Showtime> showtimeAL = new ArrayList<>(seats.get(cinemaID).keySet());
-        System.out.println("Showtimes: ");
+        System.out.println("Showtimes\n");
         String oldDate = "date", oldCinemaID = "ID";
         int timeChoice;
         showtimeAL.sort(new Comparator<Showtime>() {

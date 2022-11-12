@@ -76,18 +76,18 @@ public class DatabaseWriter {
             String title, synopsis, director, cast;
             ArrayList<String> casts = new ArrayList<String>();
 
-            System.out.println("Adding new movie...\n");
+            System.out.println("Adding new movie...");
 
-            System.out.println("Title: ");
+            System.out.println("\nTitle: ");
             title = sc.nextLine();
 
-            System.out.println("Synopsis: ");
+            System.out.println("\nSynopsis: ");
             synopsis = sc.nextLine();
 
-            System.out.println("Director: ");
+            System.out.println("\nDirector: ");
             director = sc.nextLine();
 
-            System.out.println("Casts (enter exit to complete entry): ");
+            System.out.println("\nCasts (enter exit to complete entry): ");
 
             while (true) {
                 cast = sc.nextLine();
@@ -243,10 +243,10 @@ public class DatabaseWriter {
 
             System.out.println("Adding new admin account...\n");
 
-            System.out.println("Username: ");
+            System.out.println("\nUsername: ");
             username = sc.nextLine();
 
-            System.out.println("Password: ");
+            System.out.println("\nPassword: ");
             password = sc.nextLine();
 
             do {
@@ -335,14 +335,14 @@ public class DatabaseWriter {
 
             System.out.println("Adding new customer account...\n");
 
-            System.out.print("Username: ");
+            System.out.print("\nUsername: ");
             username = sc.nextLine();
 
-            System.out.print("Password: ");
+            System.out.print("\nPassword: ");
             password = sc.nextLine();
 
             do {
-                System.out.print("Confirm password: ");
+                System.out.print("\nConfirm password: ");
                 confirmPassword = sc.nextLine();
             } while (confirmPassword.compareTo(password) != 0);
 
@@ -352,10 +352,10 @@ public class DatabaseWriter {
                 return;
             }
 
-            System.out.print("Email: ");
+            System.out.print("\nEmail: ");
             email = sc.nextLine();
 
-            System.out.print("Mobile: ");
+            System.out.print("\nMobile: ");
             mobile = sc.nextLine();
 
             bufferedWriter.write(username + "\n");
@@ -463,10 +463,10 @@ public class DatabaseWriter {
             // Asking time!!
             System.out.println("Adding new rating...\n");
 
-            System.out.print("Rating (out of 5): ");
+            System.out.print("\nRating (out of 5): ");
             rating = Float.parseFloat(sc.nextLine());
 
-            System.out.print("Review: ");
+            System.out.print("\nReview: ");
             review = sc.nextLine();
 
             bufferedWriter.write(movie + "\n");
@@ -497,7 +497,7 @@ public class DatabaseWriter {
 
             System.out.println("Adding new cinplex...\n");
 
-            System.out.println("Cineplex name: ");
+            System.out.println("\nCineplex name: ");
             cineplexName = sc.nextLine();
 
             bufferedWriter.write(cineplexName + "\n");
@@ -564,7 +564,7 @@ public class DatabaseWriter {
         String cineplexID, cinemaID;
         Scanner sc = new Scanner(System.in);
         System.out.println("Adding cinema to cineplex...\n");
-        System.out.println("Please enter cineplex ID: ");
+        System.out.println("\nPlease enter cineplex ID: ");
         cineplexID = sc.nextLine();
 
         if (CineplexDB.getCineplexFromID(cineplexID) == null) {
@@ -572,7 +572,7 @@ public class DatabaseWriter {
             return;
         }
 
-        System.out.println("Please enter cinema ID: ");
+        System.out.println("\nPlease enter cinema ID (e.g. XXX): ");
         cinemaID = sc.nextLine();
 
         if (CinemaDB.getCinemaFromID(cinemaID) == null) {
@@ -691,10 +691,10 @@ public class DatabaseWriter {
             // Asking time!!
             System.out.println("Adding new cinema...\n");
 
-            System.out.println("Cinema ID: ");
+            System.out.println("\nCinema ID: ");
             cinemaID = sc.nextLine();
 
-            System.out.println("Cinema type: ");
+            System.out.println("\nCinema type: ");
             cinemaType = sc.nextLine();
 
             bufferedWriter.write(cinemaID + "\n");

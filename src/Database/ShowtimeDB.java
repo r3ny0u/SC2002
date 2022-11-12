@@ -10,7 +10,6 @@ import DatabaseBoundary.*;
  * A class for interfacing Showtime database
  */
 public class ShowtimeDB {
-    // Oh lawd forgive me for what i've done
     private Map<Map<String, ArrayList<String>>, Map<String, Map<Showtime, Seat[]>>> showtimes;
 
     public ShowtimeDB() {

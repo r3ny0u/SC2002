@@ -223,7 +223,7 @@ public class Movie {
                     if (st.date.equals(oldDate) == false) {
                         oldDate = st.date;
                         System.out.println();
-                        System.out.print("          " + oldDate + " - " + st.time + " ");
+                        System.out.print("          " + oldDate + " (" + st.day + ")" + " - " + st.time + " ");
                     } else {
                         System.out.print(st.time + " ");
                     }
@@ -512,7 +512,7 @@ public class Movie {
             }
         }
 
-        return "ooooooooooooooooooooooooooooooooooooof";
+        return "oof";
     }
 
     /**
@@ -573,12 +573,7 @@ public class Movie {
             if (count == cinemaChoice)
                 return cinemaID;
         }
-
-        String idk = "This is the final message from Ren You. Gluck have fun ok bye.";
-        if (cinemaChoice == 12345) {
-            System.out.println(idk);
-        }
-        return idk;
+        return "0";
     }
 
     /**
@@ -605,7 +600,7 @@ public class Movie {
         for (Showtime st : showtimeAL) {
             if (st.date.equals(oldDate) == false) {
                 oldDate = st.date;
-                System.out.print("\n\t" + count + ": " + oldDate + " - " + st.time + " ");
+                System.out.print("\n\t" + count + ": " + oldDate + " (" + st.day + ")" + " - " + st.time + " ");
                 count++;
             } else {
                 System.out.print(st.time + " ");

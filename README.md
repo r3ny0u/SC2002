@@ -6,7 +6,7 @@ MOvie Booking and LIsting Management Application (MOBLIMA) Project
 
 ## **UML Class Diagram**
 
-![wow much square](./assets/MOBLIMA.jpg)
+![wow much square](./vpp_thing/SE4%20Group%203%20MOBLIMA.jpg)
 
 ## **How to Start**
 

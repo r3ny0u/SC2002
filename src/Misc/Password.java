@@ -6,9 +6,15 @@ import java.io.InputStreamReader;
 
 // Acknowledgment: http://www.cse.chalmers.se/edu/year/2015/course/TDA602/Eraserlab/pwdmasking.html
 
+/** Class for reading password */
 public class Password {
 
+    /** Empty constructor */
+    public Password() {
+    }
+
     /**
+     * Reads the password from input
      * @param prompt The prompt to display to the user
      * @return The password as entered by the user
      */

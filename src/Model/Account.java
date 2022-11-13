@@ -4,9 +4,16 @@ package Model;
  * Represents a standard user account
  */
 public class Account {
+    /** A String representing the username of this account */
     protected String username;
+    /** A String representing the passwrod of this account */
     protected String password;
+    /** A String representing the account ID of this account */
     protected String accountID;
+
+    /** Empty Constructor */
+    Account() {
+    }
 
     /**
      * Gets the account's username

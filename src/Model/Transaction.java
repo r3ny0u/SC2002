@@ -11,19 +11,43 @@ import java.text.SimpleDateFormat;
  * A class for transactions
  */
 public class Transaction {
+    /** A String representing the transaction ID */
     private String transactionID;
+    /** A String representing the time */
     private String time;
+    /** A String representing the age */
     private String age;
+    /** A String representing the cinema type */
     private String cinemaType;
+    /** A String representing movie type */
     private String movieType;
+    /** A String representing day of week */
     private String dayOfWeek;
+    /** A Movie representing the movie */
     private Movie movie;
+    /** A String representing the customer ID */
     private String customerID;
+    /** A String representing the seat ID */
     private String seatID;
+    /** A String representing booking time */
     private String bookingTime;
+    /** A float representing the booking time */
     private float ticketPrice;
+    /** A boolearn representing whether it's a public holiday */
     private boolean isPH = false;
 
+    /**
+     * Constructor
+     * 
+     * @param transactionID A String representing the transaction ID
+     * @param time          A String representing the time
+     * @param age           A String representing the age
+     * @param cinemaType    A String representing the cinema type
+     * @param movieType     A String representing movie type
+     * @param dayOfWeek     A String representing day of week
+     * @param movie         A Movie representing the movie
+     * @param customerID    A String representing the customer ID
+     */
     public Transaction(String transactionID, String time, String age, String cinemaType, String movieType,
             String dayOfWeek, Movie movie, String customerID) {
         this.transactionID = transactionID;
@@ -36,6 +60,17 @@ public class Transaction {
         this.customerID = customerID;
     }
 
+    /**
+     * Constructor
+     * 
+     * @param time       A String representing the time
+     * @param age        A String representing the age
+     * @param cinema     A Cinema representing the cinema
+     * @param date       A String representing the date
+     * @param movie      A Movie representing the movie
+     * @param customerID A String representing the customer ID
+     * @param seatID     A String representing the seat ID
+     */
     public Transaction(String time, String age, Cinema cinema, String date, Movie movie, String customerID,
             String seatID) {
 

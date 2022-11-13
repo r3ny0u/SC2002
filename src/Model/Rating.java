@@ -4,25 +4,32 @@ package Model;
  * A class for Rating
  */
 public class Rating {
+    /** A String representing the movie title */
     private String movie;
+    /** A float representing the rating (out of 5) */
     private float rating;
+    /** A String representing the movie review */
     private String review;
+    /** A String representing the raing ID */
     private String ratingID;
+    /** A String representing the username of the reviewer */
     private String username;
-    private String customerID;
 
+    /**
+     * Constructor
+     * 
+     * @param movie    A String representing the movie title
+     * @param rating   A float representing the rating (out of 5)
+     * @param review   A String representing the movie review
+     * @param ratingID A String representing the raing ID
+     * @param username A String representing the username of the reviewer
+     */
     public Rating(String movie, float rating, String review, String ratingID, String username) {
         this.movie = movie;
         this.rating = rating;
         this.review = review;
         this.ratingID = ratingID;
         this.username = username;
-    }
-
-    public Rating(String customerID, String review, float rating) {
-        this.customerID = customerID;
-        this.review = review;
-        this.rating = rating;
     }
 
     /**

@@ -11,8 +11,10 @@ import DatabaseBoundary.*;
  * A class for interfacing the Movie database
  */
 public class MovieDB {
+    /** An array of Movie objects */
     private Movie[] movies;
 
+    /** Constructor */
     public MovieDB() {
         this.movies = DatabaseReader.readMovieDatabase();
     }
@@ -20,7 +22,7 @@ public class MovieDB {
     /**
      * Gets the movie array
      * 
-     * @return
+     * @return An array of Movie objects
      */
     public Movie[] getMovies() {
         return this.movies;
@@ -41,7 +43,7 @@ public class MovieDB {
     }
 
     /**
-     * Prints out titles of each movie
+     * Prints out titles of each movie (except with status "end of showing")
      */
     public static void printMovieList() {
         MovieDB movieDB = new MovieDB();
@@ -57,6 +59,9 @@ public class MovieDB {
         }
     }
 
+    /**
+     * Prints out all the movie regardless of the status
+     */
     public static void printAllMovieList() {
         // Sorry dayna got conflict >_<
         MovieDB movieDB = new MovieDB();

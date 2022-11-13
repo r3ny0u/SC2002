@@ -10,7 +10,12 @@ import DatabaseBoundary.DatabaseReader;
  * A static class for interfacing movie ticket configs
  */
 public class MovieTicketConfig {
+    /** A String representing the file path for the movie ticket config database */
     private static final String movieTicketConfigFilePath = "src/Database/MovieTicketConfig.txt";
+
+    /** Constructor */
+    public MovieTicketConfig() {
+    }
 
     /**
      * An ArrayList representing the movie ticket configs, which contains the
@@ -25,7 +30,7 @@ public class MovieTicketConfig {
     /**
      * Reads the movie ticket configs file
      * 
-     * @return
+     * @return An ArrayList of Strings representing the moive ticket configs
      */
     public static ArrayList<String> readMovieTicketConfig() {
         return DatabaseReader.readtxt(movieTicketConfigFilePath);

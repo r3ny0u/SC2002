@@ -7,14 +7,20 @@ import DatabaseBoundary.*;
  * A class for interfacing Cinema database
  */
 public class CinemaDB {
+    /** An array of Cinema objects */
     private Cinema[] cinemas;
 
+    /**
+     * Constructor
+     */
     public CinemaDB() {
         this.cinemas = DatabaseReader.readCinemaDatabase();
     }
 
     /**
      * Gets the Cinema array
+     * 
+     * @return An array of Cinema objects
      */
     public Cinema[] getCinemas() {
         return this.cinemas;
@@ -37,8 +43,8 @@ public class CinemaDB {
     /**
      * Gets the Cinema Object
      * 
-     * @param cinemaID
-     * @return
+     * @param cinemaID A String representing the cinema ID
+     * @return A Cinema object with the corresponding cinema ID
      */
     public static Cinema getCinemaFromID(String cinemaID) {
         for (Cinema cinema : new CinemaDB().getCinemas()) {

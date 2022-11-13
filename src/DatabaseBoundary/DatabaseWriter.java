@@ -23,16 +23,35 @@ import Model.Transaction;
  * A class for writing and updating data into database txt files.
  */
 public class DatabaseWriter {
+    /** A String representing the file path for cineplex database */
     private static final String cineplexDatabasePath = DatabaseConstants.CINEPLEX_DATABASE_PATH;
+    /** A String representing the file path for cinema database */
     private static final String cinemaDatabasePath = DatabaseConstants.CINEMA_DATABASE_PATH;
+    /** A String representing the file path for admin database */
     private static final String adminDatabasePath = DatabaseConstants.ADMIN_DATABASE_PATH;
+    /** A String representing the file path for customer database */
     private static final String customerDatabasePath = DatabaseConstants.CUSTOMER_DATABASE_PATH;
+    /** A String representing the file path for movie database */
     private static final String movieDatabasePath = DatabaseConstants.MOVIE_DATABASE_PATH;
+    /** A String representing the file path for rating database */
     private static final String ratingDatabasePath = DatabaseConstants.RATING_DATABASE_PATH;
+    /** A String representing the file path for transaction database */
     private static final String transactionDatabasePath = DatabaseConstants.TRANSACTION_DATABASE_PATH;
+    /** A String representing the file path for showtimes database */
     private static final String showtimesDatabasePath = DatabaseConstants.SHOWTIMES_DATABASE_PATH;
+    /** A String representing the file path for ranking visibility database */
     private static final String rankingVisibilityDatabasePath = DatabaseConstants.RANKING_VISIBILITY_DATABASE_PATH;
 
+    /** Empty Constructor */
+    public DatabaseWriter() {
+    }
+
+    /**
+     * Sets the ranking (rank by sales, and ratings) visibility for customers
+     * 
+     * @param choice1 A String representing visibility of rank by sales
+     * @param choice2 A String representing visibility of rank by ratings
+     */
     public static void setRankingVisibility(String choice1, String choice2) {
         try {
 
@@ -818,14 +837,14 @@ public class DatabaseWriter {
      * 
      * @param movieTitle    A String representing the movie title associated to the
      *                      showtime
-     * @param cineplexIDA   A String representing the cineplex ID associated to the
+     * @param cineplexID    A String representing the cineplex ID associated to the
      *                      showtime
-     * @param cinemaIDA     A String representing the cinema ID associated to the
+     * @param cinemaID      A String representing the cinema ID associated to the
      *                      showtime
-     * @param dateA         A String representing the date associated to the
+     * @param date          A String representing the date associated to the
      *                      showtime
-     * @param dayA          A String representing the day associated to the showtime
-     * @param timeA         A String representing the time associated to the
+     * @param day           A String representing the day associated to the showtime
+     * @param time          A String representing the time associated to the
      *                      showtime
      * @param newMovieTitle A String representing the new movie title associated to
      *                      the showtime

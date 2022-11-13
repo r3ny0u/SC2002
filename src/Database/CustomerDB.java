@@ -7,8 +7,10 @@ import DatabaseBoundary.*;
  * A class for interfacing customer database
  */
 public class CustomerDB {
+    /** An array of Customer objects */
     private Customer[] customers;
 
+    /** Constructor */
     public CustomerDB() {
         this.customers = DatabaseReader.readCustomerDatabase();
     }

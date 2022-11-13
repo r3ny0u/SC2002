@@ -6,9 +6,17 @@ import java.util.ArrayList;
  * A class for Cineplex
  */
 public class Cineplex {
+    /** A String representing the cineplex ID */
     private String cineplexID;
+    /** An ArrayList of Cinema objects associated with the cineplex */
     private ArrayList<Cinema> cinemas;
 
+    /**
+     * Constructor
+     * 
+     * @param cineplexID A String representing the cineplex ID
+     * @param cinemas    An ArrayList of Cinema objects associated with the cineplex
+     */
     public Cineplex(String cineplexID, ArrayList<Cinema> cinemas) {
         this.cineplexID = cineplexID;
         this.cinemas = cinemas;

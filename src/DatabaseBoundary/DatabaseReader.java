@@ -19,15 +19,28 @@ import Model.*;
  * A class for reading database txt files
  */
 public class DatabaseReader {
+    /** A String representing the file path for cineplex database */
     private static final String cineplexDatabasePath = DatabaseConstants.CINEPLEX_DATABASE_PATH;
+    /** A String representing the file path for cinema database */
     private static final String cinemaDatabasePath = DatabaseConstants.CINEMA_DATABASE_PATH;
+    /** A String representing the file path for admin database */
     private static final String adminDatabasePath = DatabaseConstants.ADMIN_DATABASE_PATH;
+    /** A String representing the file path for customer database */
     private static final String customerDatabasePath = DatabaseConstants.CUSTOMER_DATABASE_PATH;
+    /** A String representing the file path for movie database */
     private static final String movieDatabasePath = DatabaseConstants.MOVIE_DATABASE_PATH;
+    /** A String representing the file path for rating database */
     private static final String ratingDatabasePath = DatabaseConstants.RATING_DATABASE_PATH;
+    /** A String representing the file path for transaction database */
     private static final String transactionDatabasePath = DatabaseConstants.TRANSACTION_DATABASE_PATH;
+    /** A String representing the file path for showtimes database */
     private static final String showtimesDatabasePath = DatabaseConstants.SHOWTIMES_DATABASE_PATH;
+    /** A String representing the file path for ranking visibility database */
     private static final String rankingVisibilityDatabasePath = DatabaseConstants.RANKING_VISIBILITY_DATABASE_PATH;
+
+    /** Empty Constructor */
+    public DatabaseReader() {
+    }
 
     /**
      * Returns all lines in a txt file.
@@ -74,6 +87,10 @@ public class DatabaseReader {
         }
     }
 
+    /**
+     * Reads the ranking visibility from the database
+     * @return A String representing the ranking visibility
+     */
     public static String readRankingVisibilityDatabase() {
         ArrayList<String> strings = readtxt(rankingVisibilityDatabasePath);
         return strings.get(0);
@@ -237,7 +254,7 @@ public class DatabaseReader {
         int numOfCinemas = strings.size() / 2;
         Cinema[] cinemas = new Cinema[numOfCinemas];
 
-        // Contains CineplexID, and cinemaIDs
+        // Contains CinemaID, and Cinema Type
         for (int i = 0; i < cinemas.length; i++) {
             cinemas[i] = new Cinema(strings.get(i * 2 + 0), strings.get(i * 2 + 1));
         }

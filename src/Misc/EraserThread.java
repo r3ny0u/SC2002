@@ -2,11 +2,17 @@ package Misc;
 
 // Acknowledgment: http://www.cse.chalmers.se/edu/year/2015/course/TDA602/Eraserlab/pwdmasking.html
 
+/**
+ * A Class that masks the password
+ */
 class EraserThread implements Runnable {
+    /** A boolean to indicate whether to start or stop masking */
     private boolean stop;
 
     /**
-     * @param The prompt displayed to the user
+     * Prints out the prompt
+     * 
+     * @param prompt The prompt displayed to the user
      */
     public EraserThread(String prompt) {
         System.out.print(prompt);
@@ -20,7 +26,8 @@ class EraserThread implements Runnable {
         while (stop) {
             System.out.print("\010*");
             try {
-                Thread.currentThread().sleep(1);
+                Thread.currentThread();
+                Thread.sleep(1);
             } catch (InterruptedException ie) {
                 ie.printStackTrace();
             }

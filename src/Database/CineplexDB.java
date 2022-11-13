@@ -7,8 +7,10 @@ import DatabaseBoundary.*;
  * A class for interfacing Cineplex database
  */
 public class CineplexDB {
+    /** An array of Cineplex objects */
     private Cineplex[] cineplexes;
 
+    /** Constructor */
     public CineplexDB() {
         this.cineplexes = DatabaseReader.readCineplexDatabase2();
     }
@@ -34,20 +36,6 @@ public class CineplexDB {
      */
     public static void removeCineplex() {
         DatabaseWriter.removeCineplex();
-    }
-
-    @Deprecated
-    public static void addNewCinemaToCineplex() {
-        System.out.println("Cinemas available:");
-        CinemaDB.printCinemaDBID();
-        DatabaseWriter.addNewCinemaToCineplex();
-    }
-
-    @Deprecated
-    public static void removeCinemaFromCineplex() {
-        System.out.println("Cinemas available:");
-        CinemaDB.printCinemaDBID();
-        DatabaseWriter.removeCinemaFromCineplex();
     }
 
     /**

@@ -21,10 +21,22 @@ import DatabaseBoundary.DatabaseReader;
  * A class for Customer
  */
 public class Customer extends Account {
+    /** A String representing the email */
     private String email;
+    /** A String representing the mobile */
     private String mobile;
+    /** An ArrayList of Transactions object associated with this customer account */
     private ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 
+    /**
+     * Constructor
+     * 
+     * @param username  A String representing the username
+     * @param password  A String representing the password
+     * @param accountID A String representing the account ID
+     * @param email     A String representing the email
+     * @param mobile    A String representing the mobile
+     */
     public Customer(String username, String password, String accountID, String email, String mobile) {
         this.username = username;
         this.password = password;
@@ -73,6 +85,8 @@ public class Customer extends Account {
     /**
      * Check if customer with current username and password exists in database
      * 
+     * @param username A String representing the username
+     * @param password A String representing the passwrod
      * @return true if customer exists
      */
     public static boolean checkPassword(String username, String password) {
@@ -317,11 +331,11 @@ public class Customer extends Account {
                         }
 
                         // if (dateChoice == null) {
-                        //     System.out.println("Show time does not exist");
-                        //     System.out.println("========================================================");
-                        //     System.out.println("Press <Enter> to Exit View");
-                        //     scanner.nextLine();
-                        //     break;
+                        // System.out.println("Show time does not exist");
+                        // System.out.println("========================================================");
+                        // System.out.println("Press <Enter> to Exit View");
+                        // scanner.nextLine();
+                        // break;
                         // }
 
                         System.out.println();

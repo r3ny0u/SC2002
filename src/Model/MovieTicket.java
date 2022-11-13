@@ -6,20 +6,21 @@ import Database.MovieTicketConfig;
  * Class for MovieTicket
  */
 public class MovieTicket {
+    /** A float representing the ticket price */
     private float ticketPrice;
+    /** A MovieType Enum representing the movie type (2D or 3D) */
     private MovieType movieType;
+    /** A Cinema Class Enum representing the cinema class (Normal or Platinum) */
     private CinemaClass cinemaClass;
+    /** An Age Enum representing the age group (Adult, Senior Citizen or Child) */
     private Age age;
+    /**
+     * A Day Of Week Enum representing the day of week (Weekday, Weekend or Public
+     * Holiday)
+     */
     private DayOfWeek dayOfWeek;
 
-    public MovieTicket(MovieType movieType, CinemaClass cinemaClass, Age age, DayOfWeek dayOfWeek) {
-        this.movieType = movieType;
-        this.cinemaClass = cinemaClass;
-        this.age = age;
-        this.dayOfWeek = dayOfWeek;
-        calculateTicketPrice();
-    }
-
+    /** Constructor */
     public MovieTicket() {
 
     };
@@ -127,7 +128,7 @@ public class MovieTicket {
     /**
      * Sets the age
      * 
-     * @param age
+     * @param age Age Enum 
      */
     public void setAge(Age age) {
         this.age = age;

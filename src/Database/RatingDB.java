@@ -7,8 +7,10 @@ import Model.Rating;
  * A class for interfacing Rating database
  */
 public class RatingDB {
+    /** An array of Rating objects */
     private Rating[] ratings;
 
+    /** Constructor */
     public RatingDB() {
         this.ratings = DatabaseReader.readRatingDatabase();
     }

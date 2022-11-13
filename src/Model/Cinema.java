@@ -1,21 +1,20 @@
 package Model;
 
-import java.util.ArrayList;
-
 /**
  * A class for Cinema
  */
 public class Cinema {
-    private ArrayList<Movie> movies;
+    /** A String representing the Cinema ID */
     private String cinemaID;
+    /** A String representing the Cinema Type */
     private String cinemaType;
 
-    public Cinema(String cinemaID, String cinemaType, ArrayList<Movie> movies) {
-        this.movies = movies;
-        this.cinemaID = cinemaID;
-        this.cinemaType = cinemaType;
-    }
-
+    /**
+     * Constructor
+     * 
+     * @param cinemaID   A String representing the Cinema ID
+     * @param cinemaType A String representing the Cinema Type
+     */
     public Cinema(String cinemaID, String cinemaType) {
         this.cinemaID = cinemaID;
         this.cinemaType = cinemaType;
@@ -32,6 +31,7 @@ public class Cinema {
 
     /**
      * Sets the cinema ID
+     * 
      * @param cinemaID A String representing the cinema ID
      */
     public void setCinemaID(String cinemaID) {
@@ -40,6 +40,7 @@ public class Cinema {
 
     /**
      * Gets the cinema type
+     * 
      * @return A String representing the cinema type
      */
     public String getCinemaType() {

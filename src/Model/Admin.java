@@ -21,6 +21,13 @@ import DatabaseBoundary.DatabaseWriter;
  * A class for Admin account
  */
 public class Admin extends Account {
+    /**
+     * Constructor
+     * 
+     * @param username  A String representing the username
+     * @param password  A String representing the password
+     * @param accountID A String representing the account ID
+     */
     public Admin(String username, String password, String accountID) {
         this.username = username;
         this.password = password;
@@ -30,6 +37,8 @@ public class Admin extends Account {
     /**
      * Check if admin with current username and password exists in database
      * 
+     * @param username A String representing the username
+     * @param password A String representing the password
      * @return true if admin exists
      */
     public static boolean checkPassword(String username, String password) {

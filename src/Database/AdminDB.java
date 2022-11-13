@@ -7,8 +7,12 @@ import Model.Admin;
  * A class for interfacing Admin database
  */
 public class AdminDB {
+    /** An array of Admin objects */
     private Admin[] admins;
 
+    /**
+     * Constructor
+     */
     public AdminDB() {
         this.admins = DatabaseReader.readAdminDatabase();
     }

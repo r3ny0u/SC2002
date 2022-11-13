@@ -10,16 +10,18 @@ import DatabaseBoundary.*;
  * A class for interfacing Showtime database
  */
 public class ShowtimeDB {
+    /** To store the cineplexes, cinemas, showtimes, movies, and seats */
     private Map<Map<String, ArrayList<String>>, Map<String, Map<Showtime, Seat[]>>> showtimes;
 
+    /** Empty Constructor */
     public ShowtimeDB() {
-
     }
 
     /**
      * Gets the showtime hashmap
      * 
-     * @return
+     * @return A Hash map representing the cineplexes, cinemas, showtimes, movies,
+     *         and seats
      */
     public Map<Map<String, ArrayList<String>>, Map<String, Map<Showtime, Seat[]>>> getShowtimes() {
         return this.showtimes;

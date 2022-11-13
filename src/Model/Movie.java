@@ -22,20 +22,44 @@ import java.util.Scanner;
  * A class for movie
  */
 public class Movie {
+    /** A String representing the movie title */
     protected String title;
+    /** A String representing the movie status */
     protected String status;
+    /** A String representing the movie synopsis */
     protected String synopsis;
+    /** A String representing the movie director */
     protected String director;
+    /** An ArrayList of Strings representing the casts */
     protected ArrayList<String> casts;
+    /** A double representing the overall movie rating */
     protected double overallRating;
+    /** An int representing the count of rating */
     protected int ratingCount;
+    /** An ArrayList of Strings representing the reviews for the movie */
     protected ArrayList<Rating> reviews = new ArrayList<Rating>();
+    /** An int representing the sales count */
     protected int salesCount = 0;
+    /** A Hasp map that maps the Cineplex ID to an ArrayList of Cinema IDs */
     protected Map<String, ArrayList<String>> showingPlaces = new HashMap<String, ArrayList<String>>(); // Cineplex ->
                                                                                                        // Cinema
+    /**
+     * A Hash map that maps the Cinema ID to a Hash map that maps a Showtime object
+     * to and array of Seat objects
+     */
     protected Map<String, Map<Showtime, Seat[]>> seats; // cinemaID->showtimes->seats
+    /** A String representing the movie age rating */
     protected String movieAgeRating;
 
+    /**
+     * Constructor
+     * 
+     * @param title    A String representing the movie title
+     * @param status   A String representing the movie status
+     * @param synopsis A String representing the movie synopsis
+     * @param director A String representing the movie director
+     * @param casts    An ArrayList of Strings representing the casts
+     */
     public Movie(String title, String status, String synopsis, String director, ArrayList<String> casts) {
         this.title = title;
         this.status = status;
@@ -131,48 +155,6 @@ public class Movie {
         }
 
         System.out.println("========================================================\n");
-    }
-
-    @Deprecated
-    /**
-     * @deprecated
-     *             Adds a new showtime to the movie
-     * @param cinemaID  A String representing the cinema ID
-     * @param date      A String representing the date
-     * @param showtimes An ArrayList representing the showtimes
-     */
-    public void addShowtimes(String cinemaID, String date, ArrayList<String> showtimes) {
-        int i = 0, j = 0;
-        Seat[] s = new Seat[100];
-        for (j = 1; j <= 100; j++) {
-            if (j % 10 == 0)
-                i++;
-            String row = "" + (char) (65 + i);
-            s[j - 1] = new Seat(row + (j - 1));
-        }
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate d = LocalDate.parse(date, formatter);
-        String day = DayOfWeek.from(d).name();
-
-        for (String st : showtimes) {
-            Showtime showtime = new Showtime(date, day, st);
-            Map<Showtime, Seat[]> temp = new HashMap<>();
-            temp.put(showtime, s);
-            if (seats == null) {
-                seats = new HashMap<>();
-                seats.put(cinemaID, temp);
-            }
-
-            else if (seats.containsKey(cinemaID)) {
-                seats.computeIfAbsent(cinemaID, k -> new HashMap()).put(showtime, s);
-            }
-
-            else {
-                seats.put(cinemaID, temp);
-            }
-
-        }
     }
 
     /**
@@ -354,15 +336,6 @@ public class Movie {
         return s[(row * 10) + col - 1].assigned;
     }
 
-    @Deprecated
-    public void addReviews(String customerID, String review, float rating) {
-        Rating newRating = new Model.Rating(customerID, review, rating);
-        reviews.add(newRating);
-        this.ratingCount++;
-        overallRating = ((overallRating * review.length()) + rating) /
-                (review.length() + 1);
-    }
-
     /**
      * Gets the rating of the movie
      * 
@@ -373,37 +346,6 @@ public class Movie {
             return overallRating;
         else
             return 0.0f;
-    }
-
-    @Deprecated
-    public void addShowingPlaces(String cineplexID, String cinemaID) {
-        if (showingPlaces == null) {
-            showingPlaces = new HashMap<>();
-            ArrayList<String> temp = new ArrayList<String>();
-            temp.add(cinemaID);
-            showingPlaces.put(cineplexID, temp);
-        }
-
-        else if (showingPlaces.containsKey(cineplexID)) {
-            showingPlaces.computeIfAbsent(cineplexID, k -> new ArrayList<String>()).add(cinemaID);
-        } else {
-            ArrayList<String> temp = new ArrayList<String>();
-            temp.add(cinemaID);
-            showingPlaces.put(cineplexID, temp);
-        }
-    }
-
-    @Deprecated
-    public void printShowingPlaces() {
-        for (String key : showingPlaces.keySet()) {
-            System.out.println(
-                    "\n=====================================================================\nCineplex: " + key);
-            System.out.print("Cinemas: ");
-            for (String str : showingPlaces.get(key)) {
-                System.out.print(str + "    ");
-            }
-        }
-        System.out.println("\n=====================================================================");
     }
 
     /**
